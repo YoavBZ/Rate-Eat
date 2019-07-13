@@ -11,13 +11,16 @@ router.get('/', (req, res) => {
     let location = req.body.location;
     if (username !== undefined && location !== undefined) {
         User.find({"username": username, "location": location})
-            .then(user => user.length !== 0 ? res.json(user) : res.status(404).json({message: `username ${username} does not exist in ${location}`}))
+            .then(user => user.length !== 0 ? res.json(user) :
+                res.status(404).json({message: `username ${username} does not exist in ${location}`}))
     } else if (username !== undefined) {
         User.find({"username": username})
-            .then(user => user.length !== 0 ? res.json(user) : res.status(404).json({message: `username ${username} does not exist`}))
+            .then(user => user.length !== 0 ? res.json(user) :
+                res.status(404).json({message: `username ${username} does not exist`}))
     } else if (location !== undefined) {
         User.find({"location": location})
-            .then(user => user.length !== 0 ? res.json(user) : res.status(404).json({message: `no users found in ${location}`}))
+            .then(user => user.length !== 0 ? res.json(user) :
+                res.status(404).json({message: `no users found in ${location}`}))
     } else {
         res.status(400).json({message: "please insert a username or a location"})
     }
@@ -48,7 +51,8 @@ router.post('/login', (req, res) => {
     let username = user.username;
     let password = user.password;
     User.find({"username": username})
-        .then(user => user[0].password === password ? res.json(user[0]) : res.status(404).json({message: "Invalid username or password"}))
+        .then(user => user[0].password === password ? res.json(user[0]) :
+            res.status(404).json({message: "Invalid username or password"}))
         .catch(err => res.status(500).json({message: "server error"}));
 
 });

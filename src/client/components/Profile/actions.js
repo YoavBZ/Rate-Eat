@@ -41,7 +41,6 @@ function updateUserFailure(callback, msg) {
     }
 }
 
-
 let ProfileActions = {
     toggleEdit,
     updateUser,

@@ -10,9 +10,10 @@ const ProfileReducer = (state = initialState.profile, action) => {
             return state.set('edit', true);
         case ProfileActionsConstants.UPDATE_USER_SUCCESS:
             action.callback(action.msg);
-            return state.set('user', action.user)
+            return state.set('user', action.user);
         case ProfileActionsConstants.UPDATE_USER_FAILURE:
             action.callback(action.msg);
+            return state;
         default: //otherwise state is lost!
             return state;
     }

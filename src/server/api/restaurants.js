@@ -13,17 +13,20 @@ router.get('/', (req, res) => {
     if (name !== undefined && location !== undefined) {
         Restaurant.find({"name": name, "location": location})
             .then(restaurant => {
-                restaurant.length !== 0 ? res.json(restaurant) : res.status(404).json({message: `${name} does not exist in ${location}`})
+                restaurant.length !== 0 ? res.json(restaurant) :
+                    res.status(404).json({message: `${name} does not exist in ${location}`})
             })
     } else if (name !== undefined) {
         Restaurant.find({"name": name})
             .then(restaurant => {
-                restaurant.length !== 0 ? res.json(restaurant) : res.status(404).json({message: `${name} does not exist`})
+                restaurant.length !== 0 ? res.json(restaurant) :
+                    res.status(404).json({message: `${name} does not exist`})
             })
     } else if (location !== undefined) {
         Restaurant.find({"location": location})
             .then(restaurant => {
-                restaurant.length !== 0 ? res.json(restaurant) : res.status(404).json({message: `no restaurants found in ${location}`})
+                restaurant.length !== 0 ? res.json(restaurant) :
+                    res.status(404).json({message: `no restaurants found in ${location}`})
             })
     } else {
         res.status(400).json({message: "please insert a restaurant name or a location"})
