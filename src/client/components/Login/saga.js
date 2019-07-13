@@ -18,7 +18,7 @@ function* loginUser(action) {
         if (res.status >= 400) {
             throw json;
         }
-        yield put(LoginActions.loginSuccess(user));
+        yield put(LoginActions.loginSuccess(json));
     } catch (e) {
         yield put(LoginActions.loginFailure(action.callback, e.message));
     }
