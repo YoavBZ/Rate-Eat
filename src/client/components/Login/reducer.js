@@ -3,8 +3,6 @@ import {LoginActionsConstants} from './constants.js';
 
 
 const LoginReducer = (state = initialState.login, action) => {
-    console.log('LoginReducerState=', state);
-    console.log('RECEIVED ACTION:', action);
     switch (action.type) {
         case LoginActionsConstants.CHANGE_FIELD:
             return state.set(action.field, action.value);

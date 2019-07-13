@@ -1,9 +1,8 @@
-import {LoginActionsConstants} from './constants'
+import {ProfileActionsConstants} from './constants'
 import {call, put, takeEvery} from 'redux-saga/effects'
-import LoginActions from './actions'
+import ProfileActions from './actions'
 
-function* loginUser(action) {
-    console.log('LoginSaga=', action);
+function* profileUser(action) {
     try {
         const res = yield call(fetch, action.uri,
             {
@@ -18,15 +17,15 @@ function* loginUser(action) {
         if (res.status >= 400) {
             throw json;
         }
-        yield put(LoginActions.loginSuccess(json));
+        yield put(ProfileActions.profileSuccess(json));
     } catch (e) {
-        yield put(LoginActions.loginFailure(action.callback, e.message));
+        yield put(ProfileActions.profileFailure(action.callback, e.message));
     }
 }
 
-function* LoginSaga() {
+function* ProfileSaga() {
     //using takeEvery, you take the action away from reducer to saga
-    yield takeEvery(LoginActionsConstants.LOGIN, loginUser);
+    yield takeEvery(ProfileActionsConstants.UPDATE_USER, profileUser);
 }
 
-export default LoginSaga;
+export default ProfileSaga;

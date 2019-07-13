@@ -48,7 +48,7 @@ router.post('/login', (req, res) => {
     username = user.username;
     password = user.password
     User.find({"username": username})
-        .then(user => user[0].password == password ? res.json(user) : res.status(404).json({message: "Invalid username or password"}))
+        .then(user => user[0].password == password ? res.json(user[0]) : res.status(404).json({message: "Invalid username or password"}))
         .catch(err => res.status(500).json({message: "server error"}))
 
 });

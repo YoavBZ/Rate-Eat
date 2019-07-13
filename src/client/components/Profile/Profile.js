@@ -11,18 +11,18 @@ export class Profile extends Component {
         return (
             <div>
                 <div>
-                    <Button variant="Warning" onClick={()=> this.props.toggleEditHandler()} />
+                    <Button className="p-button-warning" label="Edit" onClick={()=> this.props.toggleEditHandler()} />
                     <Growl ref={(el) => this.growl = el}/>
-                    <InputText placeholder="Username" value={this.props.user.username} type="text" 
+                    <InputText placeholder="Username"  type="text" defaultValue={this.props.user.username}
                                onChange={(e) => this.props.changeFieldHandler("username", e.target.value)} />
 
-                    <InputText placeholder="Password" value={this.props.user.password} type="password" 
+                    <InputText placeholder="Password"  type="password" 
                                onChange={(e) => this.props.changeFieldHandler("password", e.target.value)} />
                     
-                    <InputText placeholder="Location" value={this.props.user.location} type="text" 
+                    <InputText placeholder="Location"  type="text" 
                                onChange={(e) => this.props.changeFieldHandler("locatoin", e.target.value)} />
                     
-                    <InputText placeholder="Picture" value={this.props.user.picture} type="text" 
+                    <InputText placeholder="Picture"  type="text" 
                                onChange={(e) => this.props.changeFieldHandler("picture", e.target.value)} />
                     
                     {this.props.edit == true && <Button variant="primary" type="submit" label="Submit"
@@ -36,6 +36,8 @@ export class Profile extends Component {
                                     });
                                 })}/>}
                 </div>
+                {console.log(this.props)}
+
             </div>
         );
     }

@@ -24,15 +24,13 @@ export class Home extends Component {
                             label: 'Profile',
                             items: [{
                                 label: 'Edit User', icon: 'pi pi-fw pi-cog', command: () => {
-                                    console.log("inside")
-                                    console.log(this.props)
                                     this.props.changePageHandler(HomePages.PROFILE);
                                 }
                             },
                             { label: 'Reviews', icon: 'pi pi-fw pi-copy' }]
                         }
                     ]} />
-                    {this.props.page === HomePages.PROFILE && <Profile />}
+                    {this.props.page === HomePages.PROFILE && <Profile/>}
                 </div>
             </div>
         )
@@ -46,10 +44,8 @@ const mapStateToProps = (state) => ({
 
 
 const mapDispatchToProps = (dispatch) => {
-    console.log("begefergreg")
     return {
         changePageHandler: (page) => {
-            console.log("gonna dispatch")
             dispatch(HomeActions.changePage(page))
         }
     }

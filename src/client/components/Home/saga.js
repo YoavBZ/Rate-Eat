@@ -3,7 +3,6 @@
 // import HomeActions from './actions'
 
 // function* homeUser(action) {
-//     console.log('HomeSaga=', action);
 //     try {
 //         const res = yield call(fetch, action.uri,
 //             {
