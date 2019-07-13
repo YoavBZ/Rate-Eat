@@ -3,7 +3,7 @@ import HomeActions from './actions';
 import { HomePages } from './constants';
 import { connect } from 'react-redux';
 import { Menu } from 'primereact/menu';
-import { Profile } from '../Profile/Profile';
+import Profile from '../Profile/Profile';
 
 export class Home extends Component {
     render() {

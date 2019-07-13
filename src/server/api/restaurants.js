@@ -30,6 +30,12 @@ router.get('/', (req, res) => {
     }
 });
 
+router.get('/all', (req, res) => {
+        Restaurant.find()
+            .then(restaurant => res.json(restaurant)
+            .catch(err => res.status(500).json({message:"server error"})))
+});
+
 // @route POST api/items
 // @desc register new user
 // @access public

@@ -6,7 +6,7 @@ import {Menubar} from 'primereact/menubar';
 import {Button} from 'primereact/button';
 import AppActions from './actions';
 import {AppPages} from './constants';
-import {Home} from '../Home/Home';
+import Home from '../Home/Home';
 
 class App extends React.Component {
     render() {

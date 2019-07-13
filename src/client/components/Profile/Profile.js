@@ -70,6 +70,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-console.log("hehe")
-
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
