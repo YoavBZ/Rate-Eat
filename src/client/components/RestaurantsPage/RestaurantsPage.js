@@ -162,6 +162,9 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(RestaurantsPageActions.onSortChange(1, value, value));
             }
         },
+        getRestaurants: () => {
+            dispatch(RestaurantsPageActions.getRestaurants())
+        },
         selectRestaurant: (restaurant, visible) => {
             dispatch(RestaurantsPageActions.selectRestaurant(restaurant, visible));
         }
