@@ -10,7 +10,7 @@ import {Panel} from "primereact/panel";
 export class RestaurantsPage extends Component {
 
     componentDidMount() {
-        this.props.getRestaurants();
+            this.props.getRestaurants();
     }
 
     render() {
@@ -27,12 +27,12 @@ export class RestaurantsPage extends Component {
 
                 <div className="content-section implementation">
                     <DataView value={this.props.restaurants} layout={this.props.layout} header={header}
-                              itemTemplate={this.props.itemTemplate} paginatorPosition={'both'} paginator={true}
+                              itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
                               rows={20}
                               sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
 
                     <Dialog header="Restaurant Details" visible={this.props.visible} width="225px" modal={true}
-                            onHide={this.props.changeVisibility(false)}>
+                            onHide={() => this.props.changeVisibility(false)}>
                         {this.renderRestaurantDialogContent()}
                     </Dialog>
                 </div>
@@ -119,7 +119,7 @@ export class RestaurantsPage extends Component {
                 </div>
                 <div className="p-col-6" style={{textAlign: 'right'}}>
                     <DataViewLayoutOptions layout={this.props.layout}
-                                           onChange={(e) => this.props.changeLayout(e.value)}/>
+                                           onChange={this.props.changeLayout}/>
                 </div>
             </div>
         );
@@ -138,7 +138,6 @@ export class RestaurantsPage extends Component {
 
 const mapStateToProps = (state) => ({
     user: state.home.get('user'),
-    page: state.home.get('page'),
     restaurants: state.restaurantsPage.get('restaurants'),
     layout: state.restaurantsPage.get('layout'),
     selectedRestaurant: state.restaurantsPage.get('selectedRestaurant'),
@@ -149,8 +148,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeLayout: (layout) => {
-            dispatch(RestaurantsPageActions.changeLayout(layout));
+        changeLayout: (event) => {
+            dispatch(RestaurantsPageActions.changeLayout(event.value));
         },
         changeVisibility: (visibility) => {
             dispatch(RestaurantsPageActions.changeVisibility(visibility));

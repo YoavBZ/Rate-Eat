@@ -42,6 +42,13 @@ function getRestaurantsFailure(msg) {
     }
 }
 
+function selectRestaurant(restaurant, visible) {
+    return {
+        type: RestaurantsPageActionsConstants.SELECT_RESTAURANT,
+        restaurant, visible
+    }
+}
+
 let RestaurantsPageActions = {
     changeVisibility,
     changeLayout,
@@ -49,6 +56,7 @@ let RestaurantsPageActions = {
     getRestaurants,
     getRestaurantsSuccess,
     getRestaurantsFailure,
+    selectRestaurant
 };
 
 export default RestaurantsPageActions

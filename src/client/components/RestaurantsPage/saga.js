@@ -2,7 +2,7 @@ import {RestaurantsPageActionsConstants} from './constants'
 import {call, put, takeEvery} from 'redux-saga/effects'
 import RestaurantsPageActions from "./actions";
 
-function* restaurantsPageUser(action) {
+function* getRestaurants(action) {
     console.log('RestaurantsPageSaga=', action);
     try {
         const res = yield call(fetch, action.uri,
@@ -24,7 +24,7 @@ function* restaurantsPageUser(action) {
 
 function* RestaurantsPageSaga() {
     //using takeEvery, you take the action away from reducer to saga
-    yield takeEvery(RestaurantsPageActionsConstants.GET_RESTAURANTS, restaurantsPageUser);
+    yield takeEvery(RestaurantsPageActionsConstants.GET_RESTAURANTS, getRestaurants);
 }
 
 export default RestaurantsPageSaga;
