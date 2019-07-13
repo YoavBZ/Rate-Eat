@@ -6,9 +6,13 @@ const ProfileReducer = (state = initialState.profile, action) => {
     switch (action.type) {
         case ProfileActionsConstants.CHANGE_FIELD:
             return state.set(action.field, action.value);
-        case ProfileActionsConstants.LOGIN_FAILURE:
+        case ProfileActionsConstants.TOGGLE_EDIT:
+            return state.set('edit', true);
+        case ProfileActionsConstants.UPDATE_USER_SUCCESS:
             action.callback(action.msg);
-            return state;
+            return state.set('user', action.user)
+        case ProfileActionsConstants.UPDATE_USER_FAILURE:
+            action.callback(action.msg);
         default: //otherwise state is lost!
             return state;
     }

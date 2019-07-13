@@ -55,15 +55,16 @@ router.post('/login', (req, res) => {
 
 
 router.put('/', (req, res) => {
+    console.log(req.body)
     user = req.body.user
     username = user.username;
     password = user.password;
     location = user.location;
     picture = user.picture;
-    User.update({"username": username,
+    User.updateOne({$set:{"username": username,
                 "password": password,
                 "location": location,
-                "picture": picture })
+                "picture": picture }})
         .then(user => res.json(user))
         .catch(err => res.status(500).json({message: "server error"}))
 

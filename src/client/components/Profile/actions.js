@@ -27,10 +27,30 @@ function changeField(field, value) {
     }
 }
 
+function updateUserSuccess(user, callback, msg) {
+    return {
+        type: ProfileActionsConstants.UPDATE_USER_SUCCESS,
+        user,
+        callback,
+        msg
+    }
+}
+
+function updateUserFailure(callback, msg) {
+    return {
+        type: ProfileActionsConstants.UPDATE_USER_FAILURE,
+        msg,
+        callback
+    }
+}
+
+
 let ProfileActions = {
     toggleEdit,
     updateUser,
-    changeField
+    changeField,
+    updateUserSuccess,
+    updateUserFailure
 };
 
 export default ProfileActions
