@@ -1,48 +1,47 @@
-import { RegisterActionsConstants} from './constants.js';
-import initialState from '../../initialState';
+import {RegisterActionsConstants} from './constants.js';
 
 
-function setLoading(){
-    return{
+function setLoading() {
+    return {
         type: RegisterActionsConstants.SET_LOADING
     }
 }
 
-function register(user){
-    return{
+function register(user) {
+    return {
         type: RegisterActionsConstants.REGISTER,
         uri: '/api/users',
         payload: {user}
     }
 }
 
-function registerSuccess(user){
-    return{
+function registerSuccess(user) {
+    return {
         type: RegisterActionsConstants.REGISTER_SUCCESS,
         user
     }
 }
 
-function registerFailure(msg){
-    return{
+function registerFailure(msg) {
+    return {
         type: RegisterActionsConstants.REGISTER_FAILURE,
         msg
     }
 }
 
-function changeField(field, value){
+function changeField(field, value) {
     console.log(field);
     console.log(value);
-    
-    
-    return{
+
+
+    return {
         type: RegisterActionsConstants.CHANGE_FIELD,
         field,
         value
     }
 }
 
-let RegisterActions  = {
+let RegisterActions = {
     setLoading,
     register,
     registerSuccess,

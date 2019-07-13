@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import { Menubar } from 'primereact/menubar';
-import { Button } from 'primereact/button';
-import { InputText } from "primereact/inputtext";
+import React, {Component} from 'react';
+import {Button} from 'primereact/button';
+import {InputText} from "primereact/inputtext";
 import LoginActions from './actions';
-import { connect } from 'react-redux';
-import { resolve } from 'url';
-import { Growl } from 'primereact/growl'
+import {connect} from 'react-redux';
+import {Growl} from 'primereact/growl'
 
 export class Login extends Component {
 
@@ -13,12 +11,22 @@ export class Login extends Component {
         return (
             <div>
                 <div>
-                    <Growl ref={(el) => this.growl = el} />
-                    <InputText placeholder="Username" onChange={(e) => this.props.changeFieldHandler("username", e.target.value)} type="text" />
-                    <InputText placeholder="Password" onChange={(e) => this.props.changeFieldHandler("password", e.target.value)} type="password" />
+                    <Growl ref={(el) => this.growl = el}/>
+                    <InputText placeholder="Username"
+                               onChange={(e) => this.props.changeFieldHandler("username", e.target.value)} type="text"/>
+                    <InputText placeholder="Password"
+                               onChange={(e) => this.props.changeFieldHandler("password", e.target.value)}
+                               type="password"/>
                     <Button variant="primary" type="submit" label="Submit"
-                        onClick={() => this.props.loginHandler(this.props.username, this.props.password,
-                            (msg) => { this.growl.show({severity: 'error', summary: 'Login Failed', life: 5000, detail: msg}); })} />
+                            onClick={() => this.props.loginHandler(this.props.username, this.props.password,
+                                (msg) => {
+                                    this.growl.show({
+                                        severity: 'error',
+                                        summary: 'Login Failed',
+                                        life: 5000,
+                                        detail: msg
+                                    });
+                                })}/>
                 </div>
             </div>
         );

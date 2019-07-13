@@ -1,8 +1,8 @@
 import {RegisterActionsConstants} from './constants'
-import { call, put, takeEvery } from 'redux-saga/effects'
+import {call, put, takeEvery} from 'redux-saga/effects'
 import RegisterActions from './actions'
 
-function* registerUser(action){
+function* registerUser(action) {
     console.log('RegisterSaga=', action);
     try {
         const res = yield call(fetch, action.uri,

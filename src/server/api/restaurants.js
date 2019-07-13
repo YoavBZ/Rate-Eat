@@ -10,23 +10,23 @@ const Review = require('../model/Review');
 router.get('/', (req, res) => {
     name = req.body.name
     location = req.body.location
-    if(name != undefined && location != undefined){
+    if (name != undefined && location != undefined) {
         Restaurant.find({"name": name, "location": location})
-            .then(restaurant =>{
+            .then(restaurant => {
                 restaurant.length != 0 ? res.json(restaurant) : res.status(404).json({message: `${name} does not exist in ${location}`})
             })
-    }else if (name != undefined){
+    } else if (name != undefined) {
         Restaurant.find({"name": name})
-            .then(restaurant =>{
+            .then(restaurant => {
                 restaurant.length != 0 ? res.json(restaurant) : res.status(404).json({message: `${name} does not exist`})
             })
-    }else if( location != undefined){
+    } else if (location != undefined) {
         Restaurant.find({"location": location})
-            .then(restaurant =>{
+            .then(restaurant => {
                 restaurant.length != 0 ? res.json(restaurant) : res.status(404).json({message: `no restaurants found in ${location}`})
             })
-    }else{
-        res.status(400).json({message:"please insert a restaurant name or a location"})
+    } else {
+        res.status(400).json({message: "please insert a restaurant name or a location"})
     }
 });
 
@@ -36,16 +36,14 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     const newRestaurant = new Restaurant({
-        id:  req.body.id,
-        name:  req.body.name,
-        location:  req.body.location
+        id: req.body.id,
+        name: req.body.name,
+        location: req.body.location
     })
     newRestaurant.save()
-                 .then(restaurant => res.json(restaurant))
-                 .catch(err => res.status(400).json({message: "restaurant is already exist"}))
+        .then(restaurant => res.json(restaurant))
+        .catch(err => res.status(400).json({message: "restaurant is already exist"}))
 })
-
-
 
 
 module.exports = router;

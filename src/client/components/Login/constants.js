@@ -6,4 +6,4 @@ const LoginActionsConstants = {
     CHANGE_FIELD: 'CHANGE_FIELD'
 };
 
-export { LoginActionsConstants}
+export {LoginActionsConstants}

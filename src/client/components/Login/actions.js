@@ -1,15 +1,14 @@
-import { LoginActionsConstants} from './constants.js';
-import initialState from '../../initialState';
+import {LoginActionsConstants} from './constants.js';
 
 
-function setLoading(){
-    return{
+function setLoading() {
+    return {
         type: LoginActionsConstants.SET_LOADING
     }
 }
 
-function login(user, callback){
-    return{
+function login(user, callback) {
+    return {
         type: LoginActionsConstants.LOGIN,
         uri: '/api/users/login',
         payload: {user},
@@ -17,34 +16,34 @@ function login(user, callback){
     }
 }
 
-function loginSuccess(user){
-    return{
+function loginSuccess(user) {
+    return {
         type: LoginActionsConstants.LOGIN_SUCCESS,
         user
     }
 }
 
-function loginFailure(callback, msg){
-    return{
+function loginFailure(callback, msg) {
+    return {
         type: LoginActionsConstants.LOGIN_FAILURE,
         msg,
         callback
     }
 }
 
-function changeField(field, value){
+function changeField(field, value) {
     console.log(field);
     console.log(value);
-    
-    
-    return{
+
+
+    return {
         type: LoginActionsConstants.CHANGE_FIELD,
         field,
         value
     }
 }
 
-let LoginActions  = {
+let LoginActions = {
     setLoading,
     login,
     loginSuccess,

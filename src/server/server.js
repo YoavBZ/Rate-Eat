@@ -1,7 +1,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
-const { resolve } = require('path');
+const {resolve} = require('path');
 const fs = require('fs');
 const path = require('path');
 
@@ -10,27 +10,27 @@ const reviews = require('./api/reviews');
 const restaurants = require('./api/restaurants');
 
 const config = {
-  mongoURL: process.env.MONGO_URL || 'mongodb://localhost:27017/atd',
-  port: 8000
+    mongoURL: process.env.MONGO_URL || 'mongodb://localhost:27017/atd',
+    port: 8000
 };
 
 //setup database
 mongoose.Promise = global.Promise;
 // MongoDB Connection
 if (process.env.NODE_ENV !== 'test') {
-  mongoose.connect(config.mongoURL, { useNewUrlParser: true }, (error) => {
-    if (error) {
-      console.error('Please make sure Mongodb is installed and running!');
-      throw error;
-    }else console.log('connected to database!');
-  });
+    mongoose.connect(config.mongoURL, {useNewUrlParser: true}, (error) => {
+        if (error) {
+            console.error('Please make sure Mongodb is installed and running!');
+            throw error;
+        } else console.log('connected to database!');
+    });
 }
 
 const app = express();
 
 //body parser for json. must be done before API routes
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:false})); //handle body requests
+app.use(bodyParser.urlencoded({extended: false})); //handle body requests
 console.log(__dirname);
 app.use(express.static(path.join(__dirname, 'public')));
 

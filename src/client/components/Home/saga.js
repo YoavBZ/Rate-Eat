@@ -1,8 +1,8 @@
 import {HomeActionsConstants} from './constants'
-import { call, put, takeEvery } from 'redux-saga/effects'
+import {call, put, takeEvery} from 'redux-saga/effects'
 import HomeActions from './actions'
 
-function* homeUser(action){
+function* homeUser(action) {
     console.log('HomeSaga=', action);
     try {
         const res = yield call(fetch, action.uri,

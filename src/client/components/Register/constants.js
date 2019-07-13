@@ -6,4 +6,4 @@ const RegisterActionsConstants = {
     CHANGE_FIELD: 'CHANGE_FIELD'
 };
 
-export { RegisterActionsConstants}
+export {RegisterActionsConstants}

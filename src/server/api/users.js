@@ -9,17 +9,17 @@ const User = require('../model/User');
 router.get('/', (req, res) => {
     username = req.body.username
     location = req.body.location
-    if(username != undefined && location != undefined){
+    if (username != undefined && location != undefined) {
         User.find({"username": username, "location": location})
             .then(user => user.length != 0 ? res.json(user) : res.status(404).json({message: `username ${username} does not exist in ${location}`}))
-    }else if (username != undefined){
+    } else if (username != undefined) {
         User.find({"username": username})
             .then(user => user.length != 0 ? res.json(user) : res.status(404).json({message: `username ${username} does not exist`}))
-    }else if( location != undefined){
+    } else if (location != undefined) {
         User.find({"location": location})
             .then(user => user.length != 0 ? res.json(user) : res.status(404).json({message: `no users found in ${location}`}))
-    }else{
-        res.status(400).json({message:"please insert a username or a location"})
+    } else {
+        res.status(400).json({message: "please insert a username or a location"})
     }
 });
 
@@ -39,8 +39,8 @@ router.post('/', (req, res) => {
         reviews: []
     })
     newUser.save()
-           .then(user => res.json(user))
-           .catch(err => res.status(400).json({message: "username is already taken"}))
+        .then(user => res.json(user))
+        .catch(err => res.status(400).json({message: "username is already taken"}))
 })
 
 router.post('/login', (req, res) => {

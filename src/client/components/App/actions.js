@@ -1,21 +1,21 @@
-import { AppActionsConstants} from './constants.js';
+import {AppActionsConstants} from './constants.js';
 import initialState from '../../initialState';
 
 
-function showLogin(state = initialState, action){
-    return{
+function showLogin(state = initialState, action) {
+    return {
         type: AppActionsConstants.SHOW_LOGIN
     }
 }
 
 
-function showRegister(){
-    return{
+function showRegister() {
+    return {
         type: AppActionsConstants.SHOW_REGISTER
     }
 }
 
-let AppActions  = {
+let AppActions = {
     showLogin,
     showRegister
 };

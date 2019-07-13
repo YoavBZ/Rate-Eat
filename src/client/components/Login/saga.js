@@ -1,5 +1,5 @@
-import { LoginActionsConstants } from './constants'
-import { call, put, takeEvery } from 'redux-saga/effects'
+import {LoginActionsConstants} from './constants'
+import {call, put, takeEvery} from 'redux-saga/effects'
 import LoginActions from './actions'
 
 function* loginUser(action) {

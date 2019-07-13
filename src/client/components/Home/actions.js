@@ -1,14 +1,13 @@
-import { HomeActionsConstants} from './constants.js';
-import initialState from '../../initialState';
+import {HomeActionsConstants} from './constants.js';
 
-function changePage(page){    
-    return{
+function changePage(page) {
+    return {
         type: HomeActionsConstants.CHANGE_PAGE,
         page
     }
 }
 
-let HomeActions  = {
+let HomeActions = {
     changePage
 };
 

@@ -18,27 +18,29 @@ router.post('/', (req, res) => {
         deliverySpeed: req.body.deliverySpeed,
         foodQuality: req.body.foodQuality,
         pictures: req.body.pictures,
-        publishDate : Date.now()
+        publishDate: Date.now()
     })
     newReview.save()
-           .then(review => res.json(review))
-           .catch(err => res.status(400).json({message: "you have already reviwed this restaurant"}))
+        .then(review => res.json(review))
+        .catch(err => res.status(400).json({message: "you have already reviwed this restaurant"}))
 })
-
 
 
 router.put('/', (req, res) => {
     Review.updateOne(
-        {"_id" : req.body._id},
-        { $set: {
-            "bathroomQuality":req.body.bathroomQuality,
-            "staffKindness" : req.body.staffKindness,
-            "cleanliness" : req.body.cleanliness,
-            "driveThruQuality" : req.body.driveThruQuality,
-            "deliverySpeed" : req.body.deliverySpeed,
-            "foodQuality" : req.body.foodQuality,
-            "pictures" : req.body.pictures,
-            "publishDate" : Date.now()                         }})
+        {"_id": req.body._id},
+        {
+            $set: {
+                "bathroomQuality": req.body.bathroomQuality,
+                "staffKindness": req.body.staffKindness,
+                "cleanliness": req.body.cleanliness,
+                "driveThruQuality": req.body.driveThruQuality,
+                "deliverySpeed": req.body.deliverySpeed,
+                "foodQuality": req.body.foodQuality,
+                "pictures": req.body.pictures,
+                "publishDate": Date.now()
+            }
+        })
         .then(review => res.json({message: "update had completed successfully"}))
         .catch(err => res.status(400).json({message: "update had failed"}))
 })
@@ -46,11 +48,11 @@ router.put('/', (req, res) => {
 
 router.delete('/', (req, res) => {
     Review.deleteOne(
-        {"_id" : req.body._id})
+        {"_id": req.body._id})
         .then(review => res.json({message: "review had been removed successfully"}))
         .catch(err => res.status(400).json({message: "remove had failed"}))
 
-        // TODO remove review pictures!!
+    // TODO remove review pictures!!
 })
 
 module.exports = router;
