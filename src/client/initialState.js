@@ -14,6 +14,14 @@ export default {
         user: undefined,
         page: HomePages.SEARCH_RESTAURANTS
     }),
+    restaurantsPage: Map({
+        restaurants: [],
+        layout: 'list',
+        selectedRestaurants: null,
+        visible: false,
+        sortKey: null,
+        sortOrder: null
+    }),
     login: Map({
         username: undefined,
         password: undefined

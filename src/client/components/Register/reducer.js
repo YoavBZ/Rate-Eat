@@ -1,7 +1,6 @@
 import initialState from '../../initialState';
 import {RegisterActionsConstants} from './constants.js';
 
-
 const RegisterReducer = (state = initialState.register, action) => {
     switch (action.type) {
         case RegisterActionsConstants.CHANGE_FIELD:

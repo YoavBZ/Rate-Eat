@@ -1,6 +1,5 @@
 import {LoginActionsConstants} from './constants.js';
 
-
 function setLoading() {
     return {
         type: LoginActionsConstants.SET_LOADING

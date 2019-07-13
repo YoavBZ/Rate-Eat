@@ -3,14 +3,14 @@ import RegisterSaga from './components/Register/saga'
 import LoginSaga from './components/Login/saga'
 // import HomeSaga from './components/Home/saga'
 import ProfileSaga from './components/Profile/saga'
-
-
+import RestaurantsPageSaga from "./components/RestaurantsPage/saga";
 
 export default function* Sagas() {
     yield all([
         RegisterSaga(),
         LoginSaga(),
         // HomeSaga(),
-        ProfileSaga()
+        ProfileSaga(),
+        RestaurantsPageSaga()
     ])
 }

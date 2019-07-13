@@ -1,7 +1,5 @@
 import {ProfileActionsConstants} from './constants.js';
 
-
-
 function updateUser(user, callback) {
     return {
         type: ProfileActionsConstants.UPDATE_USER,
@@ -10,7 +8,6 @@ function updateUser(user, callback) {
         callback
     }
 }
-
 
 function toggleEdit(edit) {
     return {

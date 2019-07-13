@@ -11,7 +11,7 @@ export class Profile extends Component {
         return (
             <div>
                 <div>
-                    <Button className="p-button-warning" label="Edit" onClick={()=> this.props.toggleEditHandler()} />
+                    <Button className="p-button-warning" label="Edit" onClick={() => this.props.toggleEditHandler()}/>
                     <Growl ref={(el) => this.growl = el}/>
                     <InputText placeholder="Username"  type="text" defaultValue={this.props.user.username} disabled={!this.props.edit}
                                onChange={(e) => this.props.changeFieldHandler("username", e.target.value)} />
