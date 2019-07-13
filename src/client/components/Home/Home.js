@@ -1,8 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import HomeActions from './actions';
-import {connect} from 'react-redux';
-import {Menu} from 'primereact/menu';
-import UsersPage from "../UsersPage/UsersPage";
+import { HomePages } from './constants';
+import { connect } from 'react-redux';
+import { Menu } from 'primereact/menu';
+import Profile from '../Profile/Profile';
 
 export class Home extends Component {
     render() {
@@ -14,22 +15,24 @@ export class Home extends Component {
                             label: 'Search',
                             items: [{
                                 label: 'Users', icon: 'pi pi-fw pi-user', command: () => {
-                                    window.location.hash = "/fileupload";
+                                    console.log("hehehehe")
                                 }
                             },
-                                {label: 'Restaurants', icon: 'pi pi-fw pi-home', url: 'http://primetek.com.tr'}]
+                            { label: 'Restaurants', icon: 'pi pi-fw pi-home', url: 'http://primetek.com.tr' }]
                         },
                         {
                             label: 'Profile',
                             items: [{
                                 label: 'Edit User', icon: 'pi pi-fw pi-cog', command: () => {
-                                    this.props.changePageHandler(3);
+                                    console.log("inside")
+                                    console.log(this.props)
+                                    this.props.changePageHandler(HomePages.PROFILE);
                                 }
                             },
-                                {label: 'Reviews', icon: 'pi pi-fw pi-copy'}]
+                            { label: 'Reviews', icon: 'pi pi-fw pi-copy' }]
                         }
-                    ]}/>
-                    <UsersPage/>
+                    ]} />
+                    {this.props.page === HomePages.PROFILE && <Profile />}
                 </div>
             </div>
         )
@@ -41,9 +44,12 @@ const mapStateToProps = (state) => ({
     page: state.home.get('page'),
 });
 
+
 const mapDispatchToProps = (dispatch) => {
+    console.log("begefergreg")
     return {
         changePageHandler: (page) => {
+            console.log("gonna dispatch")
             dispatch(HomeActions.changePage(page))
         }
     }

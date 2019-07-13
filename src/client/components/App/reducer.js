@@ -4,8 +4,6 @@ import {LoginActionsConstants} from '../Login/constants'
 import {RegisterActionsConstants} from '../Register/constants'
 
 const AppReducer = (state = initialState.app, action) => {
-    console.log('AppReducerState=', state);
-    console.log('RECEIVED ACTION:', action);
     switch (action.type) {
         case AppActionsConstants.SHOW_LOGIN:
             return state.set('page', AppPages.LOGIN);
