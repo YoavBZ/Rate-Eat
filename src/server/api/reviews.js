@@ -22,9 +22,8 @@ router.post('/', (req, res) => {
     });
     newReview.save()
         .then(review => res.json(review))
-        .catch(err => res.status(400).json({message: "you have already reviewed this restaurant"}))
+        .catch(err => res.status(400).json({message: "you have already reviewed this restaurant"}));
 });
-
 
 router.put('/', (req, res) => {
     Review.updateOne(
@@ -42,16 +41,14 @@ router.put('/', (req, res) => {
             }
         })
         .then(review => res.json({message: "update had completed successfully"}))
-        .catch(err => res.status(400).json({message: "update had failed"}))
-})
-
+        .catch(err => res.status(400).json({message: "update had failed"}));
+});
 
 router.delete('/', (req, res) => {
     Review.deleteOne(
         {"_id": req.body._id})
         .then(review => res.json({message: "review had been removed successfully"}))
-        .catch(err => res.status(400).json({message: "remove had failed"}))
-
+        .catch(err => res.status(400).json({message: "remove had failed"}));
     // TODO: remove review pictures!!
 });
 

@@ -54,8 +54,7 @@ export class RestaurantsPage extends Component {
                 <div className="p-col-12 p-md-1 search-icon" style={{marginTop: '40px'}}>
                     <Button icon='pi pi-search' onClick={() => this.props.selectRestaurant(restaurant, true)}/>
                 </div>
-            </div>
-        );
+            </div>);
     }
 
     renderGridItem(restaurant) {
@@ -67,8 +66,7 @@ export class RestaurantsPage extends Component {
                     <hr className="ui-widget-content" style={{borderTop: 0}}/>
                     <Button icon="pi pi-search" onClick={() => this.props.selectRestaurant(restaurant, true)}/>
                 </Panel>
-            </div>
-        );
+            </div>);
     }
 
     renderRestaurantDialogContent() {
@@ -109,22 +107,21 @@ export class RestaurantsPage extends Component {
                               onChange={this.props.onSortChange}/>
                 </div>
                 <div className="p-col-6" style={{textAlign: 'right'}}>
-                    <DataViewLayoutOptions layout={this.props.layout}
-                                           onChange={this.props.changeLayout}/>
+                    <DataViewLayoutOptions layout={this.props.layout} onChange={this.props.changeLayout}/>
                 </div>
             </div>
         );
     }
 
-    itemTemplate(restaurant, layout) {
+    itemTemplate = (restaurant, layout) => {
         if (!restaurant) {
-            return;
+            return null;
         }
         if (layout === 'list')
             return this.renderListItem(restaurant);
         else if (layout === 'grid')
             return this.renderGridItem(restaurant);
-    }
+    };
 }
 
 const mapStateToProps = (state) => ({
