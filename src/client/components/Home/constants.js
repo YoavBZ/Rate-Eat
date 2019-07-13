@@ -8,7 +8,6 @@ const HomePages = {
     SEARCH_RESTAURANTS: 2,
     EDIT_PROFILE: 3,
     VIEW_REVIEW: 4
-}
-
+};
 
 export {HomeActionsConstants, HomePages}

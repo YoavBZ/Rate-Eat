@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import HomeActions from './actions';
 import {connect} from 'react-redux';
 import {Menu} from 'primereact/menu';
+import UsersPage from "../UsersPage/UsersPage";
 
 export class Home extends Component {
     render() {
@@ -22,12 +23,13 @@ export class Home extends Component {
                             label: 'Profile',
                             items: [{
                                 label: 'Edit User', icon: 'pi pi-fw pi-cog', command: () => {
-                                    window.location.hash = "/";
+                                    this.props.changePageHandler(3);
                                 }
                             },
                                 {label: 'Reviews', icon: 'pi pi-fw pi-copy'}]
                         }
                     ]}/>
+                    <UsersPage/>
                 </div>
             </div>
         )
