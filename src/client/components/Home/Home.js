@@ -19,7 +19,11 @@ export class Home extends Component {
                                     console.log("hehehehe")
                                 }
                             },
-                                {label: 'Restaurants', icon: 'pi pi-fw pi-home', url: 'http://primetek.com.tr'}]
+                                {
+                                    label: 'Restaurants', icon: 'pi pi-fw pi-home', command: () => {
+                                        this.props.changePageHandler((HomePages.SEARCH_RESTAURANTS))
+                                    }
+                                }]
                         },
                         {
                             label: 'Profile',
