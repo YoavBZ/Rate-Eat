@@ -1,16 +1,23 @@
-const { List, Map } = require('immutable');
+const { Map } = require('immutable');
+import { AppPages } from './components/App/constants';
+import { HomePages } from './components/Home/constants';
 
 export default {
-    gallery: Map({
-        images: List(),
-        openLightBox: false,
-        activeImage: 0,
-        activeFilter: List(),
-        galleryWidth: 0
-    }),
-    app: Map({
-      size: 200,
-      tag: 'art',
-      tags: List()
-    })
+  home: Map({
+    user: undefined,
+    page: HomePages.SEARCH_RESTAURANTS
+  }),
+  login: Map({
+    username: undefined,
+    password: undefined
+  }),
+  register: Map({
+    username: undefined,
+    password: undefined,
+    location: undefined,
+    picture: undefined
+  }),
+  app: Map({
+    page: AppPages.LOGIN
+  })
 };

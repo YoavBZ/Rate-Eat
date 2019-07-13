@@ -5,10 +5,12 @@ const { resolve } = require('path');
 const fs = require('fs');
 const path = require('path');
 
-
+const users = require('./api/users');
+const reviews = require('./api/reviews');
+const restaurants = require('./api/restaurants');
 
 const config = {
-  mongoURL: process.env.MONGO_URL || 'mongodb://localhost:27017/gallery',
+  mongoURL: process.env.MONGO_URL || 'mongodb://localhost:27017/atd',
   port: 8000
 };
 
@@ -24,8 +26,6 @@ if (process.env.NODE_ENV !== 'test') {
   });
 }
 
-
-
 const app = express();
 
 //body parser for json. must be done before API routes
@@ -34,13 +34,14 @@ app.use(bodyParser.urlencoded({extended:false})); //handle body requests
 console.log(__dirname);
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api/users', users);
+app.use('/api/reviews', reviews);
+app.use('/api/restaurants', restaurants);
 
-
-// Add backend api routes
-fs.readdirSync(__dirname + '/api').forEach((file) => {
-  require(`./api/${file.substr(0, file.indexOf('.'))}`)(app);
-});
-
+// // Add backend api routes
+// fs.readdirSync(__dirname + '/api').forEach((file) => {
+//   require(`./api/${file.substr(0, file.indexOf('.'))}`)(app);
+// });
 
 app.listen(config.port || 8000,
     () => console.log(`Listening on port ${process.env.PORT || 8000}!`));

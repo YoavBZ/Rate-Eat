@@ -1,62 +1,51 @@
 import React from 'react';
-import './App.scss';
-import Gallery from '../Gallery';
+import Register from '../Register/Register';
+import Login from '../Login/Login';
 import { connect } from 'react-redux';
-import AppActions from './actions';
-import GalleryActions from '../Gallery/actions';
+import { Menubar } from 'primereact/menubar';
 import { Button } from 'primereact/button';
-import { Dropdown } from 'primereact/dropdown';
+import AppActions from './actions';
+import { AppPages } from './constants';
+import { Home } from '../Home/Home';
 
 class App extends React.Component {
-    componentDidMount() {
-        this.props.loadTagsEventHandler();
-    }
-
   render() {
-        console.log('tags=', this.props.tags);
+    const style = {
+      backgroundColor: "#343a40",
+      borderRadius: 0,
+      border: 0,
+      color: "#fbfbfb"
+    }
     return (
-      <div className="app-root">
-        <div className="app-header">
-          <h2>Flickr Gallery</h2>
-          <Dropdown
-              value={this.props.tag}
-              onChange={this.props.updateTagEventHandler}
-              options={this.props.tags}
-              placeholder="insert a tag"
-              editable={true}
-            />
-          <Button
-              label="Search"
-              className="p-button-raised p-button-rounded"
-              onClick={() => this.props.loadImagesEventHandler(this.props.tag)}
-          />
-        </div>
-        <Gallery/>
+      <div>
+        <Menubar style={style} variant="dark">
+          Rate-Eat
+          {this.props.page != AppPages.HOME && <Button label="Login" onClick={this.props.showLoginHandler} style={{ marginLeft: 4 }} />}
+          {this.props.page != AppPages.HOME && <Button label="Register" onClick={this.props.showRegisterHandler} style={{ marginLeft: 8 }} />}
+          {this.props.page == AppPages.HOME && <Button label="Logout" onClick={this.props.showLoginHandler} style={{ marginLeft: 4 }} />}
+        </Menubar>
+        {this.props.page == AppPages.LOGIN && <Login />}
+        {this.props.page == AppPages.REGISTER && <Register />}
+        {this.props.page == AppPages.HOME && <Home />}
       </div>
     );
   }
 }
 
-
-const mapStateToProps = (state) => {
-  return {
-      tag: state['app'].get('tag'),
-      tags: state['app'].get('tags').toArray()
-  }
-};
+const mapStateToProps = (state) => ({
+  page: state.app.get('page'),
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      loadTagsEventHandler: () => {
-          dispatch(AppActions.loadTagsAction());
-      },
-    updateTagEventHandler: (e) => {
-      dispatch(AppActions.updateTagAction(e.value));
+    showLoginHandler: () => {
+      dispatch(AppActions.showLogin());
     },
-    loadImagesEventHandler: (tag) => {
-      dispatch(GalleryActions.loadImagesAction(tag))
-    }
+    showRegisterHandler: () => {
+      dispatch(AppActions.showRegister());
+    },
   }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+

@@ -1,43 +1,23 @@
 import { AppActionsConstants} from './constants.js';
+import initialState from '../../initialState';
 
 
-function updateTagAction(tag) {
-  return {
-    type: AppActionsConstants.UPDATE_TAG,
-    payload: {
-      tag
-    }
-  }
-}
-
-function loadTagsAction(){
-    return {
-        type: AppActionsConstants.LOAD_TAGS,
-        uri: '/api/load/tags'
+function showLogin(state = initialState, action){
+    return{
+        type: AppActionsConstants.SHOW_LOGIN
     }
 }
 
-function loadTagsSuccessAction(tags){
-    return {
-        type: AppActionsConstants.LOAD_TAGS_SUCCESS,
-        payload: {
-            tags: tags
-        }
-    }
-}
 
-function loadTagsFailureAction(error){
-    return {
-        type: AppActionsConstants.LOAD_TAGS_FAILURE,
-        error: error
+function showRegister(){
+    return{
+        type: AppActionsConstants.SHOW_REGISTER
     }
 }
 
 let AppActions  = {
-    updateTagAction,
-    loadTagsAction,
-    loadTagsSuccessAction,
-    loadTagsFailureAction
+    showLogin,
+    showRegister
 };
 
 export default AppActions

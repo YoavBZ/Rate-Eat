@@ -1,8 +1,12 @@
 const AppActionsConstants = {
-    UPDATE_TAG: 'UPDATE_TAG',
-    LOAD_TAGS: 'LOAD_TAGS',
-    LOAD_TAGS_SUCCESS: 'LOAD_TAGS_SUCCESS',
-    LOAD_TAGS_FAILURE: 'LOAD_TAGS_FAILURE',
+    SHOW_LOGIN: 'SHOW_LOGIN',
+    SHOW_REGISTER: 'SHOW_REGISTER'
 };
 
-export { AppActionsConstants}
+const AppPages ={
+    LOGIN: 1,
+    REGISTER: 2,
+    HOME: 3
+}
+
+export { AppActionsConstants, AppPages}
