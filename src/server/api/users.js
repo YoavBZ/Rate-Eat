@@ -54,5 +54,20 @@ router.post('/login', (req, res) => {
 });
 
 
+router.put('/', (req, res) => {
+    user = req.body.user
+    username = user.username;
+    password = user.password;
+    location = user.location;
+    picture = user.picture;
+    User.update({"username": username,
+                "password": password,
+                "location": location,
+                "picture": picture })
+        .then(user => res.json(user))
+        .catch(err => res.status(500).json({message: "server error"}))
+
+});
+
 module.exports = router;
 
