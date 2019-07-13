@@ -10,32 +10,23 @@ import {Panel} from "primereact/panel";
 export class RestaurantsPage extends Component {
 
     componentDidMount() {
-            this.props.getRestaurants();
+        this.props.getRestaurants();
     }
 
     render() {
         const header = this.renderHeader();
         return (
-            <div>
-                <div className="content-section introduction">
-                    <div className="feature-intro">
-                        <h1>DataView</h1>
-                        <p>DataView displays data in grid or list layout with pagination, sorting and filtering
-                            features.</p>
-                    </div>
-                </div>
+            <div style={{margin: 'auto', width: '80%'}}>
+                <h1 style={{fontFamily: 'sans-serif'}}>Restaurants</h1>
+                <DataView value={this.props.restaurants} layout={this.props.layout} header={header}
+                          itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
+                          rows={5}
+                          sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
 
-                <div className="content-section implementation">
-                    <DataView value={this.props.restaurants} layout={this.props.layout} header={header}
-                              itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
-                              rows={20}
-                              sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
-
-                    <Dialog header="Restaurant Details" visible={this.props.visible} width="225px" modal={true}
-                            onHide={() => this.props.changeVisibility(false)}>
-                        {this.renderRestaurantDialogContent()}
-                    </Dialog>
-                </div>
+                <Dialog header="Restaurant Details" visible={this.props.visible} width="225px" modal={true}
+                        onHide={() => this.props.changeVisibility(false)}>
+                    {this.renderRestaurantDialogContent()}
+                </Dialog>
             </div>
         );
     }

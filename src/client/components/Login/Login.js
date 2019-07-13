@@ -9,25 +9,19 @@ export class Login extends Component {
 
     render() {
         return (
-            <div>
-                <div>
-                    <Growl ref={(el) => this.growl = el}/>
-                    <InputText placeholder="Username"
-                               onChange={(e) => this.props.changeFieldHandler("username", e.target.value)} type="text"/>
-                    <InputText placeholder="Password"
-                               onChange={(e) => this.props.changeFieldHandler("password", e.target.value)}
-                               type="password"/>
-                    <Button variant="primary" type="submit" label="Submit"
-                            onClick={() => this.props.loginHandler(this.props.username, this.props.password,
-                                (msg) => {
-                                    this.growl.show({
-                                        severity: 'error',
-                                        summary: 'Login Failed',
-                                        life: 5000,
-                                        detail: msg
-                                    });
-                                })}/>
-                </div>
+            <div style={this.props.style}>
+                <Growl ref={(el) => this.growl = el}/>
+                <InputText placeholder="Username"
+                           onChange={(e) => this.props.changeFieldHandler("username", e.target.value)} type="text"/>
+                <InputText placeholder="Password"
+                           onChange={(e) => this.props.changeFieldHandler("password", e.target.value)}
+                           type="password"/>
+                <Button variant="primary" type="submit" label="Submit" onClick={
+                    () => this.props.loginHandler(this.props.username, this.props.password,
+                        (msg) => {
+                            this.growl.show({severity: 'error', summary: 'Login Failed', life: 5000, detail: msg});
+                        })
+                }/>
             </div>
         );
     }

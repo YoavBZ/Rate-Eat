@@ -10,7 +10,7 @@ const Review = require('../model/Review');
 router.post('/', (req, res) => {
     const newReview = new Review({
         userID: req.body.userID,
-        resturantID: req.body.resturantID,
+        restaurantID: req.body.restaurantID,
         bathroomQuality: req.body.bathroomQuality,
         staffKindness: req.body.staffKindness,
         cleanliness: req.body.cleanliness,
@@ -19,11 +19,11 @@ router.post('/', (req, res) => {
         foodQuality: req.body.foodQuality,
         pictures: req.body.pictures,
         publishDate: Date.now()
-    })
+    });
     newReview.save()
         .then(review => res.json(review))
-        .catch(err => res.status(400).json({message: "you have already reviwed this restaurant"}))
-})
+        .catch(err => res.status(400).json({message: "you have already reviewed this restaurant"}))
+});
 
 
 router.put('/', (req, res) => {
@@ -52,7 +52,7 @@ router.delete('/', (req, res) => {
         .then(review => res.json({message: "review had been removed successfully"}))
         .catch(err => res.status(400).json({message: "remove had failed"}))
 
-    // TODO remove review pictures!!
-})
+    // TODO: remove review pictures!!
+});
 
 module.exports = router;

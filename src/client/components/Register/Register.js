@@ -7,7 +7,7 @@ import RegisterActions from './actions';
 class Register extends React.Component {
     render() {
         return (
-            <div>
+            <div style={this.props.style}>
                 <InputText placeholder="Username"
                            onChange={(e) => this.props.changeFieldHandler("username", e.target.value)} type="text"/>
                 <InputText placeholder="Password"
@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch) => {
                 password,
                 location,
                 picture
-            }
+            };
             dispatch(RegisterActions.register(user));
         }
     }
