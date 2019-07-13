@@ -2,11 +2,11 @@ import {ProfileActionsConstants} from './constants'
 import {call, put, takeEvery} from 'redux-saga/effects'
 import ProfileActions from './actions'
 
-function* profileUser(action) {
+function* updateUserProfile(action) {
     try {
         const res = yield call(fetch, action.uri,
             {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -17,15 +17,15 @@ function* profileUser(action) {
         if (res.status >= 400) {
             throw json;
         }
-        yield put(ProfileActions.profileSuccess(json));
+        yield put(ProfileActions.updateUserSuccess(json, action.callback, "Your profile had been updated!"));
     } catch (e) {
-        yield put(ProfileActions.profileFailure(action.callback, e.message));
+        yield put(ProfileActions.updateUserFailure(action.callback, e.message));
     }
 }
 
 function* ProfileSaga() {
     //using takeEvery, you take the action away from reducer to saga
-    yield takeEvery(ProfileActionsConstants.UPDATE_USER, profileUser);
+    yield takeEvery(ProfileActionsConstants.UPDATE_USER, updateUserProfile);
 }
 
 export default ProfileSaga;

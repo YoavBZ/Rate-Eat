@@ -1,7 +1,9 @@
 const ProfileActionsConstants = {
     CHANGE_FIELD: 'CHANGE_FIELD',
     TOGGLE_EDIT: 'TOGGLE_EDIT',
-    UPDATE_USER: 'UPDATE_USER'
+    UPDATE_USER: 'UPDATE_USER',
+    UPDATE_USER_SUCCESS: 'UPDATE_USER_SUCCESS',
+    UPDATE_USER_FAILURE: 'UPDATE_USER_FAILURE'
 };
 
 export {ProfileActionsConstants}
