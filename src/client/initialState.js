@@ -14,10 +14,10 @@ export default {
         user: undefined,
         page: HomePages.SEARCH_RESTAURANTS
     }),
-    usersPage: Map({
-        cars: [],
+    restaurantsPage: Map({
+        restaurants: [],
         layout: 'list',
-        selectedCar: null,
+        selectedRestaurants: null,
         visible: false,
         sortKey: null,
         sortOrder: null

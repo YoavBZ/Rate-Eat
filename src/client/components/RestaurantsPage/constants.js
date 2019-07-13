@@ -1,9 +1,10 @@
-const UsersPageActionsConstants = {
+const RestaurantsPageActionsConstants = {
     ON_SORT_CHANGE: 'ON_SORT_CHANGE',
     GET_RESTAURANTS: 'GET_RESTAURANTS',
     GET_RESTAURANTS_SUCCESS: 'GET_RESTAURANTS_SUCCESS',
     GET_RESTAURANTS_FAILURE: 'GET_RESTAURANTS_FAILURE',
-    CHANGE_LAYOUT: 'CHANGE_LAYOUT'
+    CHANGE_LAYOUT: 'CHANGE_LAYOUT',
+    CHANGE_VISIBILITY: 'CHANGE_VISIBILITY'
 };
 
-export {UsersPageActionsConstants}
+export {RestaurantsPageActionsConstants}

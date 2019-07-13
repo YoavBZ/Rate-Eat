@@ -1,6 +1,5 @@
 import {RegisterActionsConstants} from './constants.js';
 
-
 function setLoading() {
     return {
         type: RegisterActionsConstants.SET_LOADING

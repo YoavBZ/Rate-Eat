@@ -11,30 +11,30 @@ export class Profile extends Component {
         return (
             <div>
                 <div>
-                    <Button className="p-button-warning" label="Edit" onClick={()=> this.props.toggleEditHandler()} />
+                    <Button className="p-button-warning" label="Edit" onClick={() => this.props.toggleEditHandler()}/>
                     <Growl ref={(el) => this.growl = el}/>
-                    <InputText placeholder="Username"  type="text" defaultValue={this.props.user.username}
-                               onChange={(e) => this.props.changeFieldHandler("username", e.target.value)} />
+                    <InputText placeholder="Username" type="text" defaultValue={this.props.user.username}
+                               onChange={(e) => this.props.changeFieldHandler("username", e.target.value)}/>
 
-                    <InputText placeholder="Password"  type="password" 
-                               onChange={(e) => this.props.changeFieldHandler("password", e.target.value)} />
-                    
-                    <InputText placeholder="Location"  type="text" 
-                               onChange={(e) => this.props.changeFieldHandler("locatoin", e.target.value)} />
-                    
-                    <InputText placeholder="Picture"  type="text" 
-                               onChange={(e) => this.props.changeFieldHandler("picture", e.target.value)} />
-                    
+                    <InputText placeholder="Password" type="password"
+                               onChange={(e) => this.props.changeFieldHandler("password", e.target.value)}/>
+
+                    <InputText placeholder="Location" type="text"
+                               onChange={(e) => this.props.changeFieldHandler("locatoin", e.target.value)}/>
+
+                    <InputText placeholder="Picture" type="text"
+                               onChange={(e) => this.props.changeFieldHandler("picture", e.target.value)}/>
+
                     {this.props.edit == true && <Button variant="primary" type="submit" label="Submit"
-                            onClick={() => this.props.updateUserHandler(this.props.username, this.props.password, this.props.loaction, this.props.picture,
-                                (msg) => {
-                                    this.growl.show({
-                                        severity: 'error',
-                                        summary: 'Profile Failed',
-                                        life: 5000,
-                                        detail: msg
-                                    });
-                                })}/>}
+                                                        onClick={() => this.props.updateUserHandler(this.props.username, this.props.password, this.props.loaction, this.props.picture,
+                                                            (msg) => {
+                                                                this.growl.show({
+                                                                    severity: 'error',
+                                                                    summary: 'Profile Failed',
+                                                                    life: 5000,
+                                                                    detail: msg
+                                                                });
+                                                            })}/>}
                 </div>
                 {console.log(this.props)}
 

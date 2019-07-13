@@ -1,9 +1,9 @@
-import {UsersPageActionsConstants} from './constants'
+import {RestaurantsPageActionsConstants} from './constants'
 import {call, put, takeEvery} from 'redux-saga/effects'
-import UsersPageActions from "./actions";
+import RestaurantsPageActions from "./actions";
 
-function* usersPageUser(action) {
-    console.log('UsersPageSaga=', action);
+function* restaurantsPageUser(action) {
+    console.log('RestaurantsPageSaga=', action);
     try {
         const res = yield call(fetch, action.uri,
             {
@@ -16,15 +16,15 @@ function* usersPageUser(action) {
         if (res.status >= 400) {
             throw json;
         }
-        yield put(UsersPageActions.getRestaurantsSuccess(json));
+        yield put(RestaurantsPageActions.getRestaurantsSuccess(json));
     } catch (e) {
-        yield put(UsersPageActions.getRestaurantsFailure(e.message));
+        yield put(RestaurantsPageActions.getRestaurantsFailure(e.message));
     }
 }
 
-function* UsersPageSaga() {
+function* RestaurantsPageSaga() {
     //using takeEvery, you take the action away from reducer to saga
-    yield takeEvery(UsersPageActionsConstants.GET_RESTAURANTS, usersPageUser);
+    yield takeEvery(RestaurantsPageActionsConstants.GET_RESTAURANTS, restaurantsPageUser);
 }
 
-export default UsersPageSaga;
+export default RestaurantsPageSaga;

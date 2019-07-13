@@ -1,10 +1,8 @@
 import React from 'react';
 import {InputText} from "primereact/inputtext";
-import { FileUpload } from "primereact/fileupload";
 import {Button} from "primereact/button";
 import {connect} from 'react-redux';
 import RegisterActions from './actions';
-
 
 class Register extends React.Component {
     render() {

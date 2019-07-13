@@ -1,7 +1,6 @@
 import initialState from '../../initialState';
 import {LoginActionsConstants} from './constants.js';
 
-
 const LoginReducer = (state = initialState.login, action) => {
     switch (action.type) {
         case LoginActionsConstants.CHANGE_FIELD:
