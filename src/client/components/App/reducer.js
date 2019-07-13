@@ -1,7 +1,7 @@
 import initialState from '../../initialState';
 import {AppActionsConstants, AppPages} from './constants.js';
-import {LoginActionsConstants} from '../Login/constants'
-import {RegisterActionsConstants} from '../Register/constants'
+import {LoginActionsConstants} from '../Login/constants';
+import {RegisterActionsConstants} from '../Register/constants';
 
 const AppReducer = (state = initialState.app, action) => {
     switch (action.type) {

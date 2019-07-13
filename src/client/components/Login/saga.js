@@ -3,7 +3,6 @@ import {call, put, takeEvery} from 'redux-saga/effects'
 import LoginActions from './actions'
 
 function* loginUser(action) {
-    console.log('LoginSaga=', action);
     try {
         const res = yield call(fetch, action.uri,
             {

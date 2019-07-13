@@ -32,10 +32,6 @@ function loginFailure(callback, msg) {
 }
 
 function changeField(field, value) {
-    console.log(field);
-    console.log(value);
-
-
     return {
         type: LoginActionsConstants.CHANGE_FIELD,
         field,
