@@ -107,6 +107,10 @@ export class RestaurantsPage extends Component {
                     <h3>Food Quality {this.props.foodQuality}</h3>
                     <Rating value={this.props.foodQuality} cancel={false}
                             onChange={(e) => {console.log('NEED TO CHANGE')}} />
+                    <Button icon="pi pi-plus-circle" onClick={() =>
+                        this.props.addReview(this.props.bathroomQuality, this.props.staffKindness,
+                            this.props.cleanliness, this.props.driveThruQuality, this.props.deliverySpeed,
+                            this.props.foodQuality, this.props.pictures)}/>
 
                 </div>
             </div>
@@ -181,6 +185,7 @@ const mapStateToProps = (state) => ({
     visibleReview: state.restaurantsPage.get('visibleReview'),
     sortKey: state.restaurantsPage.get('sortKey'),
     sortOrder: state.restaurantsPage.get('sortOrder')
+    review: state.restaurantsPage.get('review'),
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -208,8 +213,24 @@ const mapDispatchToProps = (dispatch) => {
         selectRestaurant: (restaurant, visible) => {
             dispatch(RestaurantsPageActions.selectRestaurant(restaurant, visible));
         },
-        selectReview: (restaurant, visible) => {
-            dispatch(RestaurantsPageActions.selectReview(restaurant, visible));
+        selectReview: (review, visible) => {
+            dispatch(RestaurantsPageActions.selectReview(review, visible));
+        },
+        rateReview: (rate, category) => {
+            dispatch(RestaurantsPageActions.rateReview(rate, category));
+        },
+        addReview: (bathroomQuality, staffKindness, cleanliness,driveThruQuality,
+                        deliverySpeed, foodQuality, pictures ) => {
+            let review = {
+                bathroomQuality: bathroomQuality,
+                staffKindness: staffKindness,
+                cleanliness: cleanliness,
+                driveThruQuality: driveThruQuality,
+                deliverySpeed: deliverySpeed,
+                foodQuality: foodQuality,
+                pictures: pictures
+            };
+            dispatch(RestaurantsPageActions.addReview(review));
         }
     }
 };

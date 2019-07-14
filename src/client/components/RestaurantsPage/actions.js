@@ -42,9 +42,23 @@ function getRestaurantsSuccess(restaurants) {
     }
 }
 
+function addReviewSuccess(review) {
+    return {
+        type: RestaurantsPageActionsConstants.ADD_REVIEW_SUCCESS,
+        review
+    }
+}
+
 function getRestaurantsFailure(msg) {
     return {
         type: RestaurantsPageActionsConstants.GET_RESTAURANTS_FAILURE,
+        msg
+    }
+}
+
+function addReviewFailure(msg) {
+    return {
+        type: RestaurantsPageActionsConstants.ADD_REVIEW_FAILURE,
         msg
     }
 }
@@ -63,6 +77,21 @@ function selectReview(review, visible) {
     }
 }
 
+function rateReview(rate, category) {
+    return {
+        type: RestaurantsPageActionsConstants.SELECT_RATE,
+        rate, category
+    }
+}
+
+function addReview(review) {
+    return {
+        type: RestaurantsPageActionsConstants.ADD_RATE,
+        uri: '/api/reviews',
+        payload: {review}
+    }
+}
+
 let RestaurantsPageActions = {
     changeVisibilityRestaurant,
     changeVisibilityReview,
@@ -72,7 +101,11 @@ let RestaurantsPageActions = {
     getRestaurantsSuccess,
     getRestaurantsFailure,
     selectRestaurant,
-    selectReview
+    selectReview,
+    addReview,
+    addReviewSuccess,
+    addReviewFailure,
+    rateReview
 };
 
 export default RestaurantsPageActions
