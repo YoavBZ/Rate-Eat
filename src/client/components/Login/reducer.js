@@ -3,7 +3,7 @@ import {LoginActionsConstants} from './constants.js';
 
 const LoginReducer = (state = initialState.login, action) => {
     switch (action.type) {
-        case LoginActionsConstants.CHANGE_FIELD:
+        case LoginActionsConstants.CHANGE_LOGIN_FIELD:
             return state.set(action.field, action.value);
         case LoginActionsConstants.LOGIN_FAILURE:
             action.callback(action.msg);

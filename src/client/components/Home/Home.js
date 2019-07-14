@@ -25,11 +25,10 @@ export class Home extends Component {
             {
                 label: 'Profile',
                 items: [{
-                    label: 'Edit User', icon: 'pi pi-fw pi-cog', command: () => {
+                    label: 'Edit Profile', icon: 'pi pi-fw pi-cog', command: () => {
                         this.props.changePageHandler(HomePages.PROFILE);
                     }
-                },
-                    {label: 'Reviews', icon: 'pi pi-fw pi-copy'}]
+                }]
             }
         ];
         return (

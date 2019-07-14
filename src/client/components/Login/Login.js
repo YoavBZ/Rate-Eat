@@ -12,9 +12,9 @@ export class Login extends Component {
             <div style={this.props.style}>
                 <Growl ref={(el) => this.growl = el}/>
                 <InputText placeholder="Username"
-                           onChange={(e) => this.props.changeFieldHandler("username", e.target.value)} type="text"/>
+                           onChange={(e) => this.props.changeLoginFieldHandler("username", e.target.value)} type="text"/>
                 <InputText placeholder="Password"
-                           onChange={(e) => this.props.changeFieldHandler("password", e.target.value)}
+                           onChange={(e) => this.props.changeLoginFieldHandler("password", e.target.value)}
                            type="password"/>
                 <Button variant="primary" type="submit" label="Submit" onClick={
                     () => this.props.loginHandler(this.props.username, this.props.password,
@@ -34,8 +34,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeFieldHandler: (field, value) => {
-            dispatch(LoginActions.changeField(field, value))
+        changeLoginFieldHandler: (field, value) => {
+            dispatch(LoginActions.changeLoginField(field, value))
         },
         loginHandler: (username, password, callback) => {
             let user = {

@@ -23,9 +23,31 @@ function* updateUserProfile(action) {
     }
 }
 
+function* getUserReviews(action) {
+    try {
+        const res = yield call(fetch, action.uri,
+            {
+                method: 'Post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(action.payload)
+            });
+
+        const json = yield call([res, 'json']); //retrieve body of response
+        if (res.status >= 400) {
+            throw json;
+        }
+        yield put(ProfileActions.getUserReviewsSuccess(json));
+    } catch (e) {
+        yield put(ProfileActions.getUserReviewsFailure(e));
+    }
+}
+
 function* ProfileSaga() {
     //using takeEvery, you take the action away from reducer to saga
     yield takeEvery(ProfileActionsConstants.UPDATE_USER, updateUserProfile);
+    yield takeEvery(ProfileActionsConstants.GET_USER_REVIEWS, getUserReviews);
 }
 
 export default ProfileSaga;

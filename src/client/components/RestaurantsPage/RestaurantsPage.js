@@ -185,7 +185,7 @@ class RestaurantsPage extends Component {
     }
 }
 
-mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
     user: state.home.get('user'),
     restaurants: state.restaurantsPage.get('restaurants'),
     layout: state.restaurantsPage.get('layout'),
@@ -211,7 +211,7 @@ mapStateToProps = (state) => ({
 
 });
 
-mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
         changeLayout: (event) => {
             dispatch(RestaurantsPageActions.changeLayout(event.value));

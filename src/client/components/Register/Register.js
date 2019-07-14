@@ -9,13 +9,13 @@ class Register extends React.Component {
         return (
             <div style={this.props.style}>
                 <InputText placeholder="Username"
-                           onChange={(e) => this.props.changeFieldHandler("username", e.target.value)} type="text"/>
+                           onChange={(e) => this.props.changeRegisterFieldHandler("username", e.target.value)} type="text"/>
                 <InputText placeholder="Password"
-                           onChange={(e) => this.props.changeFieldHandler("password", e.target.value)} type="password"/>
+                           onChange={(e) => this.props.changeRegisterFieldHandler("password", e.target.value)} type="password"/>
                 <InputText placeholder="Location"
-                           onChange={(e) => this.props.changeFieldHandler("locatoin", e.target.value)} type="text"/>
+                           onChange={(e) => this.props.changeRegisterFieldHandler("locatoin", e.target.value)} type="text"/>
                 <InputText placeholder="Picture"
-                           onChange={(e) => this.props.changeFieldHandler("picture", e.target.value)} type="text"/>
+                           onChange={(e) => this.props.changeRegisterFieldHandler("picture", e.target.value)} type="text"/>
                 {/* <FileUpload /> */}
                 <Button variant="primary"
                         onClick={() => this.props.registerHandler(this.props.username, this.props.password, this.props.location, this.props.picture)}
@@ -36,8 +36,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeFieldHandler: (field, value) => {
-            dispatch(RegisterActions.changeField(field, value))
+        changeRegisterFieldHandler: (field, value) => {
+            dispatch(RegisterActions.changeRegisterField(field, value))
         },
         registerHandler: (username, password, location, picture) => {
             let user = {

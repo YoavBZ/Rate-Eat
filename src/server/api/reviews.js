@@ -52,4 +52,14 @@ router.delete('/', (req, res) => {
     // TODO: remove review pictures!!
 });
 
+
+router.post('/', (req, res) => {
+    userID = req.body._id
+    Review.find(
+        {"userID": userID})
+        .then(reviews => res.json(reviews))
+        .catch(err => res.status(400).json({message: "Failed to retrive reviews"}));
+    // TODO: remove review pictures!!
+});
+
 module.exports = router;

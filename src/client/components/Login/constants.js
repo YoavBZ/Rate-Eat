@@ -3,7 +3,7 @@ const LoginActionsConstants = {
     LOGIN: 'LOGIN',
     LOGIN_SUCCESS: 'LOGIN_SUCCESS',
     LOGIN_FAILURE: 'LOGIN_FAILURE',
-    CHANGE_FIELD: 'CHANGE_FIELD'
+    CHANGE_LOGIN_FIELD: 'CHANGE_LOGIN_FIELD'
 };
 
 export {LoginActionsConstants}

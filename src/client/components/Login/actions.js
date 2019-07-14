@@ -30,9 +30,9 @@ function loginFailure(callback, msg) {
     }
 }
 
-function changeField(field, value) {
+function changeLoginField(field, value) {
     return {
-        type: LoginActionsConstants.CHANGE_FIELD,
+        type: LoginActionsConstants.CHANGE_LOGIN_FIELD,
         field,
         value
     }
@@ -43,7 +43,7 @@ let LoginActions = {
     login,
     loginSuccess,
     loginFailure,
-    changeField
+    changeLoginField
 };
 
 export default LoginActions
