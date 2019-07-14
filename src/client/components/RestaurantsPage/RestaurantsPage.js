@@ -6,7 +6,7 @@ import RestaurantsPageActions from "./actions";
 import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
 import {Panel} from "primereact/panel";
-import {Rating} from 'primereact/rating';
+import RatingPage from "./RatingPage";
 
 class RestaurantsPage extends Component {
 
@@ -26,17 +26,16 @@ class RestaurantsPage extends Component {
                 <h1 style={{fontFamily: 'sans-serif'}}>Restaurants</h1>
                 <DataView value={this.props.restaurants} layout={this.props.layout} header={header}
                           itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
-                          rows={5}
-                          sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
+                          rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
 
-                <Dialog header="Restaurant Details" visible={this.props.visible} width="225px" modal={true}
-                        onHide={() => this.props.changeVisibility(false)}>
+                <Dialog header="Restaurant Details" visible={this.props.visibleRestaurant} width="225px" modal={true}
+                        onHide={() => this.props.changeVisibilityRestaurant(false)}>
                     {this.renderRestaurantDialogContent()}
                 </Dialog>
 
                 <Dialog header="Restaurant Review" visible={this.props.visibleReview} width="225px" modal={true}
                         onHide={() => this.props.changeVisibilityReview(false)}>
-                    {this.renderRestaurantReviewContent()}
+                    <RatingPage/>
                 </Dialog>
             </div>
         );
@@ -45,21 +44,15 @@ class RestaurantsPage extends Component {
     renderListItem(restaurant) {
         console.log('renderListItem');
         return (
-            <div className="p-col-12" style={{ padding: '2em', borderBottom: '1px solid #d9d9d9' }}>
-                <div className="p-col-12 p-md-3">
-                    <img placeholder={'Image'} src={restaurant.image} alt={restaurant.name} />
+            <div className="p-col-12" style={{padding: '2em', borderBottom: '1px solid #d9d9d9', display: 'flex'}}>
+                <div className="p-col-12 p-md-3" style={{width: '25%'}}>
+                    <img placeholder={'Image'} src={restaurant.image} alt={restaurant.name} style={{width: '100%'}}/>
                 </div>
-                <div className="p-col-12 p-md-8 restaurant-details">
-                    <div className="p-grid">
-                        <div className="p-col-2 p-sm-6">Name:</div>
-                        <div className="p-col-10 p-sm-6">{restaurant.name}</div>
-
-                        <div className="p-col-2 p-sm-6">Location:</div>
-                        <div className="p-col-10 p-sm-6">{restaurant.location}</div>
-
-                        {/* <div className="p-col-2 p-sm-6">Rating:</div>
-                        <div className="p-col-10 p-sm-6">{restaurant.score}</div> */}
-
+                <div className="p-col-12 p-md-8 restaurant-details" style={{textAlign: 'left', margin: 'auto'}}>
+                    <div className="p-grid" style={{position: 'relative', left: '-100%'}}>
+                        <div className="p-col-2 p-sm-6">Name: <b>{restaurant.name}</b></div>
+                        <div className="p-col-2 p-sm-6">Location: <b>{restaurant.location}</b></div>
+                        <div className="p-col-2 p-sm-6">Rating: <b>{restaurant.score || 'N/A'}</b></div>
                     </div>
                 </div>
 
@@ -68,7 +61,7 @@ class RestaurantsPage extends Component {
                 </div>
                 {/*//here we send restaurant to give new review*/}
                 <div className="p-col-12 p-md-1 plus-icon" style={{marginTop: '40px'}}>
-                    <Button icon='pi pi-plus' onClick={() => this.props.selectReview(restaurant, true)}/>
+                    <Button icon='pi pi-plus' onClick={() => this.props.selectReview(true)}/>
                 </div>
             </div>);
     }
@@ -76,57 +69,15 @@ class RestaurantsPage extends Component {
     renderGridItem(restaurant) {
         console.log('renderGridItem');
         return (
-            <div style={{ padding: '.5em' }} className="p-col-12 p-md-3">
-                <Panel header={restaurant.name} style={{ textAlign: 'center' }}>
-                    <img placeholder={'Image'} src={restaurant.image} alt={restaurant.name} />
+            <div style={{padding: '.5em'}} className="p-col-12 p-md-3">
+                <Panel header={restaurant.name} style={{textAlign: 'center', width: '25%'}}>
+                    <img placeholder={'Image'} src={restaurant.image} alt={restaurant.name} style={{width: '100%'}}/>
                     <div className="restaurant-detail">{restaurant.location}</div>
                     <hr className="ui-widget-content" style={{borderTop: 0}}/>
                     <Button icon="pi pi-search" onClick={() => this.props.selectRestaurant(restaurant, true)}/>
-                    <Button icon="pi pi-plus" onClick={() => this.props.selectReview(restaurant, true)}/>
+                    <Button icon="pi pi-plus" onClick={() => this.props.selectReview(true)}/>
                 </Panel>
             </div>);
-    }
-
-    renderRestaurantReviewContent() {
-        if (this.props.selectedReview) {
-            return (
-            <div>
-                <div className="content-section introduction">
-                    <div className="feature-intro">
-                        <h1>Rating</h1>
-                        <p>Be nice with new rating ;) .</p>
-                    </div>
-                </div>
-
-                <div className="content-section implementation">
-                    <h3 className="first">Bathroom Quality {this.props.bathroomQuality}</h3>
-                    <Rating value={this.props.bathroomQuality} cancel={false} onChange={(e) => this.props.rateReview(e, 'bathroomQuality') } />
-
-                    <h3>Staff Kindness {this.props.staffKindness}</h3>
-                    <Rating value={this.props.staffKindness} cancel={false} onChange={(e) => this.props.rateReview(e, 'staffKindness')} />
-
-                    <h3>Cleanliness {this.props.cleanliness}</h3>
-                    <Rating value={this.props.cleanliness} cancel={false} onChange={(e) => this.props.rateReview(e, 'cleanliness')} />
-
-                    <h3>Drive thru {this.props.driveThruQuality}</h3>
-                    <Rating value={this.props.driveThruQuality} onChange={(e) => this.props.rateReview(e, 'driveThruQuality')} />
-
-                    <h3>Delivery Speed {this.props.deliverySpeed}</h3>
-                    <Rating value={this.props.deliverySpeed} onChange={(e) => this.props.rateReview(e, 'deliverySpeed')} />
-
-                    <h3>Food Quality {this.props.foodQuality}</h3>
-                    <Rating value={this.props.foodQuality} cancel={false} onChange={(e) => this.props.rateReview(e, 'foodQuality')} />
-
-                    <Button icon="pi pi-plus-circle" onClick={() =>
-                        this.props.addReview(this.props.bathroomQuality, this.props.staffKindness,
-                            this.props.cleanliness, this.props.driveThruQuality, this.props.deliverySpeed,
-                            this.props.foodQuality, this.props.pictures)}/>
-                </div>
-            </div>
-        );
-        } else {
-            return null;
-        }
     }
 
     renderRestaurantDialogContent() {
@@ -135,7 +86,7 @@ class RestaurantsPage extends Component {
                 <div className="p-grid" style={{ fontSize: '16px', textAlign: 'center', padding: '20px' }}>
                     <div className="p-col-12" style={{ textAlign: 'center' }}>
                         <img placeholder={'Image'} src={this.props.selectedRestaurant.image}
-                            alt={this.props.selectedRestaurant.name} />
+                             alt={this.props.selectedRestaurant.name} style={{width: '75%'}}/>
                     </div>
 
                     <div className="p-col-4">Name:</div>
@@ -185,42 +136,28 @@ class RestaurantsPage extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
-    user: state.home.get('user'),
-    restaurants: state.restaurantsPage.get('restaurants'),
-    layout: state.restaurantsPage.get('layout'),
-    selectedRestaurant: state.restaurantsPage.get('selectedRestaurant'),
-    selectedReview: state.restaurantsPage.get('selectedReview'),
-    visible: state.restaurantsPage.get('visible'),
-    visibleReview: state.restaurantsPage.get('visibleReview'),
-    sortKey: state.restaurantsPage.get('sortKey'),
-    sortOrder: state.restaurantsPage.get('sortOrder'),
-
-    review: state.restaurantsPage.get('review'),
-
-    userID: state.restaurantsPage.get('review').get('userID'),
-    restaurantID: state.restaurantsPage.get('review').get('restaurantID'),
-    bathroomQuality: state.restaurantsPage.get('review').get('bathroomQuality'),
-    staffKindness: state.restaurantsPage.get('review').get('staffKindness'),
-    cleanliness: state.restaurantsPage.get('review').get('cleanliness'),
-    driveThruQuality: state.restaurantsPage.get('review').get('driveThruQuality'),
-    deliverySpeed: state.restaurantsPage.get('review').get('deliverySpeed'),
-    foodQuality: state.restaurantsPage.get('review').get('foodQuality'),
-    pictures: state.restaurantsPage.get('review').get('foodQuality')
-
-
-});
+const mapStateToProps = (state) => {
+    return ({
+        restaurants: state.restaurantsPage.get('restaurants'),
+        layout: state.restaurantsPage.get('layout'),
+        selectedRestaurant: state.restaurantsPage.get('selectedRestaurant'),
+        visibleRestaurant: state.restaurantsPage.get('visibleRestaurant'),
+        visibleReview: state.restaurantsPage.get('visibleReview'),
+        sortKey: state.restaurantsPage.get('sortKey'),
+        sortOrder: state.restaurantsPage.get('sortOrder')
+    });
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
         changeLayout: (event) => {
             dispatch(RestaurantsPageActions.changeLayout(event.value));
         },
-        changeVisibility: (visibility) => {
-            dispatch(RestaurantsPageActions.changeVisibility(visibility));
+        changeVisibilityRestaurant: (visible) => {
+            dispatch(RestaurantsPageActions.changeVisibilityRestaurant(visible));
         },
-        changeVisibilityReview: (visibility) => {
-            dispatch(RestaurantsPageActions.changeVisibilityReview(visibility));
+        changeVisibilityReview: (visible) => {
+            dispatch(RestaurantsPageActions.changeVisibilityReview(visible));
         },
         onSortChange: (event) => {
             const value = event.value;
@@ -236,26 +173,9 @@ const mapDispatchToProps = (dispatch) => {
         selectRestaurant: (restaurant, visible) => {
             dispatch(RestaurantsPageActions.selectRestaurant(restaurant, visible));
         },
-        selectReview: (restaurant, visible) => {
-            dispatch(RestaurantsPageActions.selectReview(restaurant, visible));
-        },
-        rateReview: (rate, category) => {
-            dispatch(RestaurantsPageActions.rateReview(rate, category));
-        },
-        addReview: (bathroomQuality, staffKindness, cleanliness,driveThruQuality,
-                        deliverySpeed, foodQuality, pictures ) => {
-            let review = {
-                bathroomQuality: bathroomQuality,
-                staffKindness: staffKindness,
-                cleanliness: cleanliness,
-                driveThruQuality: driveThruQuality,
-                deliverySpeed: deliverySpeed,
-                foodQuality: foodQuality,
-                pictures: pictures
-            }
-            dispatch(RestaurantsPageActions.addReview(review));
+        selectReview: (visible) => {
+            dispatch(RestaurantsPageActions.selectReview(visible));
         }
-
     }
 };
 

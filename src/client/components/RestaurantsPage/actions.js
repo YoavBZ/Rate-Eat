@@ -1,5 +1,4 @@
 import {RestaurantsPageActionsConstants} from "./constants";
-import {RegisterActionsConstants} from "../Register/constants";
 
 function changeLayout(layout) {
     return {
@@ -8,17 +7,17 @@ function changeLayout(layout) {
     }
 }
 
-function changeVisibility(visibility) {
+function changeVisibilityRestaurant(visible) {
     return {
-        type: RestaurantsPageActionsConstants.CHANGE_VISIBILITY,
-        visibility
+        type: RestaurantsPageActionsConstants.CHANGE_VISIBILITY_RESTAURANT,
+        visible
     }
 }
 
-function changeVisibilityReview(visibility) {
+function changeVisibilityReview(visible) {
     return {
-        type: RestaurantsPageActionsConstants.CHANGE_VISIBILITY,
-        visibility
+        type: RestaurantsPageActionsConstants.CHANGE_VISIBILITY_REVIEW,
+        visible
     }
 }
 
@@ -71,16 +70,16 @@ function selectRestaurant(restaurant, visible) {
     }
 }
 
-function selectReview(restaurant, visible) {
+function selectReview(visible) {
     return {
         type: RestaurantsPageActionsConstants.SELECT_REVIEW,
-        restaurant, visible
+        visible
     }
 }
 
-function rateReview(rate, category) {
+function changeRate(rate, category) {
     return {
-        type: RestaurantsPageActionsConstants.SELECT_RATE,
+        type: RestaurantsPageActionsConstants.CHANGE_RATE,
         rate, category
     }
 }
@@ -89,24 +88,24 @@ function addReview(review) {
     return {
         type: RestaurantsPageActionsConstants.ADD_RATE,
         uri: '/api/reviews',
-        payload: {review}
+        payload: review
     }
 }
 
 let RestaurantsPageActions = {
-    changeVisibility,
+    changeVisibilityRestaurant,
     changeVisibilityReview,
     changeLayout,
     onSortChange,
     getRestaurants,
     getRestaurantsSuccess,
-    addReviewSuccess,
     getRestaurantsFailure,
-    addReviewFailure,
     selectRestaurant,
     selectReview,
-    rateReview,
-    addReview
+    addReview,
+    addReviewSuccess,
+    addReviewFailure,
+    changeRate
 };
 
 export default RestaurantsPageActions
