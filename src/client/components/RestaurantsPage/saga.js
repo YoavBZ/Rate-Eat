@@ -22,15 +22,15 @@ function* getRestaurants(action) {
     }
 }
 
-function* addReview(review) {
-    console.log('addReviewSaga=', review);
+function* addReview(action) {
     try {
-        const res = yield call(fetch, review.uri,
+        const res = yield call(fetch, action.uri,
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
+                body: JSON.stringify(action.payload)
             });
         const json = yield call([res, 'json']); //retrieve body of response
         if (res.status >= 400) {

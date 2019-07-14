@@ -6,7 +6,7 @@ import RestaurantsPageActions from "./actions";
 import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
 import {Panel} from "primereact/panel";
-import {Rating} from 'primereact/rating';
+import RatingPage from "./RatingPage";
 
 export class RestaurantsPage extends Component {
 
@@ -30,7 +30,7 @@ export class RestaurantsPage extends Component {
 
                 <Dialog header="Restaurant Review" visible={this.props.visibleReview} width="225px" modal={true}
                         onHide={() => this.props.changeVisibilityReview(false)}>
-                    {this.renderRestaurantReviewContent()}
+                    <RatingPage/>
                 </Dialog>
             </div>
         );
@@ -55,7 +55,7 @@ export class RestaurantsPage extends Component {
                 </div>
                 {/*//here we send restaurant to give new review*/}
                 <div className="p-col-12 p-md-1 plus-icon" style={{marginTop: '40px'}}>
-                    <Button icon='pi pi-plus' onClick={() => this.props.selectReview(restaurant, true)}/>
+                    <Button icon='pi pi-plus' onClick={() => this.props.selectReview(true)}/>
                 </div>
             </div>);
     }
@@ -68,56 +68,9 @@ export class RestaurantsPage extends Component {
                     <div className="restaurant-detail">{restaurant.location}</div>
                     <hr className="ui-widget-content" style={{borderTop: 0}}/>
                     <Button icon="pi pi-search" onClick={() => this.props.selectRestaurant(restaurant, true)}/>
-                    <Button icon="pi pi-plus" onClick={() => this.props.selectReview(restaurant, true)}/>
+                    <Button icon="pi pi-plus" onClick={() => this.props.selectReview(true)}/>
                 </Panel>
             </div>);
-    }
-
-    renderRestaurantReviewContent() {
-        if (this.props.selectedReview) {
-            return (
-            <div>
-                <div className="content-section introduction">
-                    <div className="feature-intro">
-                        <h1>Rating</h1>
-                        <p>Be nice with new rating ;) .</p>
-                    </div>
-                </div>
-
-                <div className="content-section implementation">
-                    <h3 className="first">Bathroom Quality {this.props.selectedReview.bathroomQuality}</h3>
-                    <Rating value={this.props.selectedReview.bathroomQuality} cancel={false}
-                            onChange={(e) => {console.log('NEED TO CHANGE')}} />
-
-                    <h3>Staff Kindness {this.props.staffKindness}</h3>
-                    <Rating value={this.props.staffKindness} cancel={false}
-                            onChange={(e) => {console.log('NEED TO CHANGE')}} />
-
-                    <h3>Cleanliness {this.props.cleanliness}</h3>
-                    <Rating value={this.props.cleanliness} cancel={false}
-                            onChange={(e) => {console.log('NEED TO CHANGE')}} />
-
-                    <h3>Drive thru {this.props.driveThruQuality}</h3>
-                    <Rating value={this.props.driveThruQuality}
-                            onChange={(e) => {console.log('NEED TO CHANGE')}} />
-
-                    <h3>Delivery Speed {this.props.deliverySpeed}</h3>
-                    <Rating value={this.props.deliverySpeed}
-                            onChange={(e) => {console.log('NEED TO CHANGE')}} />
-                    <h3>Food Quality {this.props.foodQuality}</h3>
-                    <Rating value={this.props.foodQuality} cancel={false}
-                            onChange={(e) => {console.log('NEED TO CHANGE')}} />
-                    <Button icon="pi pi-plus-circle" onClick={() =>
-                        this.props.addReview(this.props.bathroomQuality, this.props.staffKindness,
-                            this.props.cleanliness, this.props.driveThruQuality, this.props.deliverySpeed,
-                            this.props.foodQuality, this.props.pictures)}/>
-
-                </div>
-            </div>
-        );
-        } else {
-            return null;
-        }
     }
 
     renderRestaurantDialogContent() {
@@ -175,18 +128,17 @@ export class RestaurantsPage extends Component {
     };
 }
 
-const mapStateToProps = (state) => ({
-    user: state.home.get('user'),
-    restaurants: state.restaurantsPage.get('restaurants'),
-    layout: state.restaurantsPage.get('layout'),
-    selectedRestaurant: state.restaurantsPage.get('selectedRestaurant'),
-    visibleRestaurant: state.restaurantsPage.get('visibleRestaurant'),
-    selectedReview: state.restaurantsPage.get('selectedReview'),
-    visibleReview: state.restaurantsPage.get('visibleReview'),
-    sortKey: state.restaurantsPage.get('sortKey'),
-    sortOrder: state.restaurantsPage.get('sortOrder')
-    review: state.restaurantsPage.get('review'),
-});
+const mapStateToProps = (state) => {
+    return ({
+        restaurants: state.restaurantsPage.get('restaurants'),
+        layout: state.restaurantsPage.get('layout'),
+        selectedRestaurant: state.restaurantsPage.get('selectedRestaurant'),
+        visibleRestaurant: state.restaurantsPage.get('visibleRestaurant'),
+        visibleReview: state.restaurantsPage.get('visibleReview'),
+        sortKey: state.restaurantsPage.get('sortKey'),
+        sortOrder: state.restaurantsPage.get('sortOrder')
+    });
+};
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -213,24 +165,8 @@ const mapDispatchToProps = (dispatch) => {
         selectRestaurant: (restaurant, visible) => {
             dispatch(RestaurantsPageActions.selectRestaurant(restaurant, visible));
         },
-        selectReview: (review, visible) => {
-            dispatch(RestaurantsPageActions.selectReview(review, visible));
-        },
-        rateReview: (rate, category) => {
-            dispatch(RestaurantsPageActions.rateReview(rate, category));
-        },
-        addReview: (bathroomQuality, staffKindness, cleanliness,driveThruQuality,
-                        deliverySpeed, foodQuality, pictures ) => {
-            let review = {
-                bathroomQuality: bathroomQuality,
-                staffKindness: staffKindness,
-                cleanliness: cleanliness,
-                driveThruQuality: driveThruQuality,
-                deliverySpeed: deliverySpeed,
-                foodQuality: foodQuality,
-                pictures: pictures
-            };
-            dispatch(RestaurantsPageActions.addReview(review));
+        selectReview: (visible) => {
+            dispatch(RestaurantsPageActions.selectReview(visible));
         }
     }
 };

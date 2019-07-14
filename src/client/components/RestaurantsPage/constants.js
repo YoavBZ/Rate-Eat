@@ -12,7 +12,16 @@ const RestaurantsPageActionsConstants = {
     ADD_RATE: 'ADD_RATE',
     ADD_REVIEW_SUCCESS: 'ADD_REVIEW_SUCCESS',
     ADD_REVIEW_FAILURE: 'ADD_REVIEW_FAILURE',
-    SELECT_RATE: 'SELECT_RATE'
+    CHANGE_RATE: 'CHANGE_RATE'
 };
 
-export {RestaurantsPageActionsConstants}
+const RatesConstants = {
+    BATHROOM_QUALITY: 'bathroomQuality',
+    STAFF_KINDNESS: 'staffKindness',
+    CLEANLINESS: 'cleanliness',
+    DRIVE_THRU_QUALITY: 'driveThruQuality',
+    DELIVERY_SPEED: 'deliverySpeed',
+    FOOD_QUALITY: 'foodQuality',
+};
+
+export {RestaurantsPageActionsConstants, RatesConstants}

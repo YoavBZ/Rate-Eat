@@ -17,10 +17,7 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
             state = state.set('selectedRestaurant', action.restaurant);
             return state.set('visibleRestaurant', action.visible);
         case RestaurantsPageActionsConstants.SELECT_REVIEW:
-            state = state.set('selectedReview', action.review);
             return state.set('visibleReview', action.visible);
-        case RestaurantsPageActionsConstants.SELECT_RATE:
-            return state.set(action.category, action.rate);
         case RestaurantsPageActionsConstants.GET_RESTAURANTS_SUCCESS:
             return state.set('restaurants', action.restaurants);
         case RestaurantsPageActionsConstants.GET_RESTAURANTS_FAILURE:
@@ -32,9 +29,18 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
         case RestaurantsPageActionsConstants.ADD_REVIEW_FAILURE:
             // !!!!!!!!!!!!!! TODO WE NEED TO NOTIFY  AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
             return state;
-        default: //otherwise state is lost!
+        default:
             return state;
     }
 };
 
-export default RestaurantsPageReducer
+const RatesReducer = (state = initialState.rates, action) => {
+    switch (action.type) {
+        case RestaurantsPageActionsConstants.CHANGE_RATE:
+            return state.set(action.category, action.rate);
+        default:
+            return state;
+    }
+};
+
+export {RestaurantsPageReducer, RatesReducer}

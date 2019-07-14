@@ -70,16 +70,16 @@ function selectRestaurant(restaurant, visible) {
     }
 }
 
-function selectReview(review, visible) {
+function selectReview(visible) {
     return {
         type: RestaurantsPageActionsConstants.SELECT_REVIEW,
-        review, visible
+        visible
     }
 }
 
-function rateReview(rate, category) {
+function changeRate(rate, category) {
     return {
-        type: RestaurantsPageActionsConstants.SELECT_RATE,
+        type: RestaurantsPageActionsConstants.CHANGE_RATE,
         rate, category
     }
 }
@@ -88,7 +88,7 @@ function addReview(review) {
     return {
         type: RestaurantsPageActionsConstants.ADD_RATE,
         uri: '/api/reviews',
-        payload: {review}
+        payload: review
     }
 }
 
@@ -105,7 +105,7 @@ let RestaurantsPageActions = {
     addReview,
     addReviewSuccess,
     addReviewFailure,
-    rateReview
+    changeRate
 };
 
 export default RestaurantsPageActions
