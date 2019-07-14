@@ -14,6 +14,13 @@ function changeVisibility(visibility) {
     }
 }
 
+function changeVisibilityReview(visibility) {
+    return {
+        type: RestaurantsPageActionsConstants.CHANGE_VISIBILITY,
+        visibility
+    }
+}
+
 function onSortChange(sortOrder, sortField, sortKey) {
     return {
         type: RestaurantsPageActionsConstants.ON_SORT_CHANGE,
@@ -49,14 +56,23 @@ function selectRestaurant(restaurant, visible) {
     }
 }
 
+function selectReview(restaurant, visible) {
+    return {
+        type: RestaurantsPageActionsConstants.SELECT_REVIEW,
+        restaurant, visible
+    }
+}
+
 let RestaurantsPageActions = {
     changeVisibility,
+    changeVisibilityReview,
     changeLayout,
     onSortChange,
     getRestaurants,
     getRestaurantsSuccess,
     getRestaurantsFailure,
-    selectRestaurant
+    selectRestaurant,
+    selectReview
 };
 
 export default RestaurantsPageActions

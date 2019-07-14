@@ -6,6 +6,7 @@ import RestaurantsPageActions from "./actions";
 import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
 import {Panel} from "primereact/panel";
+import {Rating} from 'primereact/rating';
 
 export class RestaurantsPage extends Component {
 
@@ -26,6 +27,11 @@ export class RestaurantsPage extends Component {
                 <Dialog header="Restaurant Details" visible={this.props.visible} width="225px" modal={true}
                         onHide={() => this.props.changeVisibility(false)}>
                     {this.renderRestaurantDialogContent()}
+                </Dialog>
+
+                <Dialog header="Restaurant Review" visible={this.props.visibleReview} width="225px" modal={true}
+                        onHide={() => this.props.changeVisibilityReview(false)}>
+                    {this.renderRestaurantReviewContent()}
                 </Dialog>
             </div>
         );
@@ -54,6 +60,10 @@ export class RestaurantsPage extends Component {
                 <div className="p-col-12 p-md-1 search-icon" style={{marginTop: '40px'}}>
                     <Button icon='pi pi-search' onClick={() => this.props.selectRestaurant(restaurant, true)}/>
                 </div>
+                {/*//here we send restaurant to give new review*/}
+                <div className="p-col-12 p-md-1 plus-icon" style={{marginTop: '40px'}}>
+                    <Button icon='pi pi-plus' onClick={() => this.props.selectReview(restaurant, true)}/>
+                </div>
             </div>);
     }
 
@@ -65,8 +75,48 @@ export class RestaurantsPage extends Component {
                     <div className="restaurant-detail">{restaurant.location}</div>
                     <hr className="ui-widget-content" style={{borderTop: 0}}/>
                     <Button icon="pi pi-search" onClick={() => this.props.selectRestaurant(restaurant, true)}/>
+                    <Button icon="pi pi-plus" onClick={() => this.props.selectReview(restaurant, true)}/>
                 </Panel>
             </div>);
+    }
+
+    renderRestaurantReviewContent() {
+        if (this.props.selectedReview) {
+            return (
+            <div>
+                <div className="content-section introduction">
+                    <div className="feature-intro">
+                        <h1>Rating</h1>
+                        <p>Be nice with new rating ;) .</p>
+                    </div>
+                </div>
+
+                <div className="content-section implementation">
+                    <h3 className="first">Bathroom Quality {this.props.Bathroom_Quality}</h3>
+                    <Rating value={this.props.Bathroom_Quality} cancel={false} onChange={(e) => {console.log('NEED TO CHANGE')}} />
+
+                    {/*<h3>Staff Kindness {this.props.Staff_Kindness}</h3>*/}
+                    {/*<Rating value={this.props.Staff_Kindness} cancel={false} onChange={(e) => {console.log('NEED TO CHANGE')}} />*/}
+
+                    {/*<h3>Cleanliness {this.props.Cleanliness}</h3>*/}
+                    {/*<Rating value={this.props.Cleanliness} cancel={false} onChange={(e) => {console.log('NEED TO CHANGE')}} />*/}
+
+                    {/*<h3>Drive thru {this.props.Drive_thru}</h3>*/}
+                    {/*<Rating value={this.props.Drive_thru} onChange={(e) => {console.log('NEED TO CHANGE')}} />*/}
+
+                    {/*<h3>Delivery Speed {this.props.Delivery_Speed}</h3>*/}
+                    {/*<Rating value={this.props.Delivery_Speed} onChange={(e) => {console.log('NEED TO CHANGE')}} />*/}
+
+                    {/*<h3>Food Quality {this.props.Food_Quality}</h3>*/}
+                    {/*<Rating value={this.props.Food_Quality} cancel={false} onChange={(e) => {console.log('NEED TO CHANGE')}} />*/}
+
+
+                </div>
+            </div>
+        );
+        } else {
+            return null;
+        }
     }
 
     renderRestaurantDialogContent() {
@@ -129,9 +179,21 @@ const mapStateToProps = (state) => ({
     restaurants: state.restaurantsPage.get('restaurants'),
     layout: state.restaurantsPage.get('layout'),
     selectedRestaurant: state.restaurantsPage.get('selectedRestaurant'),
+    selectedReview: state.restaurantsPage.get('selectedReview'),
     visible: state.restaurantsPage.get('visible'),
+    visibleReview: state.restaurantsPage.get('visibleReview'),
     sortKey: state.restaurantsPage.get('sortKey'),
-    sortOrder: state.restaurantsPage.get('sortOrder')
+    sortOrder: state.restaurantsPage.get('sortOrder'),
+
+    review: state.restaurantsPage.get('review'),
+
+    Bathroom_Quality: state.restaurantsPage.get('review').get('Bathroom_Quality'),
+    Staff_Kindness: state.restaurantsPage.get('review').get('Staff_Kindness'),
+    Cleanliness: state.restaurantsPage.get('review').get('Cleanliness'),
+    Drive_thru: state.restaurantsPage.get('review').get('Drive_thru'),
+    Delivery_Speed: state.restaurantsPage.get('review').get('Delivery_Speed'),
+    Food_Quality: state.restaurantsPage.get('review').get('Food_Quality')
+
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -141,6 +203,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         changeVisibility: (visibility) => {
             dispatch(RestaurantsPageActions.changeVisibility(visibility));
+        },
+        changeVisibilityReview: (visibility) => {
+            dispatch(RestaurantsPageActions.changeVisibilityReview(visibility));
         },
         onSortChange: (event) => {
             const value = event.value;
@@ -155,6 +220,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         selectRestaurant: (restaurant, visible) => {
             dispatch(RestaurantsPageActions.selectRestaurant(restaurant, visible));
+        },
+        selectReview: (restaurant, visible) => {
+            dispatch(RestaurantsPageActions.selectReview(restaurant, visible));
         }
     }
 };

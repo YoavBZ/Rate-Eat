@@ -7,6 +7,8 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
             return state.set('layout', action.layout);
         case RestaurantsPageActionsConstants.CHANGE_VISIBILITY:
             return state.set('visibility', action.visibility);
+        case RestaurantsPageActionsConstants.CHANGE_VISIBILITY_REVIEW:
+            return state.set('visibilityReview', action.visibility);
         case RestaurantsPageActionsConstants.ON_SORT_CHANGE:
             state = state.set('sortOrder', action.sortOrder);
             state = state.set('sortField', action.sortField);
@@ -14,6 +16,9 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
         case RestaurantsPageActionsConstants.SELECT_RESTAURANT:
             state = state.set('selectedRestaurant', action.restaurant);
             return state.set('visible', action.visibility);
+        case RestaurantsPageActionsConstants.SELECT_REVIEW:
+            state = state.set('selectedReview', action.restaurant);
+            return state.set('visibleReview', action.visibility);
         case RestaurantsPageActionsConstants.GET_RESTAURANTS_SUCCESS:
             return state.set('restaurants', action.restaurants);
         case RestaurantsPageActionsConstants.GET_RESTAURANTS_FAILURE:
