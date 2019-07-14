@@ -32,7 +32,7 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
         //     // !!!!!!!!!!!!!! TODO WE NEED TO CLOSE WINDOW AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
 
         case RestaurantsPageActionsConstants.ADD_REVIEW_FAILURE:
-        //     // !!!!!!!!!!!!!! TODO WE NEED TO NOTIFY FAILURE AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
+        //     // !!!!!!!!!!!!!! TODO WE NEED TO NOTIFY  AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
 
         default: //otherwise state is lost!
             return state;
