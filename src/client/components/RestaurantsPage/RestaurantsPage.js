@@ -1,38 +1,35 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {DataView, DataViewLayoutOptions} from 'primereact/dataview';
-import {Button} from "primereact/button";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
+import { Button } from "primereact/button";
 import RestaurantsPageActions from "./actions";
-import {Dialog} from "primereact/dialog";
-import {Dropdown} from "primereact/dropdown";
-import {Panel} from "primereact/panel";
+import { Dialog } from "primereact/dialog";
+import { Dropdown } from "primereact/dropdown";
+import { Panel } from "primereact/panel";
 
 export class RestaurantsPage extends Component {
 
+    constructor() {
+        super();
+        this.itemTemplate = this.itemTemplate.bind(this);
+    }
+
     componentDidMount() {
-            this.props.getRestaurants();
+        this.props.getRestaurants();
     }
 
     render() {
         const header = this.renderHeader();
         return (
             <div>
-                <div className="content-section introduction">
-                    <div className="feature-intro">
-                        <h1>DataView</h1>
-                        <p>DataView displays data in grid or list layout with pagination, sorting and filtering
-                            features.</p>
-                    </div>
-                </div>
-
                 <div className="content-section implementation">
                     <DataView value={this.props.restaurants} layout={this.props.layout} header={header}
-                              itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
-                              rows={20}
-                              sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
+                        itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
+                        rows={20}
+                        sortOrder={this.props.sortOrder} sortField={this.props.sortField} />
 
                     <Dialog header="Restaurant Details" visible={this.props.visible} width="225px" modal={true}
-                            onHide={() => this.props.changeVisibility(false)}>
+                        onHide={() => this.props.changeVisibility(false)}>
                         {this.renderRestaurantDialogContent()}
                     </Dialog>
                 </div>
@@ -41,10 +38,11 @@ export class RestaurantsPage extends Component {
     }
 
     renderListItem(restaurant) {
+        console.log('renderListItem');
         return (
-            <div className="p-col-12" style={{padding: '2em', borderBottom: '1px solid #d9d9d9'}}>
+            <div className="p-col-12" style={{ padding: '2em', borderBottom: '1px solid #d9d9d9' }}>
                 <div className="p-col-12 p-md-3">
-                    <img placeholder={'Image'} src={restaurant.image} alt={restaurant.name}/>
+                    <img placeholder={'Image'} src={restaurant.image} alt={restaurant.name} />
                 </div>
                 <div className="p-col-12 p-md-8 restaurant-details">
                     <div className="p-grid">
@@ -52,29 +50,31 @@ export class RestaurantsPage extends Component {
                         <div className="p-col-10 p-sm-6">{restaurant.name}</div>
 
                         <div className="p-col-2 p-sm-6">Location:</div>
-                        <div className="p-col-10 p-sm-6">{restaurant.year}</div>
+                        <div className="p-col-10 p-sm-6">{restaurant.location}</div>
 
-                        <div className="p-col-2 p-sm-6">Rating:</div>
-                        <div className="p-col-10 p-sm-6">{restaurant.score}</div>
+                        {/* <div className="p-col-2 p-sm-6">Rating:</div>
+                        <div className="p-col-10 p-sm-6">{restaurant.score}</div> */}
 
                     </div>
                 </div>
 
-                <div className="p-col-12 p-md-1 search-icon" style={{marginTop: '40px'}}>
-                    <Button icon='pi pi-search' onClick={() => this.props.selectRestaurant(restaurant, true)}/>
+                <div className="p-col-12 p-md-1 search-icon" style={{ marginTop: '40px' }}>
+                    <Button icon='pi pi-search' onClick={() => this.props.selectRestaurant(restaurant, true)} />
                 </div>
             </div>
+
         );
     }
 
     renderGridItem(restaurant) {
+        console.log('renderGridItem');
         return (
-            <div style={{padding: '.5em'}} className="p-col-12 p-md-3">
-                <Panel header={restaurant.name} style={{textAlign: 'center'}}>
-                    <img placeholder={'Image'} src={restaurant.image} alt={restaurant.name}/>
+            <div style={{ padding: '.5em' }} className="p-col-12 p-md-3">
+                <Panel header={restaurant.name} style={{ textAlign: 'center' }}>
+                    <img placeholder={'Image'} src={restaurant.image} alt={restaurant.name} />
                     <div className="restaurant-detail">{restaurant.location}</div>
-                    <hr className="ui-widget-content" style={{borderTop: 0}}/>
-                    <Button icon="pi pi-search" onClick={() => this.props.selectRestaurant(restaurant, true)}/>
+                    <hr className="ui-widget-content" style={{ borderTop: 0 }} />
+                    <Button icon="pi pi-search" onClick={() => this.props.selectRestaurant(restaurant, true)} />
                 </Panel>
             </div>
         );
@@ -83,10 +83,10 @@ export class RestaurantsPage extends Component {
     renderRestaurantDialogContent() {
         if (this.props.selectedRestaurant) {
             return (
-                <div className="p-grid" style={{fontSize: '16px', textAlign: 'center', padding: '20px'}}>
-                    <div className="p-col-12" style={{textAlign: 'center'}}>
+                <div className="p-grid" style={{ fontSize: '16px', textAlign: 'center', padding: '20px' }}>
+                    <div className="p-col-12" style={{ textAlign: 'center' }}>
                         <img placeholder={'Image'} src={this.props.selectedRestaurant.image}
-                             alt={this.props.selectedRestaurant.name}/>
+                            alt={this.props.selectedRestaurant.name} />
                     </div>
 
                     <div className="p-col-4">Name:</div>
@@ -106,20 +106,19 @@ export class RestaurantsPage extends Component {
 
     renderHeader() {
         const sortOptions = [
-            {label: 'Newest First', value: '!year'},
-            {label: 'Oldest First', value: 'year'},
-            {label: 'Brand', value: 'brand'}
+            { label: 'Newest First', value: '!year' },
+            { label: 'Oldest First', value: 'year' },
+            { label: 'Brand', value: 'brand' }
         ];
-
         return (
             <div className="p-grid">
-                <div className="p-col-6" style={{textAlign: 'left'}}>
+                <div className="p-col-6" style={{ textAlign: 'left' }}>
                     <Dropdown options={sortOptions} value={this.props.sortKey} placeholder="Sort By"
-                              onChange={this.props.onSortChange}/>
+                        onChange={this.props.onSortChange} />
                 </div>
-                <div className="p-col-6" style={{textAlign: 'right'}}>
+                <div className="p-col-6" style={{ textAlign: 'right' }}>
                     <DataViewLayoutOptions layout={this.props.layout}
-                                           onChange={this.props.changeLayout}/>
+                        onChange={this.props.changeLayout} />
                 </div>
             </div>
         );
@@ -127,12 +126,14 @@ export class RestaurantsPage extends Component {
 
     itemTemplate(restaurant, layout) {
         if (!restaurant) {
-            return;
+            return null;
         }
-        if (layout === 'list')
+        if (layout === 'list') {
             return this.renderListItem(restaurant);
-        else if (layout === 'grid')
+        }
+        else if (layout === 'grid') {
             return this.renderGridItem(restaurant);
+        }
     }
 }
 
@@ -163,7 +164,7 @@ const mapDispatchToProps = (dispatch) => {
             }
         },
         getRestaurants: () => {
-            dispatch(RestaurantsPageActions.getRestaurants())
+            dispatch(RestaurantsPageActions.getRestaurants());
         },
         selectRestaurant: (restaurant, visible) => {
             dispatch(RestaurantsPageActions.selectRestaurant(restaurant, visible));
