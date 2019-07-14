@@ -33,21 +33,15 @@ export class RestaurantsPage extends Component {
 
     renderListItem(restaurant) {
         return (
-            <div className="p-col-12" style={{padding: '2em', borderBottom: '1px solid #d9d9d9'}}>
-                <div className="p-col-12 p-md-3">
-                    <img placeholder={'Image'} src={restaurant.image} alt={restaurant.name}/>
+            <div className="p-col-12" style={{padding: '2em', borderBottom: '1px solid #d9d9d9', display: 'flex'}}>
+                <div className="p-col-12 p-md-3" style={{width: '25%'}}>
+                    <img placeholder={'Image'} src={restaurant.image} alt={restaurant.name} style={{width: '100%'}}/>
                 </div>
-                <div className="p-col-12 p-md-8 restaurant-details">
-                    <div className="p-grid">
-                        <div className="p-col-2 p-sm-6">Name:</div>
-                        <div className="p-col-10 p-sm-6">{restaurant.name}</div>
-
-                        <div className="p-col-2 p-sm-6">Location:</div>
-                        <div className="p-col-10 p-sm-6">{restaurant.year}</div>
-
-                        <div className="p-col-2 p-sm-6">Rating:</div>
-                        <div className="p-col-10 p-sm-6">{restaurant.score}</div>
-
+                <div className="p-col-12 p-md-8 restaurant-details" style={{textAlign: 'left', margin: 'auto'}}>
+                    <div className="p-grid" style={{position: 'relative', left: '-100%'}}>
+                        <div className="p-col-2 p-sm-6">Name: <b>{restaurant.name}</b></div>
+                        <div className="p-col-2 p-sm-6">Location: <b>{restaurant.location}</b></div>
+                        <div className="p-col-2 p-sm-6">Rating: <b>{restaurant.score || 'N/A'}</b></div>
                     </div>
                 </div>
 
@@ -60,8 +54,8 @@ export class RestaurantsPage extends Component {
     renderGridItem(restaurant) {
         return (
             <div style={{padding: '.5em'}} className="p-col-12 p-md-3">
-                <Panel header={restaurant.name} style={{textAlign: 'center'}}>
-                    <img placeholder={'Image'} src={restaurant.image} alt={restaurant.name}/>
+                <Panel header={restaurant.name} style={{textAlign: 'center', width: '25%'}}>
+                    <img placeholder={'Image'} src={restaurant.image} alt={restaurant.name} style={{width: '100%'}}/>
                     <div className="restaurant-detail">{restaurant.location}</div>
                     <hr className="ui-widget-content" style={{borderTop: 0}}/>
                     <Button icon="pi pi-search" onClick={() => this.props.selectRestaurant(restaurant, true)}/>
@@ -75,7 +69,7 @@ export class RestaurantsPage extends Component {
                 <div className="p-grid" style={{fontSize: '16px', textAlign: 'center', padding: '20px'}}>
                     <div className="p-col-12" style={{textAlign: 'center'}}>
                         <img placeholder={'Image'} src={this.props.selectedRestaurant.image}
-                             alt={this.props.selectedRestaurant.name}/>
+                             alt={this.props.selectedRestaurant.name} style={{width: '75%'}}/>
                     </div>
 
                     <div className="p-col-4">Name:</div>
@@ -139,8 +133,8 @@ const mapDispatchToProps = (dispatch) => {
         changeLayout: (event) => {
             dispatch(RestaurantsPageActions.changeLayout(event.value));
         },
-        changeVisibility: (visibility) => {
-            dispatch(RestaurantsPageActions.changeVisibility(visibility));
+        changeVisibility: (visible) => {
+            dispatch(RestaurantsPageActions.changeVisibility(visible));
         },
         onSortChange: (event) => {
             const value = event.value;

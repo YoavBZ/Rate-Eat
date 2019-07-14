@@ -7,10 +7,10 @@ function changeLayout(layout) {
     }
 }
 
-function changeVisibility(visibility) {
+function changeVisibility(visible) {
     return {
         type: RestaurantsPageActionsConstants.CHANGE_VISIBILITY,
-        visibility
+        visible
     }
 }
 
