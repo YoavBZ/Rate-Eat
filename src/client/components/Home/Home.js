@@ -8,36 +8,35 @@ import RestaurantsPage from "../RestaurantsPage/RestaurantsPage";
 
 export class Home extends Component {
     render() {
-        return (
-            <div>
-                <div className="content-section implementation button-demo">
-                    <Menu model={[
-                        {
-                            label: 'Search',
-                            items: [{
-                                label: 'Users', icon: 'pi pi-fw pi-user', command: () => {
-                                    console.log("hehehehe")
-                                }
-                            },
-                                {
-                                    label: 'Restaurants', icon: 'pi pi-fw pi-home', command: () => {
-                                        this.props.changePageHandler((HomePages.SEARCH_RESTAURANTS))
-                                    }
-                                }]
-                        },
-                        {
-                            label: 'Profile',
-                            items: [{
-                                label: 'Edit User', icon: 'pi pi-fw pi-cog', command: () => {
-                                    this.props.changePageHandler(HomePages.PROFILE);
-                                }
-                            },
-                                {label: 'Reviews', icon: 'pi pi-fw pi-copy'}]
+        let models = [
+            {
+                label: 'Search',
+                items: [{
+                    label: 'Users', icon: 'pi pi-fw pi-user', command: () => {
+                        console.log("hehehehe")
+                    }
+                },
+                    {
+                        label: 'Restaurants', icon: 'pi pi-fw pi-home', command: () => {
+                            this.props.changePageHandler((HomePages.SEARCH_RESTAURANTS))
                         }
-                    ]}/>
-                    {this.props.page === HomePages.PROFILE && <Profile/>}
-                    {this.props.page === HomePages.SEARCH_RESTAURANTS && <RestaurantsPage/>}
-                </div>
+                    }]
+            },
+            {
+                label: 'Profile',
+                items: [{
+                    label: 'Edit User', icon: 'pi pi-fw pi-cog', command: () => {
+                        this.props.changePageHandler(HomePages.PROFILE);
+                    }
+                },
+                    {label: 'Reviews', icon: 'pi pi-fw pi-copy'}]
+            }
+        ];
+        return (
+            <div style={{display: 'flex', textAlign:'center'}}>
+                <Menu model={models} style={{textAlign:'left'}}/>
+                {this.props.page === HomePages.PROFILE && <Profile/>}
+                {this.props.page === HomePages.SEARCH_RESTAURANTS && <RestaurantsPage/>}
             </div>
         )
     }
@@ -47,7 +46,6 @@ const mapStateToProps = (state) => ({
     user: state.home.get('user'),
     page: state.home.get('page'),
 });
-
 
 const mapDispatchToProps = (dispatch) => {
     return {

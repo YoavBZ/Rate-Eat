@@ -10,15 +10,20 @@ import Home from '../Home/Home';
 
 class App extends React.Component {
     render() {
-        const style = {
+        const menubarStyle = {
             backgroundColor: "#343a40",
             borderRadius: 0,
             border: 0,
             color: "#fbfbfb"
         };
+        const formsStyle = {
+            margin: 'auto',
+            width: 'fit-content',
+            paddingTop: '15%'
+        };
         return (
             <div>
-                <Menubar style={style} variant="dark">
+                <Menubar style={menubarStyle} variant="dark">
                     Rate-Eat
                     {this.props.page !== AppPages.HOME &&
                     <Button label="Login" onClick={this.props.showLoginHandler} style={{marginLeft: 4}}/>}
@@ -27,8 +32,8 @@ class App extends React.Component {
                     {this.props.page === AppPages.HOME &&
                     <Button label="Logout" onClick={this.props.showLoginHandler} style={{marginLeft: 4}}/>}
                 </Menubar>
-                {this.props.page === AppPages.LOGIN && <Login/>}
-                {this.props.page === AppPages.REGISTER && <Register/>}
+                {this.props.page === AppPages.LOGIN && <Login style={formsStyle}/>}
+                {this.props.page === AppPages.REGISTER && <Register style={formsStyle}/>}
                 {this.props.page === AppPages.HOME && <Home/>}
             </div>
         );

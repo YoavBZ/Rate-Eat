@@ -19,8 +19,20 @@ export default {
         layout: 'list',
         selectedRestaurants: null,
         visible: false,
+        visibleReview: false,
         sortKey: null,
-        sortOrder: null
+        sortOrder: null,
+
+        review: Map({
+            userID:0,
+            restaurantID:0,
+            bathroomQuality:0,
+            staffKindness: 0,
+            cleanliness: 0,
+            driveThruQuality: 0,
+            deliverySpeed: 0,
+            foodQuality: 0,
+            pictures: 0 })
     }),
     login: Map({
         username: undefined,

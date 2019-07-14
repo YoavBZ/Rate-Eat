@@ -4,7 +4,7 @@ let Schema = mongoose.Schema;
 const ReviewSchema = new Schema({
     id: String,
     userID: String,
-    resturantID: String,
+    restaurantID: String,
     bathroomQuality: Number,
     staffKindness: Number,
     cleanliness: Number,

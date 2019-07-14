@@ -1,4 +1,5 @@
 import {RestaurantsPageActionsConstants} from "./constants";
+import {RegisterActionsConstants} from "../Register/constants";
 
 function changeLayout(layout) {
     return {
@@ -8,6 +9,13 @@ function changeLayout(layout) {
 }
 
 function changeVisibility(visibility) {
+    return {
+        type: RestaurantsPageActionsConstants.CHANGE_VISIBILITY,
+        visibility
+    }
+}
+
+function changeVisibilityReview(visibility) {
     return {
         type: RestaurantsPageActionsConstants.CHANGE_VISIBILITY,
         visibility
@@ -35,9 +43,23 @@ function getRestaurantsSuccess(restaurants) {
     }
 }
 
+function addReviewSuccess(review) {
+    return {
+        type: RestaurantsPageActionsConstants.ADD_REVIEW_SUCCESS,
+        review
+    }
+}
+
 function getRestaurantsFailure(msg) {
     return {
         type: RestaurantsPageActionsConstants.GET_RESTAURANTS_FAILURE,
+        msg
+    }
+}
+
+function addReviewFailure(msg) {
+    return {
+        type: RestaurantsPageActionsConstants.ADD_REVIEW_FAILURE,
         msg
     }
 }
@@ -49,14 +71,42 @@ function selectRestaurant(restaurant, visible) {
     }
 }
 
+function selectReview(restaurant, visible) {
+    return {
+        type: RestaurantsPageActionsConstants.SELECT_REVIEW,
+        restaurant, visible
+    }
+}
+
+function rateReview(rate, category) {
+    return {
+        type: RestaurantsPageActionsConstants.SELECT_RATE,
+        rate, category
+    }
+}
+
+function addReview(review) {
+    return {
+        type: RestaurantsPageActionsConstants.ADD_RATE,
+        uri: '/api/reviews',
+        payload: {review}
+    }
+}
+
 let RestaurantsPageActions = {
     changeVisibility,
+    changeVisibilityReview,
     changeLayout,
     onSortChange,
     getRestaurants,
     getRestaurantsSuccess,
+    addReviewSuccess,
     getRestaurantsFailure,
-    selectRestaurant
+    addReviewFailure,
+    selectRestaurant,
+    selectReview,
+    rateReview,
+    addReview
 };
 
 export default RestaurantsPageActions
