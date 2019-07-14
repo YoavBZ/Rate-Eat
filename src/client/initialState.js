@@ -18,7 +18,9 @@ export default {
         restaurants: [],
         layout: 'list',
         selectedRestaurants: null,
-        visible: false,
+        visibleRestaurant: false,
+        selectedReview: null,
+        visibleReview: false,
         sortKey: null,
         sortOrder: null
     }),

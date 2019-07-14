@@ -7,9 +7,16 @@ function changeLayout(layout) {
     }
 }
 
-function changeVisibility(visible) {
+function changeVisibilityRestaurant(visible) {
     return {
-        type: RestaurantsPageActionsConstants.CHANGE_VISIBILITY,
+        type: RestaurantsPageActionsConstants.CHANGE_VISIBILITY_RESTAURANT,
+        visible
+    }
+}
+
+function changeVisibilityReview(visible) {
+    return {
+        type: RestaurantsPageActionsConstants.CHANGE_VISIBILITY_REVIEW,
         visible
     }
 }
@@ -49,14 +56,23 @@ function selectRestaurant(restaurant, visible) {
     }
 }
 
+function selectReview(review, visible) {
+    return {
+        type: RestaurantsPageActionsConstants.SELECT_REVIEW,
+        review, visible
+    }
+}
+
 let RestaurantsPageActions = {
-    changeVisibility,
+    changeVisibilityRestaurant,
+    changeVisibilityReview,
     changeLayout,
     onSortChange,
     getRestaurants,
     getRestaurantsSuccess,
     getRestaurantsFailure,
-    selectRestaurant
+    selectRestaurant,
+    selectReview
 };
 
 export default RestaurantsPageActions

@@ -6,6 +6,7 @@ import RestaurantsPageActions from "./actions";
 import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
 import {Panel} from "primereact/panel";
+import {Rating} from 'primereact/rating';
 
 export class RestaurantsPage extends Component {
 
@@ -20,12 +21,16 @@ export class RestaurantsPage extends Component {
                 <h1 style={{fontFamily: 'sans-serif'}}>Restaurants</h1>
                 <DataView value={this.props.restaurants} layout={this.props.layout} header={header}
                           itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
-                          rows={5}
-                          sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
+                          rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
 
-                <Dialog header="Restaurant Details" visible={this.props.visible} width="225px" modal={true}
-                        onHide={() => this.props.changeVisibility(false)}>
+                <Dialog header="Restaurant Details" visible={this.props.visibleRestaurant} width="225px" modal={true}
+                        onHide={() => this.props.changeVisibilityRestaurant(false)}>
                     {this.renderRestaurantDialogContent()}
+                </Dialog>
+
+                <Dialog header="Restaurant Review" visible={this.props.visibleReview} width="225px" modal={true}
+                        onHide={() => this.props.changeVisibilityReview(false)}>
+                    {this.renderRestaurantReviewContent()}
                 </Dialog>
             </div>
         );
@@ -48,6 +53,10 @@ export class RestaurantsPage extends Component {
                 <div className="p-col-12 p-md-1 search-icon" style={{marginTop: '40px'}}>
                     <Button icon='pi pi-search' onClick={() => this.props.selectRestaurant(restaurant, true)}/>
                 </div>
+                {/*//here we send restaurant to give new review*/}
+                <div className="p-col-12 p-md-1 plus-icon" style={{marginTop: '40px'}}>
+                    <Button icon='pi pi-plus' onClick={() => this.props.selectReview(restaurant, true)}/>
+                </div>
             </div>);
     }
 
@@ -59,8 +68,52 @@ export class RestaurantsPage extends Component {
                     <div className="restaurant-detail">{restaurant.location}</div>
                     <hr className="ui-widget-content" style={{borderTop: 0}}/>
                     <Button icon="pi pi-search" onClick={() => this.props.selectRestaurant(restaurant, true)}/>
+                    <Button icon="pi pi-plus" onClick={() => this.props.selectReview(restaurant, true)}/>
                 </Panel>
             </div>);
+    }
+
+    renderRestaurantReviewContent() {
+        if (this.props.selectedReview) {
+            return (
+            <div>
+                <div className="content-section introduction">
+                    <div className="feature-intro">
+                        <h1>Rating</h1>
+                        <p>Be nice with new rating ;) .</p>
+                    </div>
+                </div>
+
+                <div className="content-section implementation">
+                    <h3 className="first">Bathroom Quality {this.props.selectedReview.bathroomQuality}</h3>
+                    <Rating value={this.props.selectedReview.bathroomQuality} cancel={false}
+                            onChange={(e) => {console.log('NEED TO CHANGE')}} />
+
+                    <h3>Staff Kindness {this.props.staffKindness}</h3>
+                    <Rating value={this.props.staffKindness} cancel={false}
+                            onChange={(e) => {console.log('NEED TO CHANGE')}} />
+
+                    <h3>Cleanliness {this.props.cleanliness}</h3>
+                    <Rating value={this.props.cleanliness} cancel={false}
+                            onChange={(e) => {console.log('NEED TO CHANGE')}} />
+
+                    <h3>Drive thru {this.props.driveThruQuality}</h3>
+                    <Rating value={this.props.driveThruQuality}
+                            onChange={(e) => {console.log('NEED TO CHANGE')}} />
+
+                    <h3>Delivery Speed {this.props.deliverySpeed}</h3>
+                    <Rating value={this.props.deliverySpeed}
+                            onChange={(e) => {console.log('NEED TO CHANGE')}} />
+                    <h3>Food Quality {this.props.foodQuality}</h3>
+                    <Rating value={this.props.foodQuality} cancel={false}
+                            onChange={(e) => {console.log('NEED TO CHANGE')}} />
+
+                </div>
+            </div>
+        );
+        } else {
+            return null;
+        }
     }
 
     renderRestaurantDialogContent() {
@@ -123,7 +176,9 @@ const mapStateToProps = (state) => ({
     restaurants: state.restaurantsPage.get('restaurants'),
     layout: state.restaurantsPage.get('layout'),
     selectedRestaurant: state.restaurantsPage.get('selectedRestaurant'),
-    visible: state.restaurantsPage.get('visible'),
+    visibleRestaurant: state.restaurantsPage.get('visibleRestaurant'),
+    selectedReview: state.restaurantsPage.get('selectedReview'),
+    visibleReview: state.restaurantsPage.get('visibleReview'),
     sortKey: state.restaurantsPage.get('sortKey'),
     sortOrder: state.restaurantsPage.get('sortOrder')
 });
@@ -133,8 +188,11 @@ const mapDispatchToProps = (dispatch) => {
         changeLayout: (event) => {
             dispatch(RestaurantsPageActions.changeLayout(event.value));
         },
-        changeVisibility: (visible) => {
-            dispatch(RestaurantsPageActions.changeVisibility(visible));
+        changeVisibilityRestaurant: (visible) => {
+            dispatch(RestaurantsPageActions.changeVisibilityRestaurant(visible));
+        },
+        changeVisibilityReview: (visible) => {
+            dispatch(RestaurantsPageActions.changeVisibilityReview(visible));
         },
         onSortChange: (event) => {
             const value = event.value;
@@ -149,6 +207,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         selectRestaurant: (restaurant, visible) => {
             dispatch(RestaurantsPageActions.selectRestaurant(restaurant, visible));
+        },
+        selectReview: (restaurant, visible) => {
+            dispatch(RestaurantsPageActions.selectReview(restaurant, visible));
         }
     }
 };
