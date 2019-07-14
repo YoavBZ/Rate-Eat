@@ -19,11 +19,21 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
         case RestaurantsPageActionsConstants.SELECT_REVIEW:
             state = state.set('selectedReview', action.restaurant);
             return state.set('visibleReview', action.visibility);
-        case RestaurantsPageActionsConstants.GET_RESTAURANTS_SUCCESS:
+        case RestaurantsPageActionsConstants.SELECT_RATE:
+            return state.set(action.category, action.rate);
+
+         case RestaurantsPageActionsConstants.GET_RESTAURANTS_SUCCESS:
             return state.set('restaurants', action.restaurants);
         case RestaurantsPageActionsConstants.GET_RESTAURANTS_FAILURE:
             console.log(action.msg);
             return state;
+
+        case RestaurantsPageActionsConstants.ADD_REVIEW_SUCCESS:
+        //     // !!!!!!!!!!!!!! TODO WE NEED TO CLOSE WINDOW AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
+
+        case RestaurantsPageActionsConstants.ADD_REVIEW_FAILURE:
+        //     // !!!!!!!!!!!!!! TODO WE NEED TO NOTIFY FAILURE AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
+
         default: //otherwise state is lost!
             return state;
     }

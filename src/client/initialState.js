@@ -24,12 +24,15 @@ export default {
         sortOrder: null,
 
         review: Map({
-            Bathroom_Quality:0,
-            Staff_Kindness: 0,
-            Cleanliness: 0,
-            Drive_thru: 0,
-            Delivery_Speed: 0,
-            Food_Quality: 0 })
+            userID:0,
+            restaurantID:0,
+            bathroomQuality:0,
+            staffKindness: 0,
+            cleanliness: 0,
+            driveThruQuality: 0,
+            deliverySpeed: 0,
+            foodQuality: 0,
+            pictures: 0 })
     }),
     login: Map({
         username: undefined,

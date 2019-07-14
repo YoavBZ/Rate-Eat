@@ -92,25 +92,28 @@ export class RestaurantsPage extends Component {
                 </div>
 
                 <div className="content-section implementation">
-                    <h3 className="first">Bathroom Quality {this.props.Bathroom_Quality}</h3>
-                    <Rating value={this.props.Bathroom_Quality} cancel={false} onChange={(e) => {console.log('NEED TO CHANGE')}} />
+                    <h3 className="first">Bathroom Quality {this.props.bathroomQuality}</h3>
+                    <Rating value={this.props.bathroomQuality} cancel={false} onChange={(e) => this.props.rateReview(e, 'bathroomQuality') } />
 
-                    {/*<h3>Staff Kindness {this.props.Staff_Kindness}</h3>*/}
-                    {/*<Rating value={this.props.Staff_Kindness} cancel={false} onChange={(e) => {console.log('NEED TO CHANGE')}} />*/}
+                    <h3>Staff Kindness {this.props.staffKindness}</h3>
+                    <Rating value={this.props.staffKindness} cancel={false} onChange={(e) => this.props.rateReview(e, 'staffKindness')} />
 
-                    {/*<h3>Cleanliness {this.props.Cleanliness}</h3>*/}
-                    {/*<Rating value={this.props.Cleanliness} cancel={false} onChange={(e) => {console.log('NEED TO CHANGE')}} />*/}
+                    <h3>Cleanliness {this.props.cleanliness}</h3>
+                    <Rating value={this.props.cleanliness} cancel={false} onChange={(e) => this.props.rateReview(e, 'cleanliness')} />
 
-                    {/*<h3>Drive thru {this.props.Drive_thru}</h3>*/}
-                    {/*<Rating value={this.props.Drive_thru} onChange={(e) => {console.log('NEED TO CHANGE')}} />*/}
+                    <h3>Drive thru {this.props.driveThruQuality}</h3>
+                    <Rating value={this.props.driveThruQuality} onChange={(e) => this.props.rateReview(e, 'driveThruQuality')} />
 
-                    {/*<h3>Delivery Speed {this.props.Delivery_Speed}</h3>*/}
-                    {/*<Rating value={this.props.Delivery_Speed} onChange={(e) => {console.log('NEED TO CHANGE')}} />*/}
+                    <h3>Delivery Speed {this.props.deliverySpeed}</h3>
+                    <Rating value={this.props.deliverySpeed} onChange={(e) => this.props.rateReview(e, 'deliverySpeed')} />
 
-                    {/*<h3>Food Quality {this.props.Food_Quality}</h3>*/}
-                    {/*<Rating value={this.props.Food_Quality} cancel={false} onChange={(e) => {console.log('NEED TO CHANGE')}} />*/}
+                    <h3>Food Quality {this.props.foodQuality}</h3>
+                    <Rating value={this.props.foodQuality} cancel={false} onChange={(e) => this.props.rateReview(e, 'foodQuality')} />
 
-
+                    <Button icon="pi pi-plus-circle" onClick={() =>
+                        this.props.addReview(this.props.bathroomQuality, this.props.staffKindness,
+                            this.props.cleanliness, this.props.driveThruQuality, this.props.deliverySpeed,
+                            this.props.foodQuality, this.props.pictures)}/>
                 </div>
             </div>
         );
@@ -187,12 +190,16 @@ const mapStateToProps = (state) => ({
 
     review: state.restaurantsPage.get('review'),
 
-    Bathroom_Quality: state.restaurantsPage.get('review').get('Bathroom_Quality'),
-    Staff_Kindness: state.restaurantsPage.get('review').get('Staff_Kindness'),
-    Cleanliness: state.restaurantsPage.get('review').get('Cleanliness'),
-    Drive_thru: state.restaurantsPage.get('review').get('Drive_thru'),
-    Delivery_Speed: state.restaurantsPage.get('review').get('Delivery_Speed'),
-    Food_Quality: state.restaurantsPage.get('review').get('Food_Quality')
+    userID: state.restaurantsPage.get('review').get('userID'),
+    restaurantID: state.restaurantsPage.get('review').get('restaurantID'),
+    bathroomQuality: state.restaurantsPage.get('review').get('bathroomQuality'),
+    staffKindness: state.restaurantsPage.get('review').get('staffKindness'),
+    cleanliness: state.restaurantsPage.get('review').get('cleanliness'),
+    driveThruQuality: state.restaurantsPage.get('review').get('driveThruQuality'),
+    deliverySpeed: state.restaurantsPage.get('review').get('deliverySpeed'),
+    foodQuality: state.restaurantsPage.get('review').get('foodQuality'),
+    pictures: state.restaurantsPage.get('review').get('foodQuality')
+
 
 });
 
@@ -223,7 +230,24 @@ const mapDispatchToProps = (dispatch) => {
         },
         selectReview: (restaurant, visible) => {
             dispatch(RestaurantsPageActions.selectReview(restaurant, visible));
+        },
+        rateReview: (rate, category) => {
+            dispatch(RestaurantsPageActions.rateReview(rate, category));
+        },
+        addReview: (bathroomQuality, staffKindness, cleanliness,driveThruQuality,
+                        deliverySpeed, foodQuality, pictures ) => {
+            let review = {
+                bathroomQuality: bathroomQuality,
+                staffKindness: staffKindness,
+                cleanliness: cleanliness,
+                driveThruQuality: driveThruQuality,
+                deliverySpeed: deliverySpeed,
+                foodQuality: foodQuality,
+                pictures: pictures
+            }
+            dispatch(RestaurantsPageActions.addReview(review));
         }
+
     }
 };
 
