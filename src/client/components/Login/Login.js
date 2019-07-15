@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Button} from 'primereact/button';
 import {InputText} from "primereact/inputtext";
 import LoginActions from './actions';
+import FacebookLogin from 'react-facebook-login';
 import {connect} from 'react-redux';
 import {Growl} from 'primereact/growl'
 
@@ -23,6 +24,11 @@ export class Login extends Component {
                             this.growl.show({severity: 'error', summary: 'Login Failed', life: 5000, detail: msg});
                         })
                 }/>
+                <br/>
+                <div style={{transform: 'scale(0.75)', position: 'absolute', left: '40%'}}>
+                    <FacebookLogin appId="618552358637643" fields="name,picture" callback={console.log}
+                                   icon="fa-facebook"/>
+                </div>
             </div>
         );
     }
