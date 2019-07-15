@@ -7,6 +7,10 @@ import {Growl} from 'primereact/growl'
 
 export class Profile extends Component {
 
+    componentDidMount() {
+        this.props.getUserReviews(this.props.user.reviews);
+    }
+
     render() {
         let onSubmit = (res, msg) => {
             if (res) {
@@ -27,26 +31,27 @@ export class Profile extends Component {
         };
         return (
             <div>
+                {console.log(this.props.reviews)}
                 <Button className="p-button-warning" label="Edit" onClick={() => this.props.toggleEditHandler()}/>
                 <Growl ref={(el) => this.growl = el}/>
                 <InputText placeholder="Username" type="text" defaultValue={this.props.user.username}
                            disabled={!this.props.edit}
-                           onChange={(e) => this.props.changeFieldHandler("username", e.target.value)}/>
+                           onChange={(e) => this.props.changeProfileFieldHandler("username", e.target.value)}/>
 
                 <InputText placeholder="Password" type="password" defaultValue={this.props.user.password}
                            disabled={!this.props.edit}
-                           onChange={(e) => this.props.changeFieldHandler("password", e.target.value)}/>
+                           onChange={(e) => this.props.changeProfileFieldHandler("password", e.target.value)}/>
 
                 <InputText placeholder="Location" type="text" defaultValue={this.props.user.location}
                            disabled={!this.props.edit}
-                           onChange={(e) => this.props.changeFieldHandler("locatoin", e.target.value)}/>
+                           onChange={(e) => this.props.changeProfileFieldHandler("location", e.target.value)}/>
 
                 <InputText placeholder="Picture" type="text" defaultValue={this.props.user.picture}
                            disabled={!this.props.edit}
-                           onChange={(e) => this.props.changeFieldHandler("picture", e.target.value)}/>
+                           onChange={(e) => this.props.changeProfileFieldHandler("picture", e.target.value)}/>
 
                 {this.props.edit && <Button variant="primary" type="submit" label="Submit"
-                                            onClick={() => this.props.updateUserHandler(this.props.username,
+                                            onClick={() => this.props.updateUserHandler(this.props.user, this.props.username,
                                                 this.props.password, this.props.location, this.props.picture,
                                                 onSubmit)}/>}
             </div>
@@ -60,25 +65,35 @@ const mapStateToProps = (state) => ({
     password: state.profile.get('password'),
     location: state.profile.get('location'),
     picture: state.profile.get('picture'),
-    edit: state.profile.get('edit')
+    edit: state.profile.get('edit'),
+    reviews: state.profile.get('reviews')
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeFieldHandler: (field, value) => {
-            dispatch(ProfileActions.changeField(field, value))
+        changeProfileFieldHandler: (field, value) => {
+            dispatch(ProfileActions.changeProfileField(field, value))
         },
+
         toggleEditHandler: (field, value) => {
             dispatch(ProfileActions.toggleEdit(field, value))
         },
-        updateUserHandler: (username, password, location, picture, callback) => {
-            let user = {
+        getUserReviews: (reviews) => {
+            console.log(1)
+            dispatch(ProfileActions.getUserReviews(reviews))
+        },
+        updateUserHandler: (user, username, password, location, picture, callback) => {
+            if(username == undefined) username = user.username;
+            if(password == undefined) password = user.password;
+            if(location == undefined) location = user.location;
+            if(picture == undefined) picture = user.picture;
+            let newUser = {
                 username,
                 password,
                 location,
                 picture
             };
-            dispatch(ProfileActions.updateUser(user, callback));
+            dispatch(ProfileActions.updateUser(newUser, callback));
         }
     }
 };

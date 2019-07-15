@@ -16,9 +16,9 @@ function toggleEdit(edit) {
     }
 }
 
-function changeField(field, value) {
+function changeProfileField(field, value) {
     return {
-        type: ProfileActionsConstants.CHANGE_FIELD,
+        type: ProfileActionsConstants.CHANGE_PROFILE_FIELD,
         field,
         value
     }
@@ -41,12 +41,38 @@ function updateUserFailure(callback, msg) {
     }
 }
 
+function getUserReviews(reviews) {
+    console.log(2)
+    return {
+        type: ProfileActionsConstants.GET_USER_REVIEWS,
+        uri: '/api/users/getUserReviews',
+        reviews
+    }
+}
+
+function getUserReviewsSuccess(reviews) {
+    return {
+        type: ProfileActionsConstants.GET_USER_REVIEWS_SUCCESS,
+        reviews
+    }
+}
+
+function getUserReviewsFailure(msg) {
+    return {
+        type: ProfileActionsConstants.GET_USER_REVIEWS_FAILURE,
+        msg
+    }
+}
+
 let ProfileActions = {
     toggleEdit,
     updateUser,
-    changeField,
+    changeProfileField,
     updateUserSuccess,
-    updateUserFailure
+    updateUserFailure,
+    getUserReviews,
+    getUserReviewsSuccess,
+    getUserReviewsFailure
 };
 
 export default ProfileActions

@@ -28,13 +28,9 @@ function registerFailure(msg) {
     }
 }
 
-function changeField(field, value) {
-    console.log(field);
-    console.log(value);
-
-
+function changeRegisterField(field, value) {
     return {
-        type: RegisterActionsConstants.CHANGE_FIELD,
+        type: RegisterActionsConstants.CHANGE_REGISTER_FIELD,
         field,
         value
     }
@@ -45,7 +41,7 @@ let RegisterActions = {
     register,
     registerSuccess,
     registerFailure,
-    changeField
+    changeRegisterField
 };
 
 export default RegisterActions

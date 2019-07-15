@@ -8,7 +8,8 @@ export default {
         username: undefined,
         password: undefined,
         location: undefined,
-        picture: undefined
+        picture: undefined,
+        reviews: undefined
     }),
     home: Map({
         user: undefined,
