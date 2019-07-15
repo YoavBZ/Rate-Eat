@@ -11,9 +11,6 @@ import {Panel} from "primereact/panel";
 import { EditReview } from './EditReview';
 
 export class Profile extends Component {
-    constructor(props){
-        super(props)
-    }
 
     componentDidMount() {
         this.props.getUserReviews(this.props.user._id);
@@ -177,15 +174,9 @@ const mapDispatchToProps = (dispatch) => {
         toggleEditHandler: (field, value) => {
             dispatch(ProfileActions.toggleEdit(field, value))
         },
-<<<<<<< HEAD
 
         getUserReviews: (userID) => {
             dispatch(ProfileActions.getUserReviews(userID))
-=======
-        getUserReviews: (reviews) => {
-            console.log(1);
-            dispatch(ProfileActions.getUserReviews(reviews))
->>>>>>> 59e47ea238ab881a79451ac59ca21b7813dccf67
         },
 
         changeVisibilityMyReview: (visible) => {
