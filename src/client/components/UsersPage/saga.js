@@ -30,7 +30,7 @@ function* getReviews(action) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: action.payload
+                body: JSON.stringify(action.payload)
             });
         const json = yield call([res, 'json']); //retrieve body of response
         if (res.status >= 400) {

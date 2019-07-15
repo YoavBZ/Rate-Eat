@@ -15,5 +15,4 @@ const HomeReducer = (state = initialState.home, action) => {
     }
 };
 
-
 export default HomeReducer

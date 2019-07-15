@@ -1,6 +1,5 @@
 import initialState from '../../initialState';
-import {ProfileActionsConstants, EditReviewActionsConstats} from './constants.js';
-
+import {EditReviewActionsConstats, ProfileActionsConstants} from './constants.js';
 
 const ProfileReducer = (state = initialState.profile, action) => {
     switch (action.type) {
@@ -34,7 +33,7 @@ const EditReviewReducer = (state = initialState.editReview, action) => {
         case EditReviewActionsConstats.EDIT_MY_REVIEWS:
             console.log(3)
             return state.set('editReview', true)
-    
+
         default: //otherwise state is lost!
             return state;
     }

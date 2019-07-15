@@ -6,7 +6,7 @@ export default {
     editReview: Map({
         editReview: false,
         review: undefined
-        }),
+    }),
     profile: Map({
         edit: false,
         username: undefined,
