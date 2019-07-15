@@ -19,7 +19,7 @@ export class Home extends Component {
                 },
                     {
                         label: 'Restaurants', icon: 'pi pi-fw pi-home', command: () => {
-                            this.props.changePageHandler((HomePages.SEARCH_RESTAURANTS))
+                            this.props.changePageHandler(HomePages.SEARCH_RESTAURANTS)
                         }
                     }]
             },
