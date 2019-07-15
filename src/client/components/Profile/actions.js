@@ -41,12 +41,12 @@ function updateUserFailure(callback, msg) {
     }
 }
 
-function getUserReviews(reviews) {
+function getUserReviews(userID) {
     console.log(2)
     return {
         type: ProfileActionsConstants.GET_USER_REVIEWS,
-        uri: '/api/users/getUserReviews',
-        reviews
+        uri: '/api/reviews/getUserReviews',
+        payload: {userID}
     }
 }
 

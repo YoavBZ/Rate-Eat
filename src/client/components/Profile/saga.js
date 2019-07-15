@@ -35,9 +35,11 @@ function* getUserReviews(action) {
             });
 
         const json = yield call([res, 'json']); //retrieve body of response
+        console.log(json)
         if (res.status >= 400) {
             throw json;
         }
+        console.log(json)
         yield put(ProfileActions.getUserReviewsSuccess(json));
     } catch (e) {
         yield put(ProfileActions.getUserReviewsFailure(e));

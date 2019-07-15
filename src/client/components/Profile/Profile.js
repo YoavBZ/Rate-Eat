@@ -8,7 +8,7 @@ import {Growl} from 'primereact/growl'
 export class Profile extends Component {
 
     componentDidMount() {
-        this.props.getUserReviews(this.props.user.reviews);
+        this.props.getUserReviews(this.props.user._id);
     }
 
     render() {
@@ -55,6 +55,8 @@ export class Profile extends Component {
                                                 this.props.password, this.props.location, this.props.picture,
                                                 onSubmit)}/>}
             </div>
+
+            
         );
     }
 }
@@ -78,9 +80,9 @@ const mapDispatchToProps = (dispatch) => {
         toggleEditHandler: (field, value) => {
             dispatch(ProfileActions.toggleEdit(field, value))
         },
-        getUserReviews: (reviews) => {
+        getUserReviews: (userID) => {
             console.log(1)
-            dispatch(ProfileActions.getUserReviews(reviews))
+            dispatch(ProfileActions.getUserReviews(userID))
         },
         updateUserHandler: (user, username, password, location, picture, callback) => {
             if(username == undefined) username = user.username;
