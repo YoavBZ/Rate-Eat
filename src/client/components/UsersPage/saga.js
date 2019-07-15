@@ -26,7 +26,7 @@ function* getReviews(action) {
     try {
         const res = yield call(fetch, action.uri,
             {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },

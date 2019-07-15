@@ -3,13 +3,20 @@ import {AppPages} from './components/App/constants';
 import {HomePages} from './components/Home/constants';
 
 export default {
+    editReview: Map({
+        editReview: false,
+        review: undefined
+        }),
     profile: Map({
         edit: false,
         username: undefined,
         password: undefined,
         location: undefined,
         picture: undefined,
-        reviews: undefined
+        reviews: undefined,
+        visibleReview: false,
+        selectedReview: null,
+        layout: 'list',
     }),
     home: Map({
         user: undefined,
@@ -38,10 +45,12 @@ export default {
     usersPage: Map({
         users: [],
         layout: 'list',
+        layout2: 'list',
         selectedUser: null,
         visibleReview: false,
         sortKey: null,
         sortOrder: null,
+        rates: []
     }),
     login: Map({
         username: undefined,
