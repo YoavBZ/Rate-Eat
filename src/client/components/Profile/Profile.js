@@ -79,14 +79,14 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(ProfileActions.toggleEdit(field, value))
         },
         getUserReviews: (reviews) => {
-            console.log(1)
+            console.log(1);
             dispatch(ProfileActions.getUserReviews(reviews))
         },
         updateUserHandler: (user, username, password, location, picture, callback) => {
-            if(username == undefined) username = user.username;
-            if(password == undefined) password = user.password;
-            if(location == undefined) location = user.location;
-            if(picture == undefined) picture = user.picture;
+            if (username === undefined) username = user.username;
+            if (password === undefined) password = user.password;
+            if (location === undefined) location = user.location;
+            if (picture === undefined) picture = user.picture;
             let newUser = {
                 username,
                 password,

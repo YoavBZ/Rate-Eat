@@ -42,7 +42,7 @@ function updateUserFailure(callback, msg) {
 }
 
 function getUserReviews(reviews) {
-    console.log(2)
+    console.log(2);
     return {
         type: ProfileActionsConstants.GET_USER_REVIEWS,
         uri: '/api/users/getUserReviews',

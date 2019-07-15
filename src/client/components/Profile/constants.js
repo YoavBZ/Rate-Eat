@@ -7,7 +7,6 @@ const ProfileActionsConstants = {
     GET_USER_REVIEWS: 'GET_USER_REVIEWS',
     GET_USER_REVIEWS_SUCCESS: 'GET_USER_REVIEWS_SUCCESS',
     GET_USER_REVIEWS_FAILURE: 'GET_USER_REVIEWS_FAILURE'
-
 };
 
 export {ProfileActionsConstants}

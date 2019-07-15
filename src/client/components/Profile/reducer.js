@@ -17,11 +17,10 @@ const ProfileReducer = (state = initialState.profile, action) => {
             action.callback(false, action.msg);
             return state;
         case ProfileActionsConstants.UPDATE_USER_SUCCESS:
-            return state.set('reviews', action.reviews)
+            return state.set('reviews', action.reviews);
         default: //otherwise state is lost!
             return state;
     }
 };
-
 
 export default ProfileReducer

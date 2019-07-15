@@ -5,7 +5,7 @@ function changePage(page) {
         type: HomeActionsConstants.CHANGE_PAGE,
         page
     }
-};
+}
 
 let HomeActions = {
     changePage

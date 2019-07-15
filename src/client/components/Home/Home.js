@@ -14,12 +14,12 @@ export class Home extends Component {
                 label: 'Search',
                 items: [{
                     label: 'Users', icon: 'pi pi-fw pi-user', command: () => {
-                        this.props.changePageHandler((HomePages.SEARCH_USERS))
+                        this.props.changePageHandler(HomePages.SEARCH_USERS)
                     }
                 },
                     {
                         label: 'Restaurants', icon: 'pi pi-fw pi-home', command: () => {
-                            this.props.changePageHandler((HomePages.SEARCH_RESTAURANTS))
+                            this.props.changePageHandler(HomePages.SEARCH_RESTAURANTS)
                         }
                     }]
             },
@@ -33,8 +33,8 @@ export class Home extends Component {
             }
         ];
         return (
-            <div style={{display: 'flex', textAlign:'center'}}>
-                <Menu model={models} style={{textAlign:'left'}}/>
+            <div style={{display: 'flex', textAlign: 'center'}}>
+                <Menu model={models} style={{textAlign: 'left'}}/>
                 {this.props.page === HomePages.PROFILE && <Profile/>}
                 {this.props.page === HomePages.SEARCH_RESTAURANTS && <RestaurantsPage/>}
                 {this.props.page === HomePages.SEARCH_USERS && <UsersPage/>}
