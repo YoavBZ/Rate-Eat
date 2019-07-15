@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {Menu} from 'primereact/menu';
 import Profile from '../Profile/Profile';
 import RestaurantsPage from "../RestaurantsPage/RestaurantsPage";
+import UsersPage from "../UsersPage/UsersPage";
 
 export class Home extends Component {
     render() {
@@ -13,7 +14,7 @@ export class Home extends Component {
                 label: 'Search',
                 items: [{
                     label: 'Users', icon: 'pi pi-fw pi-user', command: () => {
-                        console.log("hehehehe")
+                        this.props.changePageHandler((HomePages.SEARCH_USERS))
                     }
                 },
                     {
@@ -37,6 +38,7 @@ export class Home extends Component {
                 <Menu model={models} style={{textAlign:'left'}}/>
                 {this.props.page === HomePages.PROFILE && <Profile/>}
                 {this.props.page === HomePages.SEARCH_RESTAURANTS && <RestaurantsPage/>}
+                {this.props.page === HomePages.SEARCH_USERS && <UsersPage/>}
             </div>
         )
     }
