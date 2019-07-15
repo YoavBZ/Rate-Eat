@@ -68,7 +68,7 @@ router.post('/login', (req, res) => {
 });
 
 router.put('/', (req, res) => {
-    console.log(req.body.user)
+    console.log(req.body.user);
     let user = req.body.user;
     let username = user.username;
     let password = user.password;
@@ -81,10 +81,8 @@ router.put('/', (req, res) => {
             "location": location,
             "picture": picture
         }
-    })
-        .then(user => res.json(user))
-        .catch(err => {
-            res.status(500).json({message:`username: ${username} is already taken`})});
+    }).then(user => res.json(user))
+        .catch(err => res.status(500).json({message: `username: ${username} is already taken`}));
 });
 
 module.exports = router;

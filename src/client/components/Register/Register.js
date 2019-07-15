@@ -9,13 +9,17 @@ class Register extends React.Component {
         return (
             <div style={this.props.style}>
                 <InputText placeholder="Username"
-                           onChange={(e) => this.props.changeRegisterFieldHandler("username", e.target.value)} type="text"/>
+                           onChange={(e) => this.props.changeRegisterFieldHandler("username", e.target.value)}
+                           type="text"/>
                 <InputText placeholder="Password"
-                           onChange={(e) => this.props.changeRegisterFieldHandler("password", e.target.value)} type="password"/>
+                           onChange={(e) => this.props.changeRegisterFieldHandler("password", e.target.value)}
+                           type="password"/>
                 <InputText placeholder="Location"
-                           onChange={(e) => this.props.changeRegisterFieldHandler("locatoin", e.target.value)} type="text"/>
+                           onChange={(e) => this.props.changeRegisterFieldHandler("location", e.target.value)}
+                           type="text"/>
                 <InputText placeholder="Picture"
-                           onChange={(e) => this.props.changeRegisterFieldHandler("picture", e.target.value)} type="text"/>
+                           onChange={(e) => this.props.changeRegisterFieldHandler("picture", e.target.value)}
+                           type="text"/>
                 {/* <FileUpload /> */}
                 <Button variant="primary"
                         onClick={() => this.props.registerHandler(this.props.username, this.props.password, this.props.location, this.props.picture)}

@@ -9,7 +9,7 @@ const HomeReducer = (state = initialState.home, action) => {
             return state.set('page', action.page);
         case LoginActionsConstants.LOGIN_SUCCESS:
         case RegisterActionsConstants.REGISTER_SUCCESS:
-            return state.set('user', action.user)
+            return state.set('user', action.user);
         default: //otherwise state is lost!
             return state;
     }

@@ -14,5 +14,4 @@ const UsersPageActionsConstants = {
     CHANGE_RATE: 'CHANGE_RATE'
 };
 
-
 export {UsersPageActionsConstants}

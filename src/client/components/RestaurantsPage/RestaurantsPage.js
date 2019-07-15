@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
-import { Button } from "primereact/button";
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {DataView, DataViewLayoutOptions} from 'primereact/dataview';
+import {Button} from "primereact/button";
 import RestaurantsPageActions from "./actions";
 import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
@@ -9,11 +9,6 @@ import {Panel} from "primereact/panel";
 import RatingPage from "./RatingPage";
 
 class RestaurantsPage extends Component {
-
-    constructor() {
-        super();
-        this.itemTemplate = this.itemTemplate.bind(this);
-    }
 
     componentDidMount() {
         this.props.getRestaurants();
@@ -42,7 +37,6 @@ class RestaurantsPage extends Component {
     }
 
     renderListItem(restaurant) {
-        console.log('renderListItem');
         return (
             <div className="p-col-12" style={{padding: '2em', borderBottom: '1px solid #d9d9d9', display: 'flex'}}>
                 <div className="p-col-12 p-md-3" style={{width: '25%'}}>
@@ -56,8 +50,8 @@ class RestaurantsPage extends Component {
                     </div>
                 </div>
 
-                <div className="p-col-12 p-md-1 search-icon" style={{ marginTop: '40px' }}>
-                    <Button icon='pi pi-search' onClick={() => this.props.selectRestaurant(restaurant, true)} />
+                <div className="p-col-12 p-md-1 search-icon" style={{marginTop: '40px'}}>
+                    <Button icon='pi pi-search' onClick={() => this.props.selectRestaurant(restaurant, true)}/>
                 </div>
                 {/*//here we send restaurant to give new review*/}
                 <div className="p-col-12 p-md-1 plus-icon" style={{marginTop: '40px'}}>
@@ -67,7 +61,6 @@ class RestaurantsPage extends Component {
     }
 
     renderGridItem(restaurant) {
-        console.log('renderGridItem');
         return (
             <div style={{padding: '.5em'}} className="p-col-12 p-md-3">
                 <Panel header={restaurant.name} style={{textAlign: 'center', width: '25%'}}>
@@ -83,8 +76,8 @@ class RestaurantsPage extends Component {
     renderRestaurantDialogContent() {
         if (this.props.selectedRestaurant) {
             return (
-                <div className="p-grid" style={{ fontSize: '16px', textAlign: 'center', padding: '20px' }}>
-                    <div className="p-col-12" style={{ textAlign: 'center' }}>
+                <div className="p-grid" style={{fontSize: '16px', textAlign: 'center', padding: '20px'}}>
+                    <div className="p-col-12" style={{textAlign: 'center'}}>
                         <img placeholder={'Image'} src={this.props.selectedRestaurant.image}
                              alt={this.props.selectedRestaurant.name} style={{width: '75%'}}/>
                     </div>
@@ -106,15 +99,15 @@ class RestaurantsPage extends Component {
 
     renderHeader() {
         const sortOptions = [
-            { label: 'Newest First', value: '!year' },
-            { label: 'Oldest First', value: 'year' },
-            { label: 'Brand', value: 'brand' }
+            {label: 'Newest First', value: '!year'},
+            {label: 'Oldest First', value: 'year'},
+            {label: 'Brand', value: 'brand'}
         ];
         return (
             <div className="p-grid">
-                <div className="p-col-6" style={{ textAlign: 'left' }}>
+                <div className="p-col-6" style={{textAlign: 'left'}}>
                     <Dropdown options={sortOptions} value={this.props.sortKey} placeholder="Sort By"
-                        onChange={this.props.onSortChange} />
+                              onChange={this.props.onSortChange}/>
                 </div>
                 <div className="p-col-6" style={{textAlign: 'right'}}>
                     <DataViewLayoutOptions layout={this.props.layout} onChange={this.props.changeLayout}/>
@@ -129,10 +122,9 @@ class RestaurantsPage extends Component {
         }
         if (layout === 'list') {
             return this.renderListItem(restaurant);
-        }
-        else if (layout === 'grid') {
+        } else if (layout === 'grid') {
             return this.renderGridItem(restaurant);
-        };
+        }
     }
 }
 
