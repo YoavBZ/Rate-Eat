@@ -38,10 +38,12 @@ export default {
     usersPage: Map({
         users: [],
         layout: 'list',
+        layout2: 'list',
         selectedUser: null,
         visibleReview: false,
         sortKey: null,
         sortOrder: null,
+        rates: []
     }),
     login: Map({
         username: undefined,

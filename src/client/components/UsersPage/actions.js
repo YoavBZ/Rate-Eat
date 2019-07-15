@@ -7,6 +7,13 @@ function changeLayout(layout) {
     }
 }
 
+function changeLayout2(layout) {
+    return {
+        type: UsersPageActionsConstants.CHANGE_LAYOUT2,
+        layout
+    }
+}
+
 function changeVisibilityReview(visible) {
     return {
         type: UsersPageActionsConstants.CHANGE_VISIBILITY_REVIEW,
@@ -29,11 +36,11 @@ function getUsers() {
     }
 }
 
-function getReviews(user) {
+function getReviews(userID) {
     return {
         type: UsersPageActionsConstants.GET_REVIEWS,
-        uri: 'api/users/allReview',
-        payload: user
+        uri: 'api/reviews/getUserReviews',
+        payload: {userID}
         // !!!!!TODO WE NEED TO ADD IN DB
     }
 }
@@ -76,6 +83,7 @@ function selectReview(user, visible) {
 let UsersPageActions = {
     changeVisibilityReview,
     changeLayout,
+    changeLayout2,
     onSortChange,
     getUsers,
     getReviews,

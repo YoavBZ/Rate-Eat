@@ -24,7 +24,9 @@ export class UsersPage extends Component {
                           rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
 
                 <Dialog header="User Review" visible={this.props.visibleReview} width="225px" modal={true}
-                        onHide={() => this.props.changeVisibilityReview(false)}>
+                        onHide={() => {this.props.getReviews(this.props.selectedUser);
+                                       this.props.changeVisibilityReview(false) }
+                                }>
                     <RatingPage/>
                 </Dialog>
             </div>
@@ -126,6 +128,8 @@ const mapDispatchToProps = (dispatch) => {
         },
         selectReview: (user, visible) => {
             dispatch(UsersPageActions.selectReview(user, visible));
+        },getReviews: (user) => {
+            dispatch(UsersPageActions.getReviews(user.id))
         }
     }
 };
