@@ -27,8 +27,7 @@ class UsersPage extends Component {
                         onHide={() => {
                             this.props.getReviews(this.props.selectedUser);
                             this.props.changeVisibilityReview(false)
-                        }
-                        }>
+                        }}>
                     <RatingPage/>
                 </Dialog>
             </div>

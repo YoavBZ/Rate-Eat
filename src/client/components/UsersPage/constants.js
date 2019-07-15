@@ -12,7 +12,6 @@ const UsersPageActionsConstants = {
     CHANGE_VISIBILITY: 'CHANGE_VISIBILITY',
     GET_REVIEW_SUCCESS: 'GET_REVIEW_SUCCESS',
     GET_REVIEW_FAILURE: 'GET_REVIEW_FAILURE',
-    CHANGE_RATE: 'CHANGE_RATE'
 };
 
 export {UsersPageActionsConstants}

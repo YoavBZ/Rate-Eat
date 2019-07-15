@@ -31,6 +31,11 @@ export default {
         sortKey: null,
         sortOrder: null,
     }),
+    googleMap: Map({
+        showingInfoWindow: false,
+        activeMarker: {},
+        selectedPlace: {},
+    }),
     rates: Map({
         userID: 0,
         restaurantID: 0,

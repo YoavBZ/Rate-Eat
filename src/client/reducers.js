@@ -5,7 +5,7 @@ import LoginReducer from './components/Login/reducer';
 import HomeReducer from './components/Home/reducer';
 import {EditReviewReducer, ProfileReducer} from './components/Profile/reducer'
 import {RatesReducer, RestaurantsPageReducer} from "./components/RestaurantsPage/reducer";
-import {UsersPageReducer} from "./components/UsersPage/reducer";
+import UsersPageReducer from "./components/UsersPage/reducer";
 
 export default combineReducers({
     app: AppReducer,

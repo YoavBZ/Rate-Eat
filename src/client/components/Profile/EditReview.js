@@ -38,21 +38,19 @@ class EditReview extends Component {
                     {/* {this.props.editReview && <Button label="Submit" onClick={() => this.props.updateRatingHandler(review, true)}/>} */}
                 </div>
             </div>
-
         )
     }
-};
+}
 
 const mapStateToProps = (state) => ({
     editReview: state.editReview.get('editReview'),
     review: state.editReview.get('review')
-
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
         editMyReview: () => {
-            console.log(1)
+            console.log(1);
             dispatch(EditReviewActions.editMyReview());
         }
     }

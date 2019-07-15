@@ -92,7 +92,7 @@ let ProfileActions = {
 };
 
 function editMyReview() {
-    console.log(2)
+    console.log(2);
     return {
         type: EditReviewActionsConstats.EDIT_MY_REVIEWS,
 
@@ -101,6 +101,6 @@ function editMyReview() {
 
 let EditReviewActions = {
     editMyReview,
-}
+};
 
 export {ProfileActions, EditReviewActions} 

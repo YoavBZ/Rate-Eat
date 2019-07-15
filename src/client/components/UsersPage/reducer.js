@@ -31,13 +31,4 @@ const UsersPageReducer = (state = initialState.usersPage, action) => {
     }
 };
 
-const RatesReducer = (state = initialState.rates, action) => {
-    switch (action.type) {
-        case UsersPageActionsConstants.CHANGE_RATE:
-            return state.set(action.category, action.rate);
-        default:
-            return state;
-    }
-};
-
-export {UsersPageReducer, RatesReducer}
+export default UsersPageReducer

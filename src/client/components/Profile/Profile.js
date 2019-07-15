@@ -20,7 +20,7 @@ class Profile extends Component {
             if (res) {
                 this.growl.show({
                     severity: 'success',
-                    summary: 'Update Successed',
+                    summary: 'Update Succeeded',
                     life: 5000,
                     detail: msg
                 });
@@ -33,8 +33,6 @@ class Profile extends Component {
                 });
             }
         };
-        const header = this.renderHeader();
-
         return (
             <div>
                 <Button className="p-button-warning" label="Edit" onClick={() => this.props.toggleEditHandler()}/>
@@ -60,10 +58,9 @@ class Profile extends Component {
                                                 this.props.password, this.props.location, this.props.picture,
                                                 onSubmit)}/>}
 
-
                 <div style={{margin: 'auto', width: '80%'}}>
                     <h1 style={{fontFamily: 'sans-serif'}}>My Reviews</h1>
-                    <DataView value={this.props.reviews} layout={this.props.layout} header={header}
+                    <DataView value={this.props.reviews} layout={this.props.layout} header={this.renderHeader()}
                               itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
                               rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
 
@@ -76,15 +73,11 @@ class Profile extends Component {
                             onHide={() => this.props.changeVisibilityMyReview(false)}>
                     </Dialog>
                 </div>
-
-
             </div>
-
         );
-
     }
 
-    renderListItem(currReview) {
+    static renderListItem(currReview) {
         if (currReview == null) {
             return null
         }
@@ -139,7 +132,7 @@ class Profile extends Component {
     }
 
     itemTemplate = (review, layout) => {
-        return this.renderListItem(review);
+        return Profile.renderListItem(review);
     }
 }
 
@@ -175,7 +168,7 @@ const mapDispatchToProps = (dispatch) => {
         },
 
         changeVisibilityMyReview: (visible) => {
-            dispatch(ProfilePageActions.changeVisibilityMyReview(visible));
+            dispatch(ProfileActions.changeVisibilityMyReview(visible));
         },
 
         selectMyReview: (review, editReview) => {
