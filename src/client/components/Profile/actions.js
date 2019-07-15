@@ -41,12 +41,7 @@ function updateUserFailure(callback, msg) {
     }
 }
 
-<<<<<<< HEAD
 function getUserReviews(userID) {
-=======
-function getUserReviews(reviews) {
-    console.log(2);
->>>>>>> 59e47ea238ab881a79451ac59ca21b7813dccf67
     return {
         type: ProfileActionsConstants.GET_USER_REVIEWS,
         uri: '/api/reviews/getUserReviews',

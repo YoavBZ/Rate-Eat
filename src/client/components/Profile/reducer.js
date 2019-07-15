@@ -16,7 +16,6 @@ const ProfileReducer = (state = initialState.profile, action) => {
         case ProfileActionsConstants.UPDATE_USER_FAILURE:
             action.callback(false, action.msg);
             return state;
-<<<<<<< HEAD
         case ProfileActionsConstants.GET_USER_REVIEWS_SUCCESS:
             return state.set('reviews', action.reviews)
         case ProfileActionsConstants.GET_USER_REVIEWS_FAILURE:
@@ -25,16 +24,11 @@ const ProfileReducer = (state = initialState.profile, action) => {
         case ProfileActionsConstants.CHANGE_REVIEWS_LAYOUT:
             return state.set('layout', action.layout);
 
-=======
-        case ProfileActionsConstants.UPDATE_USER_SUCCESS:
-            return state.set('reviews', action.reviews);
->>>>>>> 59e47ea238ab881a79451ac59ca21b7813dccf67
         default: //otherwise state is lost!
             return state;
     }
 };
 
-<<<<<<< HEAD
 const EditReviewReducer = (state = initialState.editReview, action) => {
     switch (action.type) {
         case EditReviewActionsConstats.EDIT_MY_REVIEWS:
@@ -48,6 +42,3 @@ const EditReviewReducer = (state = initialState.editReview, action) => {
 }
 
 export {ProfileReducer, EditReviewReducer}
-=======
-export default ProfileReducer
->>>>>>> 59e47ea238ab881a79451ac59ca21b7813dccf67
