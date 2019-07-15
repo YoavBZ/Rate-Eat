@@ -1,4 +1,4 @@
-import {ProfileActionsConstants} from './constants.js';
+import {ProfileActionsConstants, EditReviewActionsConstats} from './constants.js';
 
 function updateUser(user, callback) {
     return {
@@ -41,12 +41,16 @@ function updateUserFailure(callback, msg) {
     }
 }
 
+<<<<<<< HEAD
+function getUserReviews(userID) {
+=======
 function getUserReviews(reviews) {
     console.log(2);
+>>>>>>> 59e47ea238ab881a79451ac59ca21b7813dccf67
     return {
         type: ProfileActionsConstants.GET_USER_REVIEWS,
-        uri: '/api/users/getUserReviews',
-        reviews
+        uri: '/api/reviews/getUserReviews',
+        payload: {userID}
     }
 }
 
@@ -64,6 +68,22 @@ function getUserReviewsFailure(msg) {
     }
 }
 
+function changeVisibilityMyReview(visible) {
+    return {
+        type: ProfileActionsConstants.CHANGE_VISIBILITY_MY_REVIEWS,
+        visible
+    }
+}
+
+function changeLayout(layout) {
+    return {
+        type: ProfileActionsConstants.CHANGE_REVIEWS_LAYOUT,
+        layout
+    }
+}
+
+
+
 let ProfileActions = {
     toggleEdit,
     updateUser,
@@ -72,7 +92,23 @@ let ProfileActions = {
     updateUserFailure,
     getUserReviews,
     getUserReviewsSuccess,
-    getUserReviewsFailure
+    getUserReviewsFailure,
+    changeVisibilityMyReview,
+    changeLayout,
+
 };
 
-export default ProfileActions
+
+function editMyReview() {
+    console.log(2)
+    return {
+        type: EditReviewActionsConstats.EDIT_MY_REVIEWS,
+        
+    }
+}
+
+let EditReviewActions = {
+    editMyReview,
+}
+
+export {ProfileActions, EditReviewActions} 

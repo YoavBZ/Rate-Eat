@@ -1,14 +1,22 @@
 import React, {Component} from 'react';
 import {Button} from 'primereact/button';
 import {InputText} from "primereact/inputtext";
-import ProfileActions from './actions';
+import {ProfileActions} from './actions';
 import {connect} from 'react-redux';
 import {Growl} from 'primereact/growl'
+import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
+import {Dialog} from "primereact/dialog";
+import {Dropdown} from "primereact/dropdown";
+import {Panel} from "primereact/panel";
+import { EditReview } from './EditReview';
 
 export class Profile extends Component {
+    constructor(props){
+        super(props)
+    }
 
     componentDidMount() {
-        this.props.getUserReviews(this.props.user.reviews);
+        this.props.getUserReviews(this.props.user._id);
     }
 
     render() {
@@ -29,9 +37,10 @@ export class Profile extends Component {
                 });
             }
         };
+        const header = this.renderHeader();
+
         return (
             <div>
-                {console.log(this.props.reviews)}
                 <Button className="p-button-warning" label="Edit" onClick={() => this.props.toggleEditHandler()}/>
                 <Growl ref={(el) => this.growl = el}/>
                 <InputText placeholder="Username" type="text" defaultValue={this.props.user.username}
@@ -54,8 +63,91 @@ export class Profile extends Component {
                                             onClick={() => this.props.updateUserHandler(this.props.user, this.props.username,
                                                 this.props.password, this.props.location, this.props.picture,
                                                 onSubmit)}/>}
+
+            
+
+
+            <div style={{margin: 'auto', width: '80%'}}>
+                <h1 style={{fontFamily: 'sans-serif'}}>My Reviews</h1>
+                <DataView value={this.props.reviews} layout={this.props.layout} header={header}
+                          itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
+                          rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
+
+                <Dialog header="Review Details" visible={this.props.visibleReview} width="225px" modal={true}
+                        onHide={() => this.props.changeVisibilityMyReview(false)}>
+                    {this.renderReviewDialogContent()}
+                </Dialog>
+
+                <Dialog header="Review" visible={this.props.visibleReview} width="225px" modal={true}
+                        onHide={() => this.props.changeVisibilityMyReview(false)}>
+                </Dialog>
+            </div>
+
+
+
+            </div>
+            
+        );
+
+        
+    }
+
+    renderListItem(currReview) {
+        if( currReview == null){
+            return null
+        }
+        return (
+            <div>
+                <EditReview review={currReview} editReview={false} />
+            </div>
+            );
+    }
+
+    renderReviewDialogContent() {
+        if (this.props.selectedReview) {
+            return (
+                <div className="p-grid" style={{ fontSize: '16px', textAlign: 'center', padding: '20px' }}>
+                    <div className="p-col-12" style={{ textAlign: 'center' }}>
+                        <img placeholder={'Image'} src={this.props.selectedReview.image}
+                             alt={this.props.selectedReview.name} style={{width: '75%'}}/>
+                    </div>
+
+                    <div className="p-col-4">Name:</div>
+                    <div className="p-col-8">{this.props.selectedReview.name}</div>
+
+                    <div className="p-col-4">Location:</div>
+                    <div className="p-col-8">{this.props.selectedReview.location}</div>
+
+                    <div className="p-col-4">Rating:</div>
+                    <div className="p-col-8">{this.props.selectedReview.score}</div>
+                </div>
+            );
+        } else {
+            return null;
+        }
+    }
+
+    renderHeader() {
+        const sortOptions = [
+            { label: 'Newest First', value: '!year' },
+            { label: 'Oldest First', value: 'year' },
+            { label: 'Brand', value: 'brand' }
+        ];
+        return (
+            <div className="p-grid">
+                <div className="p-col-6" style={{ textAlign: 'left' }}>
+                    <Dropdown options={sortOptions} value={this.props.sortKey} placeholder="Sort By"
+                        onChange={this.props.onSortChange} />
+                </div>
+                <div className="p-col-6" style={{textAlign: 'right'}}>
+                    <DataViewLayoutOptions layout={this.props.layout} onChange={this.props.changeLayout}/>
+                </div>
             </div>
         );
+    }
+
+    itemTemplate = (review, layout) => {
+            return this.renderListItem(review);
     }
 }
 
@@ -66,11 +158,18 @@ const mapStateToProps = (state) => ({
     location: state.profile.get('location'),
     picture: state.profile.get('picture'),
     edit: state.profile.get('edit'),
-    reviews: state.profile.get('reviews')
+    reviews: state.profile.get('reviews'),
+    visibleReview: state.profile.get('visibleReview'),
+    selectedReview: state.profile.get('selectedReview'),
+    editReview: state.profile.get('editReview')
+
 });
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        changeLayout: (event) => {
+            dispatch(ProfileActions.changeLayout(event.value));
+        },
         changeProfileFieldHandler: (field, value) => {
             dispatch(ProfileActions.changeProfileField(field, value))
         },
@@ -78,10 +177,25 @@ const mapDispatchToProps = (dispatch) => {
         toggleEditHandler: (field, value) => {
             dispatch(ProfileActions.toggleEdit(field, value))
         },
+<<<<<<< HEAD
+
+        getUserReviews: (userID) => {
+            dispatch(ProfileActions.getUserReviews(userID))
+=======
         getUserReviews: (reviews) => {
             console.log(1);
             dispatch(ProfileActions.getUserReviews(reviews))
+>>>>>>> 59e47ea238ab881a79451ac59ca21b7813dccf67
         },
+
+        changeVisibilityMyReview: (visible) => {
+            dispatch(ProfilePageActions.changeVisibilityMyReview(visible));
+        },
+
+        selectMyReview: (review, editReview) => {
+            dispatch(ProfileActions.selectMyReview(review, editReview));
+        },
+
         updateUserHandler: (user, username, password, location, picture, callback) => {
             if (username === undefined) username = user.username;
             if (password === undefined) password = user.password;

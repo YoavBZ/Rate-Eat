@@ -1,6 +1,6 @@
 import {ProfileActionsConstants} from './constants'
 import {call, put, takeEvery} from 'redux-saga/effects'
-import ProfileActions from './actions'
+import {ProfileActions} from './actions'
 
 function* updateUserProfile(action) {
     try {
