@@ -4,7 +4,7 @@ import {Rating} from 'primereact/rating';
 import {connect} from 'react-redux';
 import {EditReviewActions} from './actions';
 
-export class EditReview extends Component {
+class EditReview extends Component {
     render() {
         return (
             <div className="p-col-12" style={{padding: '2em', borderBottom: '1px solid #d9d9d9', display: 'flex'}}>

@@ -7,7 +7,7 @@ import Profile from '../Profile/Profile';
 import RestaurantsPage from "../RestaurantsPage/RestaurantsPage";
 import UsersPage from "../UsersPage/UsersPage";
 
-export class Home extends Component {
+class Home extends Component {
     render() {
         let models = [
             {

@@ -6,7 +6,7 @@ import FacebookLogin from 'react-facebook-login';
 import {connect} from 'react-redux';
 import {Growl} from 'primereact/growl'
 
-export class Login extends Component {
+class Login extends Component {
 
     render() {
         return (

@@ -8,7 +8,7 @@ import {Dropdown} from "primereact/dropdown";
 import {Panel} from "primereact/panel";
 import RatingPage from "./RatingPage";
 
-export class UsersPage extends Component {
+class UsersPage extends Component {
 
     componentDidMount() {
         this.props.getUsers();

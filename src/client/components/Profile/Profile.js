@@ -9,7 +9,7 @@ import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
 import EditReview from './EditReview';
 
-export class Profile extends Component {
+class Profile extends Component {
 
     componentDidMount() {
         this.props.getUserReviews(this.props.user._id);
