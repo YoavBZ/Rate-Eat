@@ -35,6 +35,14 @@ export default {
         foodQuality: 0,
         pictures: 0
     }),
+    usersPage: Map({
+        users: [],
+        layout: 'list',
+        selectedUser: null,
+        visibleReview: false,
+        sortKey: null,
+        sortOrder: null,
+    }),
     login: Map({
         username: undefined,
         password: undefined

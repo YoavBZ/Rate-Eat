@@ -8,6 +8,7 @@ const HomePages = {
     SEARCH_RESTAURANTS: 2,
     PROFILE: 3,
     VIEW_REVIEW: 4
+
 };
 
 

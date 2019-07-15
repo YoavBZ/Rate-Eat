@@ -26,6 +26,18 @@ router.get('/', (req, res) => {
     }
 });
 
+router.get('/all', (req, res) => {
+    User.find()
+        .then(user => res.json(user))
+        .catch(err => res.status(500).json({message: "server error"}));
+});
+
+router.get('/allReview', (req, res) => {
+    User.find()
+        .then(user => res.json(user))
+        .catch(err => res.status(500).json({message: "server error"}));
+});
+
 // @route POST api/items
 // @desc register new user
 // @access public
