@@ -7,7 +7,7 @@ import {Growl} from 'primereact/growl'
 import {DataView, DataViewLayoutOptions} from 'primereact/dataview';
 import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
-import {EditReview} from './EditReview';
+import EditReview from './EditReview';
 
 export class Profile extends Component {
 
