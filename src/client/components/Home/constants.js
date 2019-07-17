@@ -11,5 +11,4 @@ const HomePages = {
 
 };
 
-
 export {HomeActionsConstants, HomePages}

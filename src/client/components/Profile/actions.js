@@ -1,4 +1,4 @@
-import {ProfileActionsConstants, EditReviewActionsConstats} from './constants.js';
+import {EditReviewActionsConstats, ProfileActionsConstants} from './constants.js';
 
 function updateUser(user, callback) {
     return {
@@ -77,8 +77,6 @@ function changeLayout(layout) {
     }
 }
 
-
-
 let ProfileActions = {
     toggleEdit,
     updateUser,
@@ -93,17 +91,16 @@ let ProfileActions = {
 
 };
 
-
 function editMyReview() {
-    console.log(2)
+    console.log(2);
     return {
         type: EditReviewActionsConstats.EDIT_MY_REVIEWS,
-        
+
     }
 }
 
 let EditReviewActions = {
     editMyReview,
-}
+};
 
 export {ProfileActions, EditReviewActions} 

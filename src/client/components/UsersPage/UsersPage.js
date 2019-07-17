@@ -8,7 +8,7 @@ import {Dropdown} from "primereact/dropdown";
 import {Panel} from "primereact/panel";
 import RatingPage from "./RatingPage";
 
-export class UsersPage extends Component {
+class UsersPage extends Component {
 
     componentDidMount() {
         this.props.getUsers();
@@ -24,9 +24,16 @@ export class UsersPage extends Component {
                           rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
 
                 <Dialog header="User Review" visible={this.props.visibleReview} width="225px" modal={true}
+<<<<<<< HEAD
                         onHide={() => this.props.changeVisibilityReview(false)}
                         onShow={() => this.props.getReviews(this.props.selectedUser._id) }
                                  >
+=======
+                        onHide={() => {
+                            this.props.getReviews(this.props.selectedUser);
+                            this.props.changeVisibilityReview(false)
+                        }}>
+>>>>>>> 276e890bdef368d0d94ef616feaf0ac7083d5d68
                     <RatingPage/>
                 </Dialog>
             </div>
@@ -130,8 +137,15 @@ const mapDispatchToProps = (dispatch) => {
         selectReview: (user, visible, rates) => {
             dispatch(UsersPageActions.selectReview(user, visible, rates ));
         },
+<<<<<<< HEAD
         getReviews: (userID) => {
             dispatch(UsersPageActions.getReviews(userID))
+=======
+        selectReview: (user, visible) => {
+            dispatch(UsersPageActions.selectReview(user, visible));
+        }, getReviews: (user) => {
+            dispatch(UsersPageActions.getReviews(user.id))
+>>>>>>> 276e890bdef368d0d94ef616feaf0ac7083d5d68
         }
     }
 };

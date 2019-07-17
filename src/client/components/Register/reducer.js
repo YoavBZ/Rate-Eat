@@ -10,5 +10,4 @@ const RegisterReducer = (state = initialState.register, action) => {
     }
 };
 
-
 export default RegisterReducer

@@ -11,9 +11,12 @@ const UsersPageActionsConstants = {
 
     GET_REVIEW_SUCCESS: 'GET_REVIEW_SUCCESS',
     GET_REVIEW_FAILURE: 'GET_REVIEW_FAILURE',
+<<<<<<< HEAD
     CHANGE_LAYOUT2: 'CHANGE_LAYOUT2',
     CHANGE_RATE: 'CHANGE_RATE',
 
+=======
+>>>>>>> 276e890bdef368d0d94ef616feaf0ac7083d5d68
 };
 
 export {UsersPageActionsConstants}
