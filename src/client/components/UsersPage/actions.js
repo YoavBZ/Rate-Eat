@@ -36,12 +36,11 @@ function getUsers() {
     }
 }
 
-function getReviews(userID) {
+function getReviews(userID){
     return {
         type: UsersPageActionsConstants.GET_REVIEWS,
-        uri: 'api/reviews/getUserReviews',
+        uri: '/api/reviews/getUserReviews',
         payload: {userID}
-        // !!!!!TODO WE NEED TO ADD IN DB
     }
 }
 
@@ -73,23 +72,33 @@ function getReviewFailure(msg) {
     }
 }
 
-function selectReview(user, visible) {
+function selectReview(user, visible, rates ) {
     return {
         type: UsersPageActionsConstants.SELECT_REVIEW,
-        user, visible
+        user, visible, rates
+    }
+}
+
+function onRateChange(value) {
+    return {
+        type: UsersPageActionsConstants.CHANGE_RATE,
+        value
     }
 }
 
 let UsersPageActions = {
-    changeVisibilityReview,
-    changeLayout,
-    changeLayout2,
-    onSortChange,
     getUsers,
     getReviews,
+
+    changeLayout,
+    changeVisibilityReview,
+    onSortChange,
+    selectReview,
     getUsersSuccess,
     getUsersFailure,
-    selectReview,
+
+    changeLayout2,
+    onRateChange,
     getReviewSuccess,
     getReviewFailure
 };

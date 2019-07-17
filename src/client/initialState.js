@@ -32,6 +32,8 @@ export default {
         sortOrder: null,
     }),
     rates: Map({
+        rates: [],
+        layout: 'list',
         userID: 0,
         restaurantID: 0,
         bathroomQuality: 0,
@@ -45,7 +47,6 @@ export default {
     usersPage: Map({
         users: [],
         layout: 'list',
-        layout2: 'list',
         selectedUser: null,
         visibleReview: false,
         sortKey: null,

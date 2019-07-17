@@ -5,8 +5,6 @@ const UsersPageReducer = (state = initialState.usersPage, action) => {
     switch (action.type) {
         case UsersPageActionsConstants.CHANGE_LAYOUT:
             return state.set('layout', action.layout);
-        case UsersPageActionsConstants.CHANGE_LAYOUT2:
-            return state.set('layout2', action.layout);
         case UsersPageActionsConstants.CHANGE_VISIBILITY_REVIEW:
             return state.set('visibleReview', action.visible);
         case UsersPageActionsConstants.ON_SORT_CHANGE:
@@ -21,23 +19,25 @@ const UsersPageReducer = (state = initialState.usersPage, action) => {
         case UsersPageActionsConstants.GET_USERS_FAILURE:
             console.log(action.msg);
             return state;
+        default:
+            return state;
+    }
+};
+
+const UsersRatesReducer = (state = initialState.rates, action) => {
+    switch (action.type) {
         case UsersPageActionsConstants.GET_REVIEW_SUCCESS:
-            return state.set('rates', action.rates);
+            return state.set('rates', action.review);
         case UsersPageActionsConstants.GET_REVIEW_FAILURE:
             console.log(action.msg);
             return state;
-        default:
-            return state;
-    }
-};
-
-const RatesReducer = (state = initialState.rates, action) => {
-    switch (action.type) {
+        case UsersPageActionsConstants.CHANGE_LAYOUT2:
+            return state.set('layout', action.layout);
         case UsersPageActionsConstants.CHANGE_RATE:
-            return state.set(action.category, action.rate);
+            return state.set('rate', action.value);
         default:
             return state;
     }
 };
 
-export {UsersPageReducer, RatesReducer}
+export {UsersPageReducer, UsersRatesReducer}

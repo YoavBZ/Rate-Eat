@@ -11,9 +11,10 @@ class RatingPage extends React.Component {
         return (
             <div style={{margin: 'auto', width: '80%'}}>
                 <h1 style={{fontFamily: 'sans-serif'}}>Reviews</h1>
-                <DataView value={this.props.rates} layout={this.props.layout2} header={header}
+                <DataView value={this.props.rates} onChange={this.props.onRateChange}
+                          layout={this.props.layout} header={header}
                           itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
-                          rows={5} />
+                          rows={5}/>
             </div>
         );
     }
@@ -23,23 +24,24 @@ class RatingPage extends React.Component {
         return (
             <div className="p-grid">
                 <div className="p-col-6" style={{textAlign: 'right'}}>
-                    <DataViewLayoutOptions layout={this.props.layout2} onChange={this.props.changeLayout2}/>
+                    <DataViewLayoutOptions layout={this.props.layout} onChange={this.props.changeLayout2}/>
                 </div>
             </div>
         );
     }
 
 
-    itemTemplate = (user, layout) => {
-        if (!user) {
+    itemTemplate = (rate, layout) => {
+        if (!rate) {
             return null;
         }
         if (layout === 'list')
-            return this.renderListItem(user);
+            return this.renderListItem(rate);
     };
 
 
     renderListItem(rate) {
+
         return (
             <div className="p-col-12" style={{padding: '2em', borderBottom: '1px solid #d9d9d9', display: 'flex'}}>
                 <div className="p-col-12 p-md-3" style={{width: '25%'}}>
@@ -74,49 +76,14 @@ class RatingPage extends React.Component {
                 </div>
             </div>);
     }
-
 }
-
-
-
-    // render() {
-    //     return (
-    //         <div>
-    //             <div className="content-section introduction">
-    //                 <div className="feature-intro">
-    //                     <h1>Rating List Of </h1>
-    //                 </div>
-    //             </div>
-    //
-    //             <div className="content-section implementation">
-    //                 <h5 className="first">Bathroom Quality {this.props.bathroomQuality}</h5>
-    //                 <Rating value={this.props.bathroomQuality} readonly={true} stars={5} cancel={false}/>
-    //
-    //                 <h5>Staff Kindness {this.props.staffKindness}</h5>
-    //                 <Rating value={this.props.staffKindness} readonly={true} stars={5} cancel={false}/>
-    //
-    //                 <h5>Cleanliness {this.props.cleanliness}</h5>
-    //                 <Rating value={this.props.cleanliness} readonly={true} stars={5} cancel={false}/>
-    //
-    //                 <h5>Drive thru {this.props.driveThruQuality}</h5>
-    //                 <Rating value={this.props.driveThruQuality} readonly={true} stars={5} cancel={false}/>
-    //
-    //                 <h5>Delivery Speed {this.props.deliverySpeed}</h5>
-    //                 <Rating value={this.props.deliverySpeed} readonly={true} stars={5} cancel={false}/>
-    //
-    //                 <h5>Food Quality {this.props.foodQuality}</h5>
-    //                 <Rating value={this.props.foodQuality} readonly={true} stars={5} cancel={false}/>
-    //             </div>
-    //         </div>
-    //     )
-    // }
 
 
 const mapStateToProps = (state) => {
     return ({
-        rates: state.usersPage.get('rates'),
+        rates: state.rates.get('rates'),
         selectedUser: state.usersPage.get('selectedUser'),
-        layout2: state.usersPage.get('layout2'),
+        layout: state.rates.get('layout'),
         bathroomQuality: state.rates.get('bathroomQuality'),
         staffKindness: state.rates.get('staffKindness'),
         cleanliness: state.rates.get('cleanliness'),
@@ -128,9 +95,17 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        showReviews: () => {
+            dispatch( UsersPageActions.showReviews() );
+        },
         changeLayout2: (event) => {
             dispatch(UsersPageActions.changeLayout2(event.value));
+        },
+        onRateChange: (event) => {
+           dispatch(UsersPageActions.onRateChange(event.value));
         }
+
+
 
     }
 };
