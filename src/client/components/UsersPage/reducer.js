@@ -24,7 +24,6 @@ const UsersPageReducer = (state = initialState.usersPage, action) => {
     }
 };
 
-<<<<<<< HEAD
 const UsersRatesReducer = (state = initialState.rates, action) => {
     switch (action.type) {
         case UsersPageActionsConstants.GET_REVIEW_SUCCESS:
@@ -42,6 +41,3 @@ const UsersRatesReducer = (state = initialState.rates, action) => {
 };
 
 export {UsersPageReducer, UsersRatesReducer}
-=======
-export default UsersPageReducer
->>>>>>> 276e890bdef368d0d94ef616feaf0ac7083d5d68
