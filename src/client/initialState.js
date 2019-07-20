@@ -6,7 +6,7 @@ export default {
     editReview: Map({
         editReview: false,
         review: undefined
-        }),
+    }),
     profile: Map({
         edit: false,
         username: undefined,
@@ -31,7 +31,14 @@ export default {
         sortKey: null,
         sortOrder: null,
     }),
+    googleMap: Map({
+        showingInfoWindow: false,
+        activeMarker: {},
+        selectedPlace: {},
+    }),
     rates: Map({
+        rates: [],
+        layout: 'list',
         userID: 0,
         restaurantID: 0,
         bathroomQuality: 0,
@@ -49,6 +56,7 @@ export default {
         visibleReview: false,
         sortKey: null,
         sortOrder: null,
+        rates: []
     }),
     login: Map({
         username: undefined,

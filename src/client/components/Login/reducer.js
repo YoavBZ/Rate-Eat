@@ -13,5 +13,4 @@ const LoginReducer = (state = initialState.login, action) => {
     }
 };
 
-
 export default LoginReducer

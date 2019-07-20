@@ -12,31 +12,32 @@ const UsersPageReducer = (state = initialState.usersPage, action) => {
             state = state.set('sortField', action.sortField);
             return state.set('sortKey', action.sortKey);
         case UsersPageActionsConstants.SELECT_REVIEW:
-            state = state.set('selectedUser', action.selectedUser);
+            state = state.set('selectedUser', action.user);
             return state.set('visibleReview', action.visible);
         case UsersPageActionsConstants.GET_USERS_SUCCESS:
             return state.set('users', action.users);
         case UsersPageActionsConstants.GET_USERS_FAILURE:
             console.log(action.msg);
             return state;
-        case UsersPageActionsConstants.GET_REVIEW_SUCCESS:
-            // !!!!!!!!!!!!!! TODO WE NEED TO CLOSE WINDOW AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
-            return state;
-        case UsersPageActionsConstants.GET_REVIEW_FAILURE:
-            // !!!!!!!!!!!!!! TODO WE NEED TO NOTIFY  AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
-            return state;
         default:
             return state;
     }
 };
 
-const RatesReducer = (state = initialState.rates, action) => {
+const UsersRatesReducer = (state = initialState.rates, action) => {
     switch (action.type) {
+        case UsersPageActionsConstants.GET_REVIEW_SUCCESS:
+            return state.set('rates', action.review);
+        case UsersPageActionsConstants.GET_REVIEW_FAILURE:
+            console.log(action.msg);
+            return state;
+        case UsersPageActionsConstants.CHANGE_LAYOUT2:
+            return state.set('layout', action.layout);
         case UsersPageActionsConstants.CHANGE_RATE:
-            return state.set(action.category, action.rate);
+            return state.set('rate', action.value);
         default:
             return state;
     }
 };
 
-export {UsersPageReducer, RatesReducer}
+export {UsersPageReducer, UsersRatesReducer}

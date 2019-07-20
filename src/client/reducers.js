@@ -3,9 +3,9 @@ import AppReducer from './components/App/reducer';
 import RegisterReducer from './components/Register/reducer';
 import LoginReducer from './components/Login/reducer';
 import HomeReducer from './components/Home/reducer';
-import {ProfileReducer, EditReviewReducer} from './components/Profile/reducer'
+import {EditReviewReducer, ProfileReducer} from './components/Profile/reducer'
 import {RatesReducer, RestaurantsPageReducer} from "./components/RestaurantsPage/reducer";
-import {UsersPageReducer} from "./components/UsersPage/reducer";
+import {UsersPageReducer, UsersRatesReducer } from "./components/UsersPage/reducer";
 
 export default combineReducers({
     app: AppReducer,
@@ -15,6 +15,7 @@ export default combineReducers({
     profile: ProfileReducer,
     restaurantsPage: RestaurantsPageReducer,
     usersPage: UsersPageReducer,
+    usersRatesPage: UsersRatesReducer,
     rates: RatesReducer,
-    editReview:EditReviewReducer,
+    editReview: EditReviewReducer,
 });

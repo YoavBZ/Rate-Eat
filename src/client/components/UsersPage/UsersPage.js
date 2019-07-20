@@ -24,7 +24,9 @@ export class UsersPage extends Component {
                           rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
 
                 <Dialog header="User Review" visible={this.props.visibleReview} width="225px" modal={true}
-                        onHide={() => this.props.changeVisibilityReview(false)}>
+                        onHide={() => this.props.changeVisibilityReview(false)}
+                        onShow={() => this.props.getReviews(this.props.selectedUser._id) }
+                                 >
                     <RatingPage/>
                 </Dialog>
             </div>
@@ -46,7 +48,7 @@ export class UsersPage extends Component {
 
                 {/*//here we send restaurant to give new review*/}
                 <div className="p-col-12 p-md-1 plus-icon" style={{marginTop: '40px'}}>
-                    <Button icon='pi pi-plus' onClick={() => this.props.selectReview(user, true)}/>
+                    <Button icon='pi pi-plus' onClick={() => this.props.selectReview(user, true, this.props.rates) }/>
                 </div>
             </div>);
     }
@@ -56,9 +58,9 @@ export class UsersPage extends Component {
             <div style={{padding: '.5em'}} className="p-col-12 p-md-3">
                 <Panel header={user.name} style={{textAlign: 'center', width: '25%'}}>
                     <img placeholder={'Image'} src={user.image} alt={user.username} style={{width: '100%'}}/>
-                    <div className="restaurant-detail">{user.location}</div>
+                    <div className="user-detail">{user.location}</div>
                     <hr className="ui-widget-content" style={{borderTop: 0}}/>
-                    <Button icon="pi pi-plus" onClick={() => this.props.selectReview(user, true)}/>
+                    <Button icon="pi pi-plus" onClick={() => this.props.selectReview(user, true, this.props.rates)}/>
                 </Panel>
             </div>);
     }
@@ -96,6 +98,7 @@ export class UsersPage extends Component {
 
 const mapStateToProps = (state) => {
     return ({
+        rates: state.usersPage.get('rates'),
         users: state.usersPage.get('users'),
         layout: state.usersPage.get('layout'),
         selectedUser: state.usersPage.get('selectedUser'),
@@ -107,6 +110,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        getUsers: () => {
+            dispatch(UsersPageActions.getUsers())
+        },
         changeLayout: (event) => {
             dispatch(UsersPageActions.changeLayout(event.value));
         },
@@ -121,11 +127,11 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(UsersPageActions.onSortChange(1, value, value));
             }
         },
-        getUsers: () => {
-            dispatch(UsersPageActions.getUsers())
+        selectReview: (user, visible, rates) => {
+            dispatch(UsersPageActions.selectReview(user, visible, rates ));
         },
-        selectReview: (user, visible) => {
-            dispatch(UsersPageActions.selectReview(user, visible));
+        getReviews: (userID) => {
+            dispatch(UsersPageActions.getReviews(userID))
         }
     }
 };

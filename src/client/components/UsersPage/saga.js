@@ -23,14 +23,15 @@ function* getUsers(action) {
 }
 
 function* getReviews(action) {
+    console.log('UsersReviewSaga=', action);
     try {
         const res = yield call(fetch, action.uri,
             {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: action.payload
+                body: JSON.stringify(action.payload)
             });
         const json = yield call([res, 'json']); //retrieve body of response
         if (res.status >= 400) {
@@ -42,10 +43,10 @@ function* getReviews(action) {
     }
 }
 
-function* RestaurantsPageSaga() {
+function* UsersPageSaga() {
     //using takeEvery, you take the action away from reducer to saga
     yield takeEvery(UsersPageActionsConstants.GET_USERS, getUsers);
     yield takeEvery(UsersPageActionsConstants.GET_REVIEWS, getReviews);
 }
 
-export default RestaurantsPageSaga;
+export default UsersPageSaga;

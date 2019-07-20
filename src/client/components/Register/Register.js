@@ -30,7 +30,6 @@ class Register extends React.Component {
 
 }
 
-
 const mapStateToProps = (state) => ({
     username: state.register.get('username'),
     password: state.register.get('password'),

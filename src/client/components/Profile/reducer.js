@@ -1,6 +1,5 @@
 import initialState from '../../initialState';
-import {ProfileActionsConstants, EditReviewActionsConstats} from './constants.js';
-
+import {EditReviewActionsConstats, ProfileActionsConstants} from './constants.js';
 
 const ProfileReducer = (state = initialState.profile, action) => {
     switch (action.type) {
@@ -17,10 +16,10 @@ const ProfileReducer = (state = initialState.profile, action) => {
             action.callback(false, action.msg);
             return state;
         case ProfileActionsConstants.GET_USER_REVIEWS_SUCCESS:
-            return state.set('reviews', action.reviews)
+            return state.set('reviews', action.reviews);
         case ProfileActionsConstants.GET_USER_REVIEWS_FAILURE:
-            console.log(action.msg)
-            return state
+            console.log(action.msg);
+            return state;
         case ProfileActionsConstants.CHANGE_REVIEWS_LAYOUT:
             return state.set('layout', action.layout);
             
@@ -32,13 +31,17 @@ const ProfileReducer = (state = initialState.profile, action) => {
 const EditReviewReducer = (state = initialState.editReview, action) => {
     switch (action.type) {
         case EditReviewActionsConstats.EDIT_MY_REVIEWS:
+<<<<<<< HEAD
             console.log(3)
             return state.set('editReview', true)
 
+=======
+            console.log(3);
+            return state.set('editReview', true);
+>>>>>>> ac92c5c209473c7156b80786dd41e847dc49cbf3
         default: //otherwise state is lost!
             return state;
     }
-
-}
+};
 
 export {ProfileReducer, EditReviewReducer}
