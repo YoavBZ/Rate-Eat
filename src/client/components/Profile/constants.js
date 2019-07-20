@@ -10,12 +10,13 @@ const ProfileActionsConstants = {
     CHANGE_VISIBILITY_MY_REVIEWS: 'CHANGE_VISIBILITY_MY_REVIEWS',
     CHANGE_REVIEWS_LAYOUT: 'CHANGE_REVIEWS_LAYOUT',
     SELECT_MY_REVIEWS: 'SELECT_MY_REVIEWS',
-    INIT_MY_REVIEW: 'INIT_MY_REVIEW'
 
 };
 
 const EditReviewActionsConstats = {
     EDIT_MY_REVIEWS: 'EDIT_MY_REVIEWS',
+    INIT_MY_REVIEW: 'INIT_MY_REVIEW'
+
 }
 
 export {ProfileActionsConstants, EditReviewActionsConstats}

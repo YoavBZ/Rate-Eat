@@ -6,12 +6,12 @@ import {EditReviewActions} from './actions';
 
 
 
-export class EditReview extends Component {
+class EditReview extends Component {
+
     render(){
         return(
-            <div className="p-col-12" style={{padding: '2em', borderBottom: '1px solid #d9d9d9', display: 'flex'}}>
-            {console.log(this.props)}
-                
+            <div className="p-col-12" style={{padding: '2em', borderBottom: '1px solid #d9d9d9', display: 'flex'}}>                
+                {console.log(this.props)}
                 <div className="p-col-12 p-md-8 review-details" style={{textAlign: 'left', margin: 'auto'}}>
                     <div className="p-grid" style={{position: 'relative', left: '-100%'}}>
                         <div className="p-col-2 p-sm-6">Bathroom Quality:</div>
@@ -30,7 +30,7 @@ export class EditReview extends Component {
                 </div>
 
                 <div className="p-col-12 p-md-1 search-icon" style={{ marginTop: '40px' }}>
-                    <Button icon='pi pi-pencil' onClick={() => this.props.editMyReview()} />
+                    <Button icon='pi pi-pencil' onClick={() => this.props.editMyReview(this.props.review.id)} />
                     {/* {this.props.editReview && <Button label="Submit" onClick={() => this.props.updateRatingHandler(review, true)}/>} */}
                 </div>
             </div>
@@ -39,11 +39,12 @@ export class EditReview extends Component {
 };
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) =>  ({
     editReview: state.editReview.get('editReview'),
-    review: state.editReview.get('review')
+    review: ownProps.review
 
-});
+});  
+
 
 const mapDispatchToProps = (dispatch) => {
     return {

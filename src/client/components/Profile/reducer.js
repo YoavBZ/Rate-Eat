@@ -23,7 +23,7 @@ const ProfileReducer = (state = initialState.profile, action) => {
             return state
         case ProfileActionsConstants.CHANGE_REVIEWS_LAYOUT:
             return state.set('layout', action.layout);
-
+            
         default: //otherwise state is lost!
             return state;
     }
@@ -34,7 +34,7 @@ const EditReviewReducer = (state = initialState.editReview, action) => {
         case EditReviewActionsConstats.EDIT_MY_REVIEWS:
             console.log(3)
             return state.set('editReview', true)
-    
+
         default: //otherwise state is lost!
             return state;
     }

@@ -8,9 +8,9 @@ import { DataView, DataViewLayoutOptions } from 'primereact/dataview';
 import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
 import {Panel} from "primereact/panel";
-import { EditReview } from './EditReview';
+import EditReview from './EditReview';
 
-export class Profile extends Component {
+class Profile extends Component {
 
     componentDidMount() {
         this.props.getUserReviews(this.props.user._id);
@@ -89,13 +89,13 @@ export class Profile extends Component {
         
     }
 
-    renderListItem(currReview) {
-        if( currReview == null){
+    renderListItem(review) {
+        if( review == null){
             return null
         }
         return (
             <div>
-                <EditReview review={currReview} editReview={false} />
+                <EditReview review={review} />
             </div>
             );
     }
@@ -158,8 +158,6 @@ const mapStateToProps = (state) => ({
     reviews: state.profile.get('reviews'),
     visibleReview: state.profile.get('visibleReview'),
     selectedReview: state.profile.get('selectedReview'),
-    editReview: state.profile.get('editReview')
-
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -183,9 +181,6 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(ProfilePageActions.changeVisibilityMyReview(visible));
         },
 
-        selectMyReview: (review, editReview) => {
-            dispatch(ProfileActions.selectMyReview(review, editReview));
-        },
 
         updateUserHandler: (user, username, password, location, picture, callback) => {
             if (username === undefined) username = user.username;
