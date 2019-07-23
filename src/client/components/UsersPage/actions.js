@@ -25,8 +25,7 @@ function onSortChange(sortOrder, sortField, sortKey) {
 function getUsers() {
     return {
         type: UsersPageActionsConstants.GET_USERS,
-        uri: 'api/users/all',
-        payload: 'NULL'
+        uri: 'api/users/all'
 
     }
 }
@@ -92,7 +91,8 @@ function changeSearch(field, value) {
 function search(search) {
     return {
         type: UsersPageActionsConstants.SEARCH_USERS,
-        search
+        uri: 'api/users/some',
+        payload: {search}
     }
 }
 

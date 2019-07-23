@@ -23,8 +23,8 @@ const UsersPageReducer = (state = initialState.usersPage, action) => {
             return state.set('rates', action.review);
         case UsersPageActionsConstants.CHANGE_SEARCH_FIELD:
             return state.set(action.field, action.value);
-        case UsersPageActionsConstants.SEARCH_USERS:
-            return state.set('searchNow', action.search);
+        // case UsersPageActionsConstants.SEARCH_USERS:
+        //     return state.set('searchNow', action.search);
         default:
             return state;
     }
