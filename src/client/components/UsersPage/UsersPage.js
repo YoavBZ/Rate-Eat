@@ -7,6 +7,8 @@ import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
 import {Panel} from "primereact/panel";
 import RatingPage from "./RatingPage";
+import {InputText} from "primereact/components/inputtext/InputText";
+import RegisterActions from "../Register/actions";
 
 export class UsersPage extends Component {
 
@@ -27,7 +29,7 @@ export class UsersPage extends Component {
                         onHide={() => this.props.changeVisibilityReview(false)}
                         onShow={() => this.props.getReviews(this.props.selectedUser._id) }
                                  >
-                    <RatingPage/>
+                    <RatingPage rates={ this.props.rates } />
                 </Dialog>
             </div>
         );
@@ -78,6 +80,16 @@ export class UsersPage extends Component {
                     <Dropdown options={sortOptions} value={this.props.sortKey} placeholder="Sort By"
                               onChange={this.props.onSortChange}/>
                 </div>
+
+                <div style={this.props.style}>
+                    <InputText placeholder="Search"
+                               onChange={(e) => this.props.changeSearchHandler("search", e.target.value)}
+                               type="text"/>
+                    <Button variant="primary"
+                            onClick={() => this.props.searchHandler(this.props.search)}
+                            type="submit" label="Search"/>
+                </div>
+
                 <div className="p-col-6" style={{textAlign: 'right'}}>
                     <DataViewLayoutOptions layout={this.props.layout} onChange={this.props.changeLayout}/>
                 </div>
@@ -100,6 +112,7 @@ const mapStateToProps = (state) => {
     return ({
         rates: state.usersPage.get('rates'),
         users: state.usersPage.get('users'),
+        search: state.usersPage.get('search'),
         layout: state.usersPage.get('layout'),
         selectedUser: state.usersPage.get('selectedUser'),
         visibleReview: state.usersPage.get('visibleReview'),
@@ -132,6 +145,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         getReviews: (userID) => {
             dispatch(UsersPageActions.getReviews(userID))
+        },
+        changeSearchHandler: (field, value) => {
+            dispatch(UsersPageActions.changeSearch(field, value))
+        },
+        searchHandler: (search) => {
+            dispatch(UsersPageActions.search({search}))
         }
     }
 };

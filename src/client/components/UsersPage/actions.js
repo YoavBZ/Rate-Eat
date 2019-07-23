@@ -1,15 +1,9 @@
 import {UsersPageActionsConstants} from "./constants";
+import {RegisterActionsConstants} from "../Register/constants";
 
 function changeLayout(layout) {
     return {
         type: UsersPageActionsConstants.CHANGE_LAYOUT,
-        layout
-    }
-}
-
-function changeLayout2(layout) {
-    return {
-        type: UsersPageActionsConstants.CHANGE_LAYOUT2,
         layout
     }
 }
@@ -31,7 +25,8 @@ function onSortChange(sortOrder, sortField, sortKey) {
 function getUsers() {
     return {
         type: UsersPageActionsConstants.GET_USERS,
-        uri: 'api/users/all'
+        uri: 'api/users/all',
+        payload: 'NULL'
 
     }
 }
@@ -86,6 +81,21 @@ function onRateChange(value) {
     }
 }
 
+function changeSearch(field, value) {
+    return {
+        type: UsersPageActionsConstants.CHANGE_SEARCH_FIELD,
+        field,
+        value
+    }
+}
+
+function search(search) {
+    return {
+        type: UsersPageActionsConstants.SEARCH_USERS,
+        search
+    }
+}
+
 let UsersPageActions = {
     getUsers,
     getReviews,
@@ -96,8 +106,9 @@ let UsersPageActions = {
     selectReview,
     getUsersSuccess,
     getUsersFailure,
+    changeSearch,
+    search,
 
-    changeLayout2,
     onRateChange,
     getReviewSuccess,
     getReviewFailure
