@@ -31,13 +31,6 @@ const ProfileReducer = (state = initialState.profile, action) => {
 const EditReviewReducer = (state = initialState.editReview, action) => {
     switch (action.type) {
         case EditReviewActionsConstats.EDIT_MY_REVIEWS:
-<<<<<<< HEAD
-=======
-            console.log(3)
-            return state.set('editReview', true)
-
-            console.log(3);
->>>>>>> 469fdf23f8f3eaef495d676a45b46daabbc29344
             return state.set('editReview', true);
         default: //otherwise state is lost!
             return state;

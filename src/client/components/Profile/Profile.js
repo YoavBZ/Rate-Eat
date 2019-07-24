@@ -79,20 +79,12 @@ class Profile extends Component {
     }
 
     static renderListItem(review) {
-<<<<<<< HEAD
         if (review == null) {
-=======
-        if( review == null){
->>>>>>> 469fdf23f8f3eaef495d676a45b46daabbc29344
             return null
         }
         return (
             <div>
-<<<<<<< HEAD
                 <EditReview review={review} />
-=======
-                <EditReview review={review} editReview={false}/>
->>>>>>> 469fdf23f8f3eaef495d676a45b46daabbc29344
             </div>
         );
     }
