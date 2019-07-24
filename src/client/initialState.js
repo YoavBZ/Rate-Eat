@@ -51,12 +51,14 @@ export default {
     usersPage: Map({
         users: [],
         search: '',
+        searchLocation: '',
         searchNow: false,
         layout: 'list',
         selectedUser: null,
         visibleReview: false,
         sortKey: null,
         sortOrder: null,
+        sortField: null,
         rates: []
     }),
     login: Map({

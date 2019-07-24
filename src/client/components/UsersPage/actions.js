@@ -1,5 +1,4 @@
 import {UsersPageActionsConstants} from "./constants";
-import {RegisterActionsConstants} from "../Register/constants";
 
 function changeLayout(layout) {
     return {
@@ -96,6 +95,14 @@ function search(search) {
     }
 }
 
+function searchLocation(search) {
+    return {
+        type: UsersPageActionsConstants.SEARCH_USERS,
+        uri: 'api/users/someLocation',
+        payload: {search}
+    }
+}
+
 let UsersPageActions = {
     getUsers,
     getReviews,
@@ -108,6 +115,7 @@ let UsersPageActions = {
     getUsersFailure,
     changeSearch,
     search,
+    searchLocation,
 
     onRateChange,
     getReviewSuccess,
