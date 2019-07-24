@@ -7,13 +7,6 @@ function changeLayout(layout) {
     }
 }
 
-function changeLayout2(layout) {
-    return {
-        type: UsersPageActionsConstants.CHANGE_LAYOUT2,
-        layout
-    }
-}
-
 function changeVisibilityReview(visible) {
     return {
         type: UsersPageActionsConstants.CHANGE_VISIBILITY_REVIEW,
@@ -86,6 +79,30 @@ function onRateChange(value) {
     }
 }
 
+function changeSearch(field, value) {
+    return {
+        type: UsersPageActionsConstants.CHANGE_SEARCH_FIELD,
+        field,
+        value
+    }
+}
+
+function search(search) {
+    return {
+        type: UsersPageActionsConstants.SEARCH_USERS,
+        uri: 'api/users/some',
+        payload: {search}
+    }
+}
+
+function searchLocation(search) {
+    return {
+        type: UsersPageActionsConstants.SEARCH_USERS,
+        uri: 'api/users/someLocation',
+        payload: {search}
+    }
+}
+
 let UsersPageActions = {
     getUsers,
     getReviews,
@@ -96,8 +113,10 @@ let UsersPageActions = {
     selectReview,
     getUsersSuccess,
     getUsersFailure,
+    changeSearch,
+    search,
+    searchLocation,
 
-    changeLayout2,
     onRateChange,
     getReviewSuccess,
     getReviewFailure

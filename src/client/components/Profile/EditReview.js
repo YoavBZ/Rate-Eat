@@ -4,6 +4,7 @@ import {Rating} from 'primereact/rating';
 import {connect} from 'react-redux';
 import {EditReviewActions} from './actions';
 
+<<<<<<< HEAD
 
 
 class EditReview extends Component {
@@ -12,6 +13,15 @@ class EditReview extends Component {
         return(
             <div className="p-col-12" style={{padding: '2em', borderBottom: '1px solid #d9d9d9', display: 'flex'}}>                
                 {console.log(this.props)}
+=======
+
+class EditReview extends Component {
+    render() {
+        return (
+            <div className="p-col-12" style={{padding: '2em', borderBottom: '1px solid #d9d9d9', display: 'flex'}}>
+                {console.log(this.props)}
+
+>>>>>>> 469fdf23f8f3eaef495d676a45b46daabbc29344
                 <div className="p-col-12 p-md-8 review-details" style={{textAlign: 'left', margin: 'auto'}}>
                     <div className="p-grid" style={{position: 'relative', left: '-100%'}}>
                         <div className="p-col-2 p-sm-6">Bathroom Quality:</div>
@@ -36,19 +46,34 @@ class EditReview extends Component {
                 </div>
 
                 <div className="p-col-12 p-md-1 search-icon" style={{marginTop: '40px'}}>
+<<<<<<< HEAD
                     <Button icon='pi pi-pencil' onClick={() => this.props.editMyReview()}/>
                     {/* {this.props.editReview && <Button label="Submit" onClick={() => this.props.updateRatingHandler(review, true)}/>} */}
+=======
+                    <Button icon='pi pi-pencil' onClick={() => this.props.editMyReview(this.props.review.id)}/>
+                    <div className="p-col-12 p-md-1 search-icon" style={{marginTop: '40px'}}>
+                        <Button icon='pi pi-pencil' onClick={() => this.props.editMyReview()}/>
+                        {/*{this.props.editReview && <Button label="Submit" onClick={() => this.props.updateRatingHandler(review, true)}/>} */}
+                    </div>
+>>>>>>> 469fdf23f8f3eaef495d676a45b46daabbc29344
                 </div>
             </div>
         )
     }
+
+
 }
 
 const mapStateToProps = (state, ownProps) =>  ({
     editReview: state.editReview.get('editReview'),
+<<<<<<< HEAD
     review: ownProps.review
 
 });  
+=======
+    review: state.editReview.get('review')
+});
+>>>>>>> 469fdf23f8f3eaef495d676a45b46daabbc29344
 
 
 const mapDispatchToProps = (dispatch) => {

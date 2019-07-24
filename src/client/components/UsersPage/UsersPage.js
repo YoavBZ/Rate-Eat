@@ -7,6 +7,7 @@ import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
 import {Panel} from "primereact/panel";
 import RatingPage from "./RatingPage";
+import {InputText} from "primereact/components/inputtext/InputText";
 
 export class UsersPage extends Component {
 
@@ -27,7 +28,7 @@ export class UsersPage extends Component {
                         onHide={() => this.props.changeVisibilityReview(false)}
                         onShow={() => this.props.getReviews(this.props.selectedUser._id) }
                                  >
-                    <RatingPage/>
+                    <RatingPage rates={ this.props.rates } />
                 </Dialog>
             </div>
         );
@@ -56,7 +57,7 @@ export class UsersPage extends Component {
     renderGridItem(user) {
         return (
             <div style={{padding: '.5em'}} className="p-col-12 p-md-3">
-                <Panel header={user.name} style={{textAlign: 'center', width: '25%'}}>
+                <Panel header={user.name} style={{textAlign: 'center'}}>
                     <img placeholder={'Image'} src={user.image} alt={user.username} style={{width: '100%'}}/>
                     <div className="user-detail">{user.location}</div>
                     <hr className="ui-widget-content" style={{borderTop: 0}}/>
@@ -67,9 +68,9 @@ export class UsersPage extends Component {
 
     renderHeader() {
         const sortOptions = [
-            {label: 'Newest First', value: '!year'},
-            {label: 'Oldest First', value: 'year'},
-            {label: 'Brand', value: 'brand'}
+            {label: 'By Name', value: 'username'},
+            {label: 'By City', value: 'location'},
+            {label: 'By Ratings', value: 'brand'}
         ];
 
         return (
@@ -78,6 +79,29 @@ export class UsersPage extends Component {
                     <Dropdown options={sortOptions} value={this.props.sortKey} placeholder="Sort By"
                               onChange={this.props.onSortChange}/>
                 </div>
+
+                <div style={this.props.style}>
+                    <InputText placeholder="Name"
+                               onChange={(e) => this.props.changeSearchHandler("search", e.target.value)}
+                               type="text"/>
+                    <Button variant="primary"
+                            onClick={() => this.props.searchHandler(this.props.search)}
+                            type="submit" label="Search"/>
+                </div>
+                <div style={this.props.style}>
+                    <InputText placeholder="Location"
+                               onChange={(e) => this.props.changeSearchHandler("searchLocation", e.target.value)}
+                               type="text"/>
+                    <Button variant="primary"
+                            onClick={() => this.props.searchLocationHandler(this.props.searchLocation)}
+                            type="submit" label="Search"/>
+                </div>
+                <div style={this.props.style}>
+                    <Button variant="secondary"
+                            onClick={() => this.props.getUsers()}
+                            type="submit" label="Back"/>
+                </div>
+
                 <div className="p-col-6" style={{textAlign: 'right'}}>
                     <DataViewLayoutOptions layout={this.props.layout} onChange={this.props.changeLayout}/>
                 </div>
@@ -100,11 +124,14 @@ const mapStateToProps = (state) => {
     return ({
         rates: state.usersPage.get('rates'),
         users: state.usersPage.get('users'),
+        search: state.usersPage.get('search'),
+        searchLocation: state.usersPage.get('searchLocation'),
         layout: state.usersPage.get('layout'),
         selectedUser: state.usersPage.get('selectedUser'),
         visibleReview: state.usersPage.get('visibleReview'),
         sortKey: state.usersPage.get('sortKey'),
-        sortOrder: state.usersPage.get('sortOrder')
+        sortOrder: state.usersPage.get('sortOrder'),
+        sortField: state.usersPage.get('sortField')
     });
 };
 
@@ -121,8 +148,8 @@ const mapDispatchToProps = (dispatch) => {
         },
         onSortChange: (event) => {
             const value = event.value;
-            if (value.indexOf('!') === 0) {
-                dispatch(UsersPageActions.onSortChange(-1, value.substring(1, value.length), value));
+            if (value === 'username') {
+                dispatch(UsersPageActions.onSortChange(1, value, value));
             } else {
                 dispatch(UsersPageActions.onSortChange(1, value, value));
             }
@@ -132,6 +159,15 @@ const mapDispatchToProps = (dispatch) => {
         },
         getReviews: (userID) => {
             dispatch(UsersPageActions.getReviews(userID))
+        },
+        changeSearchHandler: (field, value) => {
+            dispatch(UsersPageActions.changeSearch(field, value))
+        },
+        searchHandler: (search) => {
+            dispatch(UsersPageActions.search({search}))
+        },
+        searchLocationHandler: (search) => {
+            dispatch(UsersPageActions.searchLocation({search}))
         }
     }
 };

@@ -19,6 +19,12 @@ const UsersPageReducer = (state = initialState.usersPage, action) => {
         case UsersPageActionsConstants.GET_USERS_FAILURE:
             console.log(action.msg);
             return state;
+        case UsersPageActionsConstants.GET_REVIEW_SUCCESS:
+            return state.set('rates', action.review);
+        case UsersPageActionsConstants.CHANGE_SEARCH_FIELD:
+            return state.set(action.field, action.value);
+        // case UsersPageActionsConstants.SEARCH_USERS:
+        //     return state.set('searchNow', action.search);
         default:
             return state;
     }
@@ -26,13 +32,9 @@ const UsersPageReducer = (state = initialState.usersPage, action) => {
 
 const UsersRatesReducer = (state = initialState.rates, action) => {
     switch (action.type) {
-        case UsersPageActionsConstants.GET_REVIEW_SUCCESS:
-            return state.set('rates', action.review);
         case UsersPageActionsConstants.GET_REVIEW_FAILURE:
             console.log(action.msg);
             return state;
-        case UsersPageActionsConstants.CHANGE_LAYOUT2:
-            return state.set('layout', action.layout);
         case UsersPageActionsConstants.CHANGE_RATE:
             return state.set('rate', action.value);
         default:

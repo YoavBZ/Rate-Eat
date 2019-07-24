@@ -2,41 +2,28 @@ import React from "react";
 import {Rating} from "primereact/components/rating/Rating";
 import UsersPageActions from "./actions";
 import {connect} from "react-redux";
-import {DataView, DataViewLayoutOptions} from "primereact/components/dataview/DataView";
+import {DataView} from "primereact/components/dataview/DataView";
 
 class RatingPage extends React.Component {
 
     render() {
-        const header = this.renderHeader();
         return (
             <div style={{margin: 'auto', width: '80%'}}>
                 <h1 style={{fontFamily: 'sans-serif'}}>Reviews</h1>
                 <DataView value={this.props.rates} onChange={this.props.onRateChange}
-                          layout={this.props.layout} header={header}
                           itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
-                          rows={5}/>
+                          rows={4}/>
             </div>
         );
     }
 
 
-    renderHeader() {
-        return (
-            <div className="p-grid">
-                <div className="p-col-6" style={{textAlign: 'right'}}>
-                    <DataViewLayoutOptions layout={this.props.layout} onChange={this.props.changeLayout2}/>
-                </div>
-            </div>
-        );
-    }
-
-
-    itemTemplate = (rate, layout) => {
+    itemTemplate = (rate) => {
         if (!rate) {
             return null;
         }
-        if (layout === 'list')
-            return this.renderListItem(rate);
+
+        return this.renderListItem(rate);
     };
 
 
@@ -55,35 +42,46 @@ class RatingPage extends React.Component {
                         {/*<div className="p-col-2 p-sm-6">Location: <b>{user.location}</b></div>*/}
                     </div>
                 </div>
+
                 <div className="content-section implementation">
-                    <h5 className="first">Bathroom Quality {rate.bathroomQuality}</h5>
+                    <h6 className="first">Bathroom Quality</h6>
                     <Rating value={rate.bathroomQuality} readonly={true} stars={5} cancel={false}/>
+                </div>
 
-                    <h5>Staff Kindness {rate.staffKindness}</h5>
+                <div className="content-section implementation">
+                    <h6>Staff Kindness</h6>
                     <Rating value={rate.staffKindness} readonly={true} stars={5} cancel={false}/>
+                </div>
 
-                    <h5>Cleanliness {rate.cleanliness}</h5>
+                <div className="content-section implementation">
+                    <h6>Cleanliness</h6>
                     <Rating value={rate.cleanliness} readonly={true} stars={5} cancel={false}/>
+                </div>
 
-                    <h5>Drive thru {rate.driveThruQuality}</h5>
+                <div className="content-section implementation">
+                    <h6>Drive thru</h6>
                     <Rating value={rate.driveThruQuality} readonly={true} stars={5} cancel={false}/>
+                </div>
 
-                    <h5>Delivery Speed {rate.deliverySpeed}</h5>
+                <div className="content-section implementation">
+                    <h6>Delivery Speed}</h6>
                     <Rating value={rate.deliverySpeed} readonly={true} stars={5} cancel={false}/>
+                </div>
 
-                    <h5>Food Quality {rate.foodQuality}</h5>
+                <div className="content-section implementation">
+                    <h6>Food Quality</h6>
                     <Rating value={rate.foodQuality} readonly={true} stars={5} cancel={false}/>
                 </div>
+
             </div>);
     }
 }
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return ({
-        rates: state.rates.get('rates'),
+        rates: ownProps.rates,
         selectedUser: state.usersPage.get('selectedUser'),
-        layout: state.rates.get('layout'),
         bathroomQuality: state.rates.get('bathroomQuality'),
         staffKindness: state.rates.get('staffKindness'),
         cleanliness: state.rates.get('cleanliness'),
@@ -98,14 +96,9 @@ const mapDispatchToProps = (dispatch) => {
         showReviews: () => {
             dispatch( UsersPageActions.showReviews() );
         },
-        changeLayout2: (event) => {
-            dispatch(UsersPageActions.changeLayout2(event.value));
-        },
         onRateChange: (event) => {
            dispatch(UsersPageActions.onRateChange(event.value));
         }
-
-
 
     }
 };
