@@ -17,6 +17,47 @@ class Profile extends Component {
     }
 
     render() {
+        const inputUsername = {
+            display: "block",
+            marginBottom: "63px",
+            position: "relative",
+            left: "5%",
+            float: "left"
+        }
+
+        const inputPassword = {
+            display: "block",
+            marginBottom: "63px",
+            position: "relative",
+            left: "5%",
+        }
+
+        const locationInput = {
+            display: "block",
+            position: "relative",
+            left: "5%",
+            float: "left"
+        }
+
+        const img = {
+            display: 'block',
+            width: '100%',
+            height: '100%',
+            fontFamily: "Open Sans, Helvetica Neue sans-serif",
+            textAlign: "center",
+            color: "#a6a6a6",
+          };
+      
+          
+          const imgHolder = {
+            border: '1px solid #a6a6a6',
+            height: 225,
+            width: 200,
+            float: 'left',
+            marginLeft: '10%'
+          };
+      
+
         let onSubmit = (res, msg) => {
             if (res) {
                 this.growl.show({
@@ -36,30 +77,35 @@ class Profile extends Component {
         };
         return (
             <div>
-                <Button className="p-button-warning" label="Edit" onClick={() => this.props.toggleEditHandler()}/>
+                <div style={imgHolder}>
+                    <img style={img} src={this.props.user.picture}/>
+                </div>
                 <Growl ref={(el) => this.growl = el}/>
                 <InputText placeholder="Username" type="text" defaultValue={this.props.user.username}
-                           disabled={!this.props.edit}
+                           disabled={!this.props.edit} style={inputUsername}
                            onChange={(e) => this.props.changeProfileFieldHandler("username", e.target.value)}/>
 
                 <InputText placeholder="Password" type="password" defaultValue={this.props.user.password}
-                           disabled={!this.props.edit}
+                           disabled={!this.props.edit} style={inputPassword}
                            onChange={(e) => this.props.changeProfileFieldHandler("password", e.target.value)}/>
 
                 <InputText placeholder="Location" type="text" defaultValue={this.props.user.location}
-                           disabled={!this.props.edit}
+                           disabled={!this.props.edit} style={locationInput}
                            onChange={(e) => this.props.changeProfileFieldHandler("location", e.target.value)}/>
 
-                <InputText placeholder="Picture" type="text" defaultValue={this.props.user.picture}
+                <Button className="p-button-warning" label="Edit" onClick={() => this.props.toggleEditHandler()}/>
+
+
+                {/* <InputText placeholder="Picture" type="text" defaultValue={this.props.user.picture}
                            disabled={!this.props.edit}
-                           onChange={(e) => this.props.changeProfileFieldHandler("picture", e.target.value)}/>
+                           onChange={(e) => this.props.changeProfileFieldHandler("picture", e.target.value)}/> */}
 
                 {this.props.edit && <Button variant="primary" type="submit" label="Submit"
                                             onClick={() => this.props.updateUserHandler(this.props.user, this.props.username,
                                                 this.props.password, this.props.location, this.props.picture,
                                                 onSubmit)}/>}
 
-                <div style={{margin: 'auto', width: '80%'}}>
+                <div style={{marginLeft: '25%', marginTop: '25%',width: '80%'}}>
                     <h1 style={{fontFamily: 'sans-serif'}}>My Reviews</h1>
                     <DataView value={this.props.reviews} layout={this.props.layout} header={this.renderHeader()}
                               itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}

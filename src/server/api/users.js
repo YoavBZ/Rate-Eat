@@ -6,7 +6,7 @@ const router = express.Router();
 
 const User = require('../model/User');
 
-var upload = multer({ dest: 'uploads/' })
+var upload = multer({ dest: 'userUploads/' })
 var cpUpload = upload.fields([{ name: 'picture', maxCount: 1 }])
 
 // @route GET api/items
@@ -50,12 +50,12 @@ router.get('/allReview', (req, res) => {
 router.post('/', cpUpload, (req, res) => {
     console.log("got to server");
     console.log(req.body);
-    console.log(req.files);
+    console.log(req.files.picture[0].path);
     let user = req.body;
     const newUser = new User({
         username: user.username,
         password: user.password,
-        // picture: user.picture,
+        picture: req.files.picture[0].path,
         location: user.location,
         reviews: []
     });
