@@ -1,7 +1,13 @@
+const multer  = require('multer')
+
 const express = require('express');
 const router = express.Router();
 
+
 const User = require('../model/User');
+
+var upload = multer({ dest: 'uploads/' })
+var cpUpload = upload.fields([{ name: 'picture', maxCount: 1 }])
 
 // @route GET api/items
 // @desc Get all users with given name or location
@@ -41,14 +47,15 @@ router.get('/allReview', (req, res) => {
 // @route POST api/items
 // @desc register new user
 // @access public
-router.post('/', (req, res) => {
+router.post('/', cpUpload, (req, res) => {
     console.log("got to server");
     console.log(req.body);
-    let user = req.body.user;
+    console.log(req.files);
+    let user = req.body;
     const newUser = new User({
         username: user.username,
         password: user.password,
-        picture: user.picture,
+        // picture: user.picture,
         location: user.location,
         reviews: []
     });

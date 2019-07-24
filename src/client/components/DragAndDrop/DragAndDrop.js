@@ -51,7 +51,7 @@ class DragAndDrop extends Component {
       <Dropzone accept='image/*' onDrop={this.props.onDrop}>
         {({getRootProps, getInputProps}) => (
           <div style={container}{...getRootProps()}>
-            <input  {...getInputProps()} />
+            <input name='picture'  {...getInputProps()} />
               <img
                 src={this.props.preview}
                 style={img}
@@ -73,7 +73,6 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     onDrop: (files) => {
-      console.log(files)
       dispatch(DragAndDropActions.onDrop(files[0], URL.createObjectURL(files[0])));
     }
   }

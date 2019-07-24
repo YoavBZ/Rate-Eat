@@ -31,26 +31,31 @@ class Register extends React.Component {
 
         return (
             <div style={this.props.style}>
-                <DragAndDrop files={this.props.picture}/>
-                
-                <InputText placeholder="Username"
-                           onChange={(e) => this.props.changeRegisterFieldHandler("username", e.target.value)}
-                           type="text"
-                           style = {input}
-                           />
-                <InputText placeholder="Password"
-                           onChange={(e) => this.props.changeRegisterFieldHandler("password", e.target.value)}
-                           type="password"
-                           style = {input}
-                           />
-                <InputText placeholder="Location"
-                           onChange={(e) => this.props.changeRegisterFieldHandler("location", e.target.value)}
-                           type="text"
-                           style = {lastInput}
-                           />
-                <Button variant="primary" style={submit}
-                        onClick={() => this.props.registerHandler(this.props.username, this.props.password, this.props.location, this.props.picture)}
-                        type="submit" label="Submit"/>
+                <form action='/api/users' method="post" encType="multipart/form-data">
+                    <DragAndDrop files={this.props.picture}/>
+                    
+                    <InputText placeholder="Username"
+                            onChange={(e) => this.props.changeRegisterFieldHandler("username", e.target.value)}
+                            type="text"
+                            style = {input}
+                            name="username"
+                            />
+                    <InputText placeholder="Password"
+                            onChange={(e) => this.props.changeRegisterFieldHandler("password", e.target.value)}
+                            type="password"
+                            style = {input}
+                            name="password"
+                            />
+                    <InputText placeholder="Location"
+                            onChange={(e) => this.props.changeRegisterFieldHandler("location", e.target.value)}
+                            type="text"
+                            style = {lastInput}
+                            name="location"
+                            />
+                    <Button variant="primary" style={submit}
+                            onClick={() => this.props.registerHandler(this.props.username, this.props.password, this.props.location, this.props.picture)}
+                            type="submit" label="Submit"/>
+                </form>
             </div>
         );
     }
