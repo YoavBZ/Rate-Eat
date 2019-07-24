@@ -10,7 +10,7 @@ function register(user) {
     return {
         type: RegisterActionsConstants.REGISTER,
         uri: '/api/users',
-        payload: {user}
+        user: {user}
     }
 }
 

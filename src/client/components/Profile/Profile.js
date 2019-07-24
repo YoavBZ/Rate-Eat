@@ -7,10 +7,7 @@ import {Growl} from 'primereact/growl'
 import {DataView, DataViewLayoutOptions} from 'primereact/dataview';
 import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
-<<<<<<< HEAD
 import {Panel} from "primereact/panel";
-=======
->>>>>>> ac92c5c209473c7156b80786dd41e847dc49cbf3
 import EditReview from './EditReview';
 
 class Profile extends Component {
@@ -81,22 +78,13 @@ class Profile extends Component {
         );
     }
 
-<<<<<<< HEAD
-    renderListItem(review) {
-        if( review == null){
-=======
-    static renderListItem(currReview) {
-        if (currReview == null) {
->>>>>>> ac92c5c209473c7156b80786dd41e847dc49cbf3
+    static renderListItem(review) {
+        if (review == null) {
             return null
         }
         return (
             <div>
-<<<<<<< HEAD
                 <EditReview review={review} />
-=======
-                <EditReview review={currReview} editReview={false}/>
->>>>>>> ac92c5c209473c7156b80786dd41e847dc49cbf3
             </div>
         );
     }
