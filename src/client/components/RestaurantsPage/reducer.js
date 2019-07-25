@@ -19,7 +19,11 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
         case RestaurantsPageActionsConstants.SELECT_REVIEW:
             return state.set('visibleReview', action.visible);
         case RestaurantsPageActionsConstants.GET_RESTAURANTS_SUCCESS:
-            return state.set('restaurants', action.restaurants);
+            state = state.set('restaurants', action.restaurants);
+            let restaurantsNames = action.restaurants;
+            let names = restaurantsNames.map( a => a.name );
+            state = state.set('restaurantsNamesFilter', names);
+            return state.set('restaurantsNames', names);
         case RestaurantsPageActionsConstants.GET_RESTAURANTS_FAILURE:
             console.log(action.msg);
             return state;
@@ -29,6 +33,19 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
         case RestaurantsPageActionsConstants.ADD_REVIEW_FAILURE:
             // !!!!!!!!!!!!!! TODO WE NEED TO NOTIFY  AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
             return state;
+        case RestaurantsPageActionsConstants.FILTER_NAMES:
+            let oldNames = state.restaurantsNamesFilter;
+            let searchName = state.restaurantsNameSearch;
+            if( oldNames ) {
+                let newNames = oldNames.filter((name) => {
+                    return name.toLowerCase().startsWith(searchName.toLowerCase());
+                });
+                return state.set('restaurantsNamesFilter', newNames);
+            }
+            else
+                return state;
+        case RestaurantsPageActionsConstants.CHANGE_FILTER_NAMES:
+            return state.set('restaurantsNameSearch', action.search);
         default:
             return state;
     }

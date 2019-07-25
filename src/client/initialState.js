@@ -24,6 +24,9 @@ export default {
     }),
     restaurantsPage: Map({
         restaurants: [],
+        restaurantsNames: [],
+        restaurantsNamesFilter: [],
+        restaurantsNameSearch: '',
         layout: 'list',
         selectedRestaurants: null,
         visibleRestaurant: false,

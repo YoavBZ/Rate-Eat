@@ -92,6 +92,19 @@ function addReview(review) {
     }
 }
 
+function filterRestaurantsNames() {
+    return {
+        type: RestaurantsPageActionsConstants.FILTER_NAMES
+    }
+}
+
+function changeRestaurantsNames(search) {
+    return {
+        type: RestaurantsPageActionsConstants.CHANGE_FILTER_NAMES,
+        search
+    }
+}
+
 let RestaurantsPageActions = {
     changeVisibilityRestaurant,
     changeVisibilityReview,
@@ -105,7 +118,10 @@ let RestaurantsPageActions = {
     addReview,
     addReviewSuccess,
     addReviewFailure,
-    changeRate
+    changeRate,
+    filterRestaurantsNames,
+    changeRestaurantsNames
+
 };
 
 export default RestaurantsPageActions

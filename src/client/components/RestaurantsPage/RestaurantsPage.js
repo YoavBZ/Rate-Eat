@@ -7,6 +7,7 @@ import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
 import {Panel} from "primereact/panel";
 import RatingPage from "./RatingPage";
+import {AutoComplete} from 'primereact/autocomplete';
 
 class RestaurantsPage extends Component {
 
@@ -99,9 +100,9 @@ class RestaurantsPage extends Component {
 
     renderHeader() {
         const sortOptions = [
-            {label: 'Newest First', value: '!year'},
-            {label: 'Oldest First', value: 'year'},
-            {label: 'Brand', value: 'brand'}
+            {label: 'By Name', value: 'name'},
+            {label: 'By City', value: 'location'},
+            {label: 'By Ratings', value: 'brand'}
         ];
         return (
             <div className="p-grid">
@@ -112,6 +113,11 @@ class RestaurantsPage extends Component {
                 <div className="p-col-6" style={{textAlign: 'right'}}>
                     <DataViewLayoutOptions layout={this.props.layout} onChange={this.props.changeLayout}/>
                 </div>
+
+                <AutoComplete value={this.props.restaurantsNameSearch} suggestions={this.props.restaurantsNamesFilter} completeMethod={this.props.filterRestaurantsNames}
+                              size={30} placeholder="Names" minLength={1} onChange={this.props.changeRestaurantsNames} />
+                <span style={{ marginLeft: '10px' }}>Name: {this.props.restaurantsNameSearch ? this.props.restaurantsNameSearch : 'none'}</span>
+
             </div>
         );
     }
@@ -131,12 +137,16 @@ class RestaurantsPage extends Component {
 const mapStateToProps = (state) => {
     return ({
         restaurants: state.restaurantsPage.get('restaurants'),
+        restaurantsNames: state.restaurantsPage.get('restaurantsNames'),
+        restaurantsNamesFilter: state.restaurantsPage.get('restaurantsNamesFilter'),
+        restaurantsNameSearch: state.restaurantsPage.get('restaurantsNameSearch'),
         layout: state.restaurantsPage.get('layout'),
         selectedRestaurant: state.restaurantsPage.get('selectedRestaurant'),
         visibleRestaurant: state.restaurantsPage.get('visibleRestaurant'),
         visibleReview: state.restaurantsPage.get('visibleReview'),
         sortKey: state.restaurantsPage.get('sortKey'),
-        sortOrder: state.restaurantsPage.get('sortOrder')
+        sortOrder: state.restaurantsPage.get('sortOrder'),
+        sortField: state.usersPage.get('sortField')
     });
 };
 
@@ -167,7 +177,14 @@ const mapDispatchToProps = (dispatch) => {
         },
         selectReview: (visible) => {
             dispatch(RestaurantsPageActions.selectReview(visible));
+        },
+        filterRestaurantsNames: () => {
+            dispatch(RestaurantsPageActions.filterRestaurantsNames());
+        },
+        changeRestaurantsNames: (event) => {
+            dispatch(RestaurantsPageActions.changeRestaurantsNames(event.value));
         }
+
     }
 };
 
