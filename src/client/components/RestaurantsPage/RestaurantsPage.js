@@ -149,7 +149,7 @@ class RestaurantsPage extends Component {
                             type="submit" label="SearchBoth"/>
                 </div>
                 <div style={{textAlign: 'middle'}}>
-                    <h3>Closer: {this.props.restaurantsScale}
+                    <h3>Closer: {100 - this.props.restaurantsScale}
                     <Slider value={this.props.restaurantsScale} onChange={this.props.setRestaurantsScale}
                             step={10} style={{width: '56em'}} />
                         Better: {this.props.restaurantsScale}</h3>
