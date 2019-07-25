@@ -3,27 +3,59 @@ import {InputText} from "primereact/inputtext";
 import {Button} from "primereact/button";
 import {connect} from 'react-redux';
 import RegisterActions from './actions';
+import DragAndDrop from '../DragAndDrop/DragAndDrop'
 
 class Register extends React.Component {
     render() {
+        const input = {
+            display: "block",
+            marginBottom: "63px",
+            position: "relative",
+            left: "5%"
+        }
+
+        const lastInput = {
+            display: "block",
+            position: "relative",
+            left: "5%"
+        }
+
+        const submit = {
+            float: "bottom",
+            textAlign:"center",
+            width: "51%",
+            maxWidth: "453px"
+        }
+
+
+
         return (
             <div style={this.props.style}>
-                <InputText placeholder="Username"
-                           onChange={(e) => this.props.changeRegisterFieldHandler("username", e.target.value)}
-                           type="text"/>
-                <InputText placeholder="Password"
-                           onChange={(e) => this.props.changeRegisterFieldHandler("password", e.target.value)}
-                           type="password"/>
-                <InputText placeholder="Location"
-                           onChange={(e) => this.props.changeRegisterFieldHandler("location", e.target.value)}
-                           type="text"/>
-                <InputText placeholder="Picture"
-                           onChange={(e) => this.props.changeRegisterFieldHandler("picture", e.target.value)}
-                           type="text"/>
-                {/* <FileUpload /> */}
-                <Button variant="primary"
-                        onClick={() => this.props.registerHandler(this.props.username, this.props.password, this.props.location, this.props.picture)}
-                        type="submit" label="Submit"/>
+                <form action='/api/users' method="post" encType="multipart/form-data">
+                    <DragAndDrop files={this.props.picture}/>
+                    
+                    <InputText placeholder="Username"
+                            onChange={(e) => this.props.changeRegisterFieldHandler("username", e.target.value)}
+                            type="text"
+                            style = {input}
+                            name="username"
+                            />
+                    <InputText placeholder="Password"
+                            onChange={(e) => this.props.changeRegisterFieldHandler("password", e.target.value)}
+                            type="password"
+                            style = {input}
+                            name="password"
+                            />
+                    <InputText placeholder="Location"
+                            onChange={(e) => this.props.changeRegisterFieldHandler("location", e.target.value)}
+                            type="text"
+                            style = {lastInput}
+                            name="location"
+                            />
+                    <Button variant="primary" style={submit}
+                            onClick={() => this.props.registerHandler(this.props.username, this.props.password, this.props.location, this.props.picture)}
+                            type="submit" label="Submit"/>
+                </form>
             </div>
         );
     }
@@ -43,13 +75,18 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(RegisterActions.changeRegisterField(field, value))
         },
         registerHandler: (username, password, location, picture) => {
-            let user = {
-                username,
-                password,
-                location,
-                picture
-            };
-            dispatch(RegisterActions.register(user));
+            let formData = new FormData();
+            formData.append('username', username);
+            formData.append('password', password);
+            formData.append('location', location);
+            formData.append('picture', picture);
+            // let user = {
+            //     username,
+            //     password,
+            //     location,
+            //     picture
+            // };
+            dispatch(RegisterActions.register(formData));
         }
     }
 };

@@ -3,6 +3,10 @@ import {AppPages} from './components/App/constants';
 import {HomePages} from './components/Home/constants';
 
 export default {
+    dragAndDrop: Map({
+        preview: undefined,
+        files: undefined
+    }),
     editReview: Map({
         editReview: false,
         review: undefined
@@ -72,7 +76,7 @@ export default {
         username: undefined,
         password: undefined,
         location: undefined,
-        picture: undefined
+        picture: []
     }),
     app: Map({
         page: AppPages.LOGIN

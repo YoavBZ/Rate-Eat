@@ -7,6 +7,7 @@ import {Button} from 'primereact/button';
 import AppActions from './actions';
 import {AppPages} from './constants';
 import Home from '../Home/Home';
+import DragAndDrop from '../DragAndDrop/DragAndDrop'
 
 class App extends React.Component {
     render() {
@@ -19,7 +20,8 @@ class App extends React.Component {
         const formsStyle = {
             margin: 'auto',
             width: 'fit-content',
-            paddingTop: '15%'
+            paddingTop: '15%',
+            paddingLeft: '36%',
         };
         return (
             <div>

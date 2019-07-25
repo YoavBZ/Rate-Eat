@@ -3,6 +3,7 @@ import {call, put, takeEvery} from 'redux-saga/effects'
 import RegisterActions from './actions'
 
 function* registerUser(action) {
+    // console.log(action.user.get('username'))
     try {
         const res = yield call(fetch, action.uri,
             {
@@ -10,7 +11,7 @@ function* registerUser(action) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(action.payload)
+                body: action.user
             });
         const json = yield call([res, 'json']); //retrieve body of response
         if (res.status >= 400) {
