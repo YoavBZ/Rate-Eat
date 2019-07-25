@@ -103,6 +103,14 @@ function searchLocation(search) {
     }
 }
 
+function searchNameLocation(search, location) {
+    return {
+        type: UsersPageActionsConstants.SEARCH_USERS,
+        uri: 'api/users/someNameLocation',
+        payload: {search, location}
+    }
+}
+
 let UsersPageActions = {
     getUsers,
     getReviews,
@@ -116,6 +124,7 @@ let UsersPageActions = {
     changeSearch,
     search,
     searchLocation,
+    searchNameLocation,
 
     onRateChange,
     getReviewSuccess,

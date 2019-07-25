@@ -94,6 +94,17 @@ router.post('/someLocation', (req, res) => {
         .catch(err => res.status(400).json({message: "Failed to retrive users"}));
 });
 
+router.post('/someNameLocation', (req, res) => {
+    let search = req.body.search;
+    let username = search.search;
+    let location = search.location;
+
+    User.find(
+        {"username": username, "location": location})
+        .then(user => res.json(user))
+        .catch(err => res.status(400).json({message: "Failed to retrive users"}));
+});
+
 router.put('/', (req, res) => {
     console.log(req.body.user);
     let user = req.body.user;

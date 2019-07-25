@@ -97,9 +97,13 @@ export class UsersPage extends Component {
                             type="submit" label="Search"/>
                 </div>
                 <div style={this.props.style}>
-                    <Button variant="secondary"
+                    <Button variant="secondary" style={{padding: '6px'}}
                             onClick={() => this.props.getUsers()}
                             type="submit" label="Back"/>
+                    <Button variant="secondary" style={{padding: '6px'}}
+                            onClick={() => this.props.searchNameLocationHandler(
+                                this.props.search, this.props.searchLocation)}
+                            type="submit" label="SearchBoth"/>
                 </div>
 
                 <div className="p-col-6" style={{textAlign: 'right'}}>
@@ -168,6 +172,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         searchLocationHandler: (search) => {
             dispatch(UsersPageActions.searchLocation({search}))
+        },
+        searchNameLocationHandler: (search, location) => {
+            dispatch(UsersPageActions.searchNameLocation({search , location}))
         }
     }
 };
