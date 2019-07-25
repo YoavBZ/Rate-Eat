@@ -53,5 +53,15 @@ router.post('/', (req, res) => {
         .catch(err => res.status(400).json({message: "restaurant is already exist"}));
 });
 
+router.post('/some', (req, res) => {
+    let search = req.body.search;
+    let name = search.search;
+
+    Restaurant.find(
+        {"name": name})
+        .then(user => res.json(user))
+        .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
+});
+
 module.exports = router;
 

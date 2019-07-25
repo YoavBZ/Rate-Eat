@@ -105,6 +105,7 @@ class RestaurantsPage extends Component {
             {label: 'By Ratings', value: 'brand'}
         ];
         return (
+            <div>
             <div className="p-grid">
                 <div className="p-col-6" style={{textAlign: 'left'}}>
                     <Dropdown options={sortOptions} value={this.props.sortKey} placeholder="Sort By"
@@ -114,11 +115,23 @@ class RestaurantsPage extends Component {
                     <DataViewLayoutOptions layout={this.props.layout} onChange={this.props.changeLayout}/>
                 </div>
 
-                <AutoComplete value={this.props.restaurantsNameSearch} suggestions={this.props.restaurantsNamesFilter} completeMethod={this.props.filterRestaurantsNames}
-                              size={30} placeholder="Names" minLength={1} onChange={this.props.changeRestaurantsNames} />
-                <span style={{ marginLeft: '10px' }}>Name: {this.props.restaurantsNameSearch ? this.props.restaurantsNameSearch : 'none'}</span>
+                <AutoComplete value={this.props.restaurantsNameSearch} onChange={this.props.changeRestaurantsNames}
+                              suggestions={this.props.restaurantsNamesFilter}
+                              completeMethod={this.props.filterRestaurantsNames}
+                              size={30} placeholder="Names" minLength={1}  />
+
+                <Button variant="primary"
+                        onClick={() => this.props.searchHandler(this.props.restaurantsNameSearch)}
+                        type="submit" label="Search"/>
 
             </div>
+                <div style={this.props.style}>
+                    <Button variant="secondary"
+                            onClick={() => this.props.getRestaurants()}
+                            type="submit" label="Back"/>
+                </div>
+            </div>
+
         );
     }
 
@@ -183,6 +196,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         changeRestaurantsNames: (event) => {
             dispatch(RestaurantsPageActions.changeRestaurantsNames(event.value));
+        },
+        searchHandler: (search) => {
+            dispatch(RestaurantsPageActions.search({search}))
         }
 
     }

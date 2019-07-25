@@ -42,10 +42,32 @@ function* addReview(action) {
     }
 }
 
+function* searchRestaurant(action) {
+    console.log('RestaurantsSearchSaga=', action);
+    try {
+        const res = yield call(fetch, action.uri,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(action.payload)
+            });
+        const json = yield call([res, 'json']); //retrieve body of response
+        if (res.status >= 400) {
+            throw json;
+        }
+        yield put(RestaurantsPageActions.searchRestaurantsSuccess(json));
+    } catch (e) {
+        yield put(RestaurantsPageActions.getRestaurantsFailure(e.message));
+    }
+}
+
 function* RestaurantsPageSaga() {
     //using takeEvery, you take the action away from reducer to saga
     yield takeEvery(RestaurantsPageActionsConstants.GET_RESTAURANTS, getRestaurants);
     yield takeEvery(RestaurantsPageActionsConstants.ADD_RATE, addReview);
+    yield takeEvery(RestaurantsPageActionsConstants.SEARCH_RESTAURANT, searchRestaurant);
 }
 
 export default RestaurantsPageSaga;

@@ -42,6 +42,13 @@ function getRestaurantsSuccess(restaurants) {
     }
 }
 
+function searchRestaurantsSuccess(restaurants) {
+    return {
+        type: RestaurantsPageActionsConstants.SEARCH_RESTAURANTS_SUCCESS,
+        restaurants
+    }
+}
+
 function addReviewSuccess(review) {
     return {
         type: RestaurantsPageActionsConstants.ADD_REVIEW_SUCCESS,
@@ -105,6 +112,14 @@ function changeRestaurantsNames(search) {
     }
 }
 
+function search(search) {
+    return {
+        type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT,
+        uri: 'api/restaurants/some',
+        payload: {search}
+    }
+}
+
 let RestaurantsPageActions = {
     changeVisibilityRestaurant,
     changeVisibilityReview,
@@ -112,6 +127,7 @@ let RestaurantsPageActions = {
     onSortChange,
     getRestaurants,
     getRestaurantsSuccess,
+    searchRestaurantsSuccess,
     getRestaurantsFailure,
     selectRestaurant,
     selectReview,
@@ -120,7 +136,8 @@ let RestaurantsPageActions = {
     addReviewFailure,
     changeRate,
     filterRestaurantsNames,
-    changeRestaurantsNames
+    changeRestaurantsNames,
+    search
 
 };
 

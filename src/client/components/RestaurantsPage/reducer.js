@@ -22,8 +22,9 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
             state = state.set('restaurants', action.restaurants);
             let restaurantsNames = action.restaurants;
             let names = restaurantsNames.map( a => a.name );
-            state = state.set('restaurantsNamesFilter', names);
             return state.set('restaurantsNames', names);
+        case RestaurantsPageActionsConstants.SEARCH_RESTAURANTS_SUCCESS:
+            return state.set('restaurants', action.restaurants);
         case RestaurantsPageActionsConstants.GET_RESTAURANTS_FAILURE:
             console.log(action.msg);
             return state;
@@ -34,16 +35,13 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
             // !!!!!!!!!!!!!! TODO WE NEED TO NOTIFY  AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
             return state;
         case RestaurantsPageActionsConstants.FILTER_NAMES:
-            let oldNames = state.restaurantsNamesFilter;
-            let searchName = state.restaurantsNameSearch;
-            if( oldNames ) {
-                let newNames = oldNames.filter((name) => {
-                    return name.toLowerCase().startsWith(searchName.toLowerCase());
+            let oldNames = state.get('restaurantsNames');
+            oldNames = oldNames.filter((v,i) => oldNames.indexOf(v) === i);
+            let search = state.get('restaurantsNameSearch');
+            let newNames = oldNames.filter((name) => {
+                    return name.toLowerCase().startsWith(search.toLowerCase());
                 });
-                return state.set('restaurantsNamesFilter', newNames);
-            }
-            else
-                return state;
+            return state.set( 'restaurantsNamesFilter' , newNames );
         case RestaurantsPageActionsConstants.CHANGE_FILTER_NAMES:
             return state.set('restaurantsNameSearch', action.search);
         default:
