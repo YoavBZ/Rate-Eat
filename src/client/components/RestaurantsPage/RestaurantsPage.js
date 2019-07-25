@@ -8,6 +8,7 @@ import {Dropdown} from "primereact/dropdown";
 import {Panel} from "primereact/panel";
 import RatingPage from "./RatingPage";
 import {AutoComplete} from 'primereact/autocomplete';
+import {Slider} from 'primereact/slider';
 
 class RestaurantsPage extends Component {
 
@@ -115,7 +116,8 @@ class RestaurantsPage extends Component {
                     <DataViewLayoutOptions layout={this.props.layout} onChange={this.props.changeLayout}/>
                 </div>
 
-                <AutoComplete value={this.props.restaurantsNameSearch} onChange={this.props.changeRestaurantsNames}
+                <div>
+                    <AutoComplete value={this.props.restaurantsNameSearch} onChange={this.props.changeRestaurantsNames}
                               suggestions={this.props.restaurantsNamesFilter}
                               completeMethod={this.props.filterRestaurantsNames}
                               size={30} placeholder="Names" minLength={1}  />
@@ -124,11 +126,33 @@ class RestaurantsPage extends Component {
                         onClick={() => this.props.searchHandler(this.props.restaurantsNameSearch)}
                         type="submit" label="Search"/>
 
+                </div>
+                <div>
+                    <AutoComplete value={this.props.restaurantsLocationSearch} onChange={this.props.changeRestaurantsLocations}
+                              suggestions={this.props.restaurantsLocationFilter}
+                              completeMethod={this.props.filterRestaurantsLocations}
+                              size={30} placeholder="Locations" minLength={1}  />
+
+                <Button variant="primary"
+                        onClick={() => this.props.searchLocationHandler(this.props.restaurantsLocationSearch)}
+                        type="submit" label="Search"/>
+                </div>
+
             </div>
-                <div style={this.props.style}>
-                    <Button variant="secondary"
+                <div style={{textAlign: 'middle'}}>
+                    <Button variant="secondary" style={{padding: '6px'} }
                             onClick={() => this.props.getRestaurants()}
                             type="submit" label="Back"/>
+                    <Button variant="secondary" style={{padding: '6px'} }
+                            onClick={() => this.props.searchNameLocationHandler(
+                                    this.props.restaurantsNameSearch, this.props.restaurantsLocationSearch)}
+                            type="submit" label="SearchBoth"/>
+                </div>
+                <div style={{textAlign: 'middle'}}>
+                    <h3>Closer: {this.props.restaurantsScale}
+                    <Slider value={this.props.restaurantsScale} onChange={this.props.setRestaurantsScale}
+                            step={10} style={{width: '56em'}} />
+                        Better: {this.props.restaurantsScale}</h3>
                 </div>
             </div>
 
@@ -151,8 +175,12 @@ const mapStateToProps = (state) => {
     return ({
         restaurants: state.restaurantsPage.get('restaurants'),
         restaurantsNames: state.restaurantsPage.get('restaurantsNames'),
+        restaurantsLocations: state.restaurantsPage.get('restaurantsLocations'),
         restaurantsNamesFilter: state.restaurantsPage.get('restaurantsNamesFilter'),
+        restaurantsLocationFilter: state.restaurantsPage.get('restaurantsLocationFilter'),
         restaurantsNameSearch: state.restaurantsPage.get('restaurantsNameSearch'),
+        restaurantsLocationSearch: state.restaurantsPage.get('restaurantsLocationSearch'),
+        restaurantsScale: state.restaurantsPage.get('restaurantsScale'),
         layout: state.restaurantsPage.get('layout'),
         selectedRestaurant: state.restaurantsPage.get('selectedRestaurant'),
         visibleRestaurant: state.restaurantsPage.get('visibleRestaurant'),
@@ -194,11 +222,26 @@ const mapDispatchToProps = (dispatch) => {
         filterRestaurantsNames: () => {
             dispatch(RestaurantsPageActions.filterRestaurantsNames());
         },
+        filterRestaurantsLocations: () => {
+            dispatch(RestaurantsPageActions.filterRestaurantsLocations());
+        },
         changeRestaurantsNames: (event) => {
             dispatch(RestaurantsPageActions.changeRestaurantsNames(event.value));
         },
+        changeRestaurantsLocations: (event) => {
+            dispatch(RestaurantsPageActions.changeRestaurantsLocations(event.value));
+        },
         searchHandler: (search) => {
             dispatch(RestaurantsPageActions.search({search}))
+        },
+        searchLocationHandler: (search) => {
+            dispatch(RestaurantsPageActions.searchLocation({search}))
+        },
+        searchNameLocationHandler: (search, location) => {
+            dispatch(RestaurantsPageActions.searchNameLocation({search, location}))
+        },
+        setRestaurantsScale: (event) => {
+            dispatch(RestaurantsPageActions.setRestaurantsScale(event.value));
         }
 
     }

@@ -22,6 +22,8 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
             state = state.set('restaurants', action.restaurants);
             let restaurantsNames = action.restaurants;
             let names = restaurantsNames.map( a => a.name );
+            let locations = restaurantsNames.map( a => a.location );
+            state = state.set('restaurantsLocations', locations);
             return state.set('restaurantsNames', names);
         case RestaurantsPageActionsConstants.SEARCH_RESTAURANTS_SUCCESS:
             return state.set('restaurants', action.restaurants);
@@ -42,8 +44,20 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
                     return name.toLowerCase().startsWith(search.toLowerCase());
                 });
             return state.set( 'restaurantsNamesFilter' , newNames );
+        case RestaurantsPageActionsConstants.FILTER_LOCATIONS:
+            let oldLocations = state.get('restaurantsLocations');
+            oldLocations = oldLocations.filter((v,i) => oldLocations.indexOf(v) === i);
+            let searchLocation = state.get('restaurantsLocationSearch');
+            let newLocations = oldLocations.filter((location) => {
+                    return location.toLowerCase().startsWith(searchLocation.toLowerCase());
+                });
+            return state.set( 'restaurantsLocationFilter' , newLocations );
         case RestaurantsPageActionsConstants.CHANGE_FILTER_NAMES:
             return state.set('restaurantsNameSearch', action.search);
+        case RestaurantsPageActionsConstants.CHANGE_FILTER_LOCATIONS:
+            return state.set('restaurantsLocationSearch', action.search);
+        case RestaurantsPageActionsConstants.CHANGE_SCALE:
+            return state.set('restaurantsScale', action.scale);
         default:
             return state;
     }

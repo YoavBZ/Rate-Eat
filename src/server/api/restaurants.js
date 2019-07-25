@@ -63,5 +63,26 @@ router.post('/some', (req, res) => {
         .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
 });
 
+router.post('/someLocation', (req, res) => {
+    let search = req.body.search;
+    let location = search.search;
+
+    Restaurant.find(
+        {"location": location})
+        .then(user => res.json(user))
+        .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
+});
+
+router.post('/someNameLocation', (req, res) => {
+    let search = req.body.search;
+    let name = search.search;
+    let location = search.location;
+
+    Restaurant.find(
+        {"name": name, "location": location})
+        .then(user => res.json(user))
+        .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
+});
+
 module.exports = router;
 

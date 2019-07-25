@@ -62,7 +62,6 @@ function* searchRestaurant(action) {
         yield put(RestaurantsPageActions.getRestaurantsFailure(e.message));
     }
 }
-
 function* RestaurantsPageSaga() {
     //using takeEvery, you take the action away from reducer to saga
     yield takeEvery(RestaurantsPageActionsConstants.GET_RESTAURANTS, getRestaurants);

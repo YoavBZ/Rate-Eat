@@ -105,10 +105,30 @@ function filterRestaurantsNames() {
     }
 }
 
+function filterRestaurantsLocations() {
+    return {
+        type: RestaurantsPageActionsConstants.FILTER_LOCATIONS
+    }
+}
+
 function changeRestaurantsNames(search) {
     return {
         type: RestaurantsPageActionsConstants.CHANGE_FILTER_NAMES,
         search
+    }
+}
+
+function changeRestaurantsLocations(search) {
+    return {
+        type: RestaurantsPageActionsConstants.CHANGE_FILTER_LOCATIONS,
+        search
+    }
+}
+
+function setRestaurantsScale(scale) {
+    return {
+        type: RestaurantsPageActionsConstants.CHANGE_SCALE,
+        scale
     }
 }
 
@@ -117,6 +137,22 @@ function search(search) {
         type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT,
         uri: 'api/restaurants/some',
         payload: {search}
+    }
+}
+
+function searchLocation(search) {
+    return {
+        type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT,
+        uri: 'api/restaurants/someLocation',
+        payload: {search}
+    }
+}
+
+function searchNameLocation(search, location) {
+    return {
+        type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT,
+        uri: 'api/restaurants/someNameLocation',
+        payload: {search , location}
     }
 }
 
@@ -136,8 +172,13 @@ let RestaurantsPageActions = {
     addReviewFailure,
     changeRate,
     filterRestaurantsNames,
+    filterRestaurantsLocations,
     changeRestaurantsNames,
-    search
+    changeRestaurantsLocations,
+    setRestaurantsScale,
+    search,
+    searchLocation,
+    searchNameLocation
 
 };
 
