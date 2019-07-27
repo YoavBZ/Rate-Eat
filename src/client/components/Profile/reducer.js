@@ -1,5 +1,5 @@
 import initialState from '../../initialState';
-import {EditReviewActionsConstats, ProfileActionsConstants} from './constants.js';
+import {EditReviewActionsConstats, ProfileActionsConstants, EditPictureActionsConstats} from './constants.js';
 
 const ProfileReducer = (state = initialState.profile, action) => {
     switch (action.type) {
@@ -9,7 +9,7 @@ const ProfileReducer = (state = initialState.profile, action) => {
             return state.set('edit', true);
         case ProfileActionsConstants.UPDATE_USER_SUCCESS:
             action.callback(true, action.msg);
-            state = state.set('user', action.user);
+            // state = state.set('user', action.user);
             state = state.set('edit', false);
             return state;
         case ProfileActionsConstants.UPDATE_USER_FAILURE:
@@ -18,11 +18,12 @@ const ProfileReducer = (state = initialState.profile, action) => {
         case ProfileActionsConstants.GET_USER_REVIEWS_SUCCESS:
             return state.set('reviews', action.reviews);
         case ProfileActionsConstants.GET_USER_REVIEWS_FAILURE:
-            console.log(action.msg);
             return state;
         case ProfileActionsConstants.CHANGE_REVIEWS_LAYOUT:
             return state.set('layout', action.layout);
-
+        case EditPictureActionsConstats.ON_DROP:
+            return state.set('picture', action.files);
+            
         default: //otherwise state is lost!
             return state;
     }
@@ -37,4 +38,15 @@ const EditReviewReducer = (state = initialState.editReview, action) => {
     }
 };
 
-export {ProfileReducer, EditReviewReducer}
+const EditPictureReducer = (state = initialState.editPicture, action) => {
+    switch (action.type) {
+        case EditPictureActionsConstats.ON_DROP:
+            return state.set('preview', action.preview);
+        case ProfileActionsConstants.UPDATE_USER_SUCCESS:
+            return state.set('preview', undefined)
+        default: //otherwise state is lost!
+            return state;
+    }
+};
+
+export {ProfileReducer, EditReviewReducer, EditPictureReducer}

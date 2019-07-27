@@ -1,10 +1,10 @@
-import {EditReviewActionsConstats, ProfileActionsConstants} from './constants.js';
+import {EditReviewActionsConstats, ProfileActionsConstants, EditPictureActionsConstats} from './constants.js';
 
 function updateUser(user, callback) {
     return {
         type: ProfileActionsConstants.UPDATE_USER,
         uri: '/api/users/',
-        payload: {user},
+        payload: user,
         callback
     }
 }
@@ -92,7 +92,6 @@ let ProfileActions = {
 };
 
 function editMyReview() {
-    console.log(2);
     return {
         type: EditReviewActionsConstats.EDIT_MY_REVIEWS,
 
@@ -103,4 +102,18 @@ let EditReviewActions = {
     editMyReview,
 };
 
-export {ProfileActions, EditReviewActions} 
+
+
+function onDrop(files, preview) {
+    return {
+        type: EditPictureActionsConstats.ON_DROP,
+        files,
+        preview
+    }
+}
+
+let EditPictureActions = {
+    onDrop,
+};
+
+export {ProfileActions, EditReviewActions, EditPictureActions} 

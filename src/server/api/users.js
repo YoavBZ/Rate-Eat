@@ -1,13 +1,13 @@
-const multer  = require('multer')
-
 const express = require('express');
 const router = express.Router();
 
+const multer  = require('multer')
 
 const User = require('../model/User');
 
 var upload = multer({ dest: 'userUploads/' })
-var cpUpload = upload.fields([{ name: 'picture', maxCount: 1 }])
+var cpUpload = upload.fields([{ name: 'picture', maxCount: 1}])
+var putPicture = upload.fields([{name: 'picture', maxCount: 1}])
 
 // @route GET api/items
 // @desc Get all users with given name or location
@@ -48,9 +48,6 @@ router.get('/allReview', (req, res) => {
 // @desc register new user
 // @access public
 router.post('/', cpUpload, (req, res) => {
-    console.log("got to server");
-    console.log(req.body);
-    console.log(req.files.picture[0].path);
     let user = req.body;
     const newUser = new User({
         username: user.username,
@@ -105,22 +102,23 @@ router.post('/someNameLocation', (req, res) => {
         .catch(err => res.status(400).json({message: "Failed to retrive users"}));
 });
 
-router.put('/', (req, res) => {
-    console.log(req.body.user);
-    let user = req.body.user;
-    let username = user.username;
-    let password = user.password;
-    let location = user.location;
-    let picture = user.picture;
-    User.updateOne({
-        $set: {
-            "username": username,
-            "password": password,
-            "location": location,
-            "picture": picture
-        }
-    }).then(user => res.json(user))
-        .catch(err => res.status(500).json({message: `username: ${username} is already taken`}));
+router.put('/', putPicture, (req, res) => {
+    console.log(req.body)
+    console.log(req.files)
+    let id = req.body.id;
+    console.log(id)
+    let user = {}
+    user["username"] = req.body.username
+    user["password"] = req.body.password
+    user["location"] = req.body.location
+    if(req.files.length != 0){
+        user["picture"] = req.files.picture[0].path
+    }
+    User.replaceOne(
+        {"_id": id},
+        user
+    ).then(user => User.find({"_id": id}).then(user => res.json(user[0])).catch(err => res.status(500).json({message: `Server Error`})))
+        .catch(err => res.status(500).json({message: `username: ${req.body.username} is already taken`}));
 });
 
 module.exports = router;

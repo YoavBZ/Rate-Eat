@@ -8,15 +8,16 @@ function* updateUserProfile(action) {
             {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(action.payload)
+                body: action.payload
             });
 
         const json = yield call([res, 'json']); //retrieve body of response
         if (res.status >= 400) {
             throw json;
         }
+        console.log(json);
+        
         yield put(ProfileActions.updateUserSuccess(json, action.callback, "Your profile had been updated!"));
     } catch (e) {
         yield put(ProfileActions.updateUserFailure(action.callback, e.message));

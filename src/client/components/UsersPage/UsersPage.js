@@ -35,22 +35,21 @@ export class UsersPage extends Component {
     }
 
     renderListItem(user) {
+        const img = {
+            height: "100px",
+            width: "100px",
+            position: "relative",
+            top: "-100%",
+            left: "-10%",
+            borderRadius: "100px",
+            
+        }
         return (
-            <div className="p-col-12" style={{padding: '2em', borderBottom: '1px solid #d9d9d9', display: 'flex'}}>
-                <div className="p-col-12 p-md-3" style={{width: '25%'}}>
-                    <img placeholder={'Image'} src={user.image} alt={user.name} style={{width: '100%'}}/>
-                </div>
-                <div className="p-col-12 p-md-8 restaurant-details" style={{textAlign: 'left', margin: 'auto'}}>
-                    <div className="p-grid" style={{position: 'relative', left: '-100%'}}>
-                        <div className="p-col-2 p-sm-6">Name: <b>{user.username}</b></div>
-                        <div className="p-col-2 p-sm-6">Location: <b>{user.location}</b></div>
-                    </div>
-                </div>
-
-                {/*//here we send restaurant to give new review*/}
-                <div className="p-col-12 p-md-1 plus-icon" style={{marginTop: '40px'}}>
-                    <Button icon='pi pi-plus' onClick={() => this.props.selectReview(user, true, this.props.rates) }/>
-                </div>
+            <div style={{padding: "2em", borderBottom: '1px solid #d9d9d9', height:"120px"}}>
+                Name: <b>{user.username}</b><br/>Location: <b>{user.location}</b><br/>
+                <img src={user.picture} style={img} />
+                <Button icon='pi pi-plus' style = {{position: "relative", top: "-180%", left:"5%"}}
+                  onClick={() => this.props.selectReview(user, true, this.props.rates) }/>
             </div>);
     }
 

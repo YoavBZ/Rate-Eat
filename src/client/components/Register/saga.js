@@ -9,7 +9,7 @@ function* registerUser(action) {
             {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'multipart/form-data; boundary=1000000000000'
                 },
                 body: action.user
             });
@@ -17,7 +17,7 @@ function* registerUser(action) {
         if (res.status >= 400) {
             throw json;
         }
-        yield put(RegisterActions.registerSuccess(json.user));
+        yield put(RegisterActions.registerSuccess(json));
     } catch (e) {
         yield put(RegisterActions.registerFailure(e.message));
     }
