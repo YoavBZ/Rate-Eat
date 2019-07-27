@@ -9,6 +9,7 @@ import {Panel} from "primereact/panel";
 import RatingPage from "./RatingPage";
 import {AutoComplete} from 'primereact/autocomplete';
 import {Slider} from 'primereact/slider';
+import MapContainer from "../MapContainer/MapContainer";
 
 class RestaurantsPage extends Component {
 
@@ -26,6 +27,7 @@ class RestaurantsPage extends Component {
                           rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
 
                 <Dialog header="Restaurant Details" visible={this.props.visibleRestaurant} width="225px" modal={true}
+                        contentStyle={{overflow: "auto"}}
                         onHide={() => this.props.changeVisibilityRestaurant(false)}>
                     {this.renderRestaurantDialogContent()}
                 </Dialog>
@@ -92,6 +94,9 @@ class RestaurantsPage extends Component {
 
                     <div className="p-col-4">Rating:</div>
                     <div className="p-col-8">{this.props.selectedRestaurant.score}</div>
+
+                    <MapContainer name={this.props.selectedRestaurant.name}
+                                  position={this.props.selectedRestaurant.coords}/>
                 </div>
             );
         } else {
@@ -107,51 +112,53 @@ class RestaurantsPage extends Component {
         ];
         return (
             <div>
-            <div className="p-grid">
-                <div className="p-col-6" style={{textAlign: 'left'}}>
-                    <Dropdown options={sortOptions} value={this.props.sortKey} placeholder="Sort By"
-                              onChange={this.props.onSortChange}/>
+                <div className="p-grid">
+                    <div className="p-col-6" style={{textAlign: 'left'}}>
+                        <Dropdown options={sortOptions} value={this.props.sortKey} placeholder="Sort By"
+                                  onChange={this.props.onSortChange}/>
+                    </div>
+                    <div className="p-col-6" style={{textAlign: 'right'}}>
+                        <DataViewLayoutOptions layout={this.props.layout} onChange={this.props.changeLayout}/>
+                    </div>
+
+                    <div>
+                        <AutoComplete value={this.props.restaurantsNameSearch}
+                                      onChange={this.props.changeRestaurantsNames}
+                                      suggestions={this.props.restaurantsNamesFilter}
+                                      completeMethod={this.props.filterRestaurantsNames}
+                                      size={30} placeholder="Names" minLength={1}/>
+
+                        <Button variant="primary"
+                                onClick={() => this.props.searchHandler(this.props.restaurantsNameSearch)}
+                                type="submit" label="Search"/>
+
+                    </div>
+                    <div>
+                        <AutoComplete value={this.props.restaurantsLocationSearch}
+                                      onChange={this.props.changeRestaurantsLocations}
+                                      suggestions={this.props.restaurantsLocationFilter}
+                                      completeMethod={this.props.filterRestaurantsLocations}
+                                      size={30} placeholder="Locations" minLength={1}/>
+
+                        <Button variant="primary"
+                                onClick={() => this.props.searchLocationHandler(this.props.restaurantsLocationSearch)}
+                                type="submit" label="Search"/>
+                    </div>
+
                 </div>
-                <div className="p-col-6" style={{textAlign: 'right'}}>
-                    <DataViewLayoutOptions layout={this.props.layout} onChange={this.props.changeLayout}/>
-                </div>
-
-                <div>
-                    <AutoComplete value={this.props.restaurantsNameSearch} onChange={this.props.changeRestaurantsNames}
-                              suggestions={this.props.restaurantsNamesFilter}
-                              completeMethod={this.props.filterRestaurantsNames}
-                              size={30} placeholder="Names" minLength={1}  />
-
-                <Button variant="primary"
-                        onClick={() => this.props.searchHandler(this.props.restaurantsNameSearch)}
-                        type="submit" label="Search"/>
-
-                </div>
-                <div>
-                    <AutoComplete value={this.props.restaurantsLocationSearch} onChange={this.props.changeRestaurantsLocations}
-                              suggestions={this.props.restaurantsLocationFilter}
-                              completeMethod={this.props.filterRestaurantsLocations}
-                              size={30} placeholder="Locations" minLength={1}  />
-
-                <Button variant="primary"
-                        onClick={() => this.props.searchLocationHandler(this.props.restaurantsLocationSearch)}
-                        type="submit" label="Search"/>
-                </div>
-
-            </div>
                 <div style={{textAlign: 'middle'}}>
-                    <Button variant="secondary" style={{padding: '6px'} }
+                    <Button variant="secondary" style={{padding: '6px'}}
                             onClick={() => this.props.getRestaurants()}
                             type="submit" label="Back"/>
-                    <Button variant="secondary" style={{padding: '6px'} }
+                    <Button variant="secondary" style={{padding: '6px'}}
                             onClick={() => this.props.searchNameLocationHandler(
-                                    this.props.restaurantsNameSearch, this.props.restaurantsLocationSearch)}
+                                this.props.restaurantsNameSearch, this.props.restaurantsLocationSearch)}
                             type="submit" label="SearchBoth"/>
                 </div>
                 <div style={{textAlign: 'middle'}}>
                     <h3>Closer: {100 - this.props.restaurantsScale}
-                    <Slider value={this.props.restaurantsScale} onChange={this.props.setRestaurantsScale}
-                            step={10} style={{width: '56em'}} />
+                        <Slider value={this.props.restaurantsScale} onChange={this.props.setRestaurantsScale}
+                                step={10} style={{width: '56em'}}/>
                         Better: {this.props.restaurantsScale}</h3>
                 </div>
             </div>
