@@ -7,6 +7,9 @@ export default {
         preview: undefined,
         files: undefined
     }),
+    editPicture: Map({
+        preview: undefined,
+    }),
     editReview: Map({
         editReview: false,
         review: undefined

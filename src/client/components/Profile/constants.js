@@ -19,4 +19,9 @@ const EditReviewActionsConstats = {
 
 }
 
-export {ProfileActionsConstants, EditReviewActionsConstats}
+const EditPictureActionsConstats = {
+    ON_DROP: 'ON_DROP'
+
+}
+
+export {ProfileActionsConstants, EditReviewActionsConstats, EditPictureActionsConstats}

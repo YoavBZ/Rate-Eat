@@ -2,6 +2,7 @@ import initialState from '../../initialState';
 import {HomeActionsConstants} from './constants';
 import {LoginActionsConstants} from '../Login/constants';
 import {RegisterActionsConstants} from '../Register/constants';
+import {ProfileActionsConstants} from '../Profile/constants';
 
 const HomeReducer = (state = initialState.home, action) => {
     switch (action.type) {
@@ -9,6 +10,7 @@ const HomeReducer = (state = initialState.home, action) => {
             return state.set('page', action.page);
         case LoginActionsConstants.LOGIN_SUCCESS:
         case RegisterActionsConstants.REGISTER_SUCCESS:
+        case ProfileActionsConstants.UPDATE_USER_SUCCESS:
             return state.set('user', action.user);
         default: //otherwise state is lost!
             return state;

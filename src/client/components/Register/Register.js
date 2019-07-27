@@ -31,7 +31,6 @@ class Register extends React.Component {
 
         return (
             <div style={this.props.style}>
-                <form action='/api/users' method="post" encType="multipart/form-data">
                     <DragAndDrop files={this.props.picture}/>
                     
                     <InputText placeholder="Username"
@@ -55,7 +54,6 @@ class Register extends React.Component {
                     <Button variant="primary" style={submit}
                             onClick={() => this.props.registerHandler(this.props.username, this.props.password, this.props.location, this.props.picture)}
                             type="submit" label="Submit"/>
-                </form>
             </div>
         );
     }
@@ -80,12 +78,6 @@ const mapDispatchToProps = (dispatch) => {
             formData.append('password', password);
             formData.append('location', location);
             formData.append('picture', picture);
-            // let user = {
-            //     username,
-            //     password,
-            //     location,
-            //     picture
-            // };
             dispatch(RegisterActions.register(formData));
         }
     }
