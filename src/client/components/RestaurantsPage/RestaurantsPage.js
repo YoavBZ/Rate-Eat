@@ -26,13 +26,14 @@ class RestaurantsPage extends Component {
                           itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
                           rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
 
-                <Dialog header="Restaurant Details" visible={this.props.visibleRestaurant} width="225px" modal={true}
-                        contentStyle={{overflow: "auto"}}
+                <Dialog header="Restaurant Details" visible={this.props.visibleRestaurant} modal={true}
+                        style={{height: '85%', width: '70%'}} contentStyle={{overflowX: 'hidden'}}
                         onHide={() => this.props.changeVisibilityRestaurant(false)}>
                     {this.renderRestaurantDialogContent()}
                 </Dialog>
 
-                <Dialog header="Restaurant Review" visible={this.props.visibleReview} width="225px" modal={true}
+                <Dialog header="Restaurant Review" visible={this.props.visibleReview} modal={true}
+                        style={{height: '85%', width: '50%', overflow:'overlay'}}
                         onHide={() => this.props.changeVisibilityReview(false)}>
                     <RatingPage/>
                 </Dialog>
@@ -83,7 +84,7 @@ class RestaurantsPage extends Component {
                 <div className="p-grid" style={{fontSize: '16px', textAlign: 'center', padding: '20px'}}>
                     <div className="p-col-12" style={{textAlign: 'center'}}>
                         <img placeholder={'Image'} src={this.props.selectedRestaurant.image}
-                             alt={this.props.selectedRestaurant.name} style={{width: '75%'}}/>
+                             alt={this.props.selectedRestaurant.name} style={{height: '210px', width: '415px'}}/>
                     </div>
 
                     <div className="p-col-4">Name:</div>
