@@ -35,7 +35,8 @@ class RestaurantsPage extends Component {
                 <Dialog header="Restaurant Review" visible={this.props.visibleReview} modal={true}
                         style={{height: '85%', width: '50%', overflow:'overlay'}}
                         onHide={() => this.props.changeVisibilityReview(false)}>
-                    <RatingPage/>
+                    <RatingPage selectedRestaurant={  this.props.selectedRestaurant}
+                                currentUser = { this.props.currentUser }/>
                 </Dialog>
             </div>
         );
@@ -60,7 +61,7 @@ class RestaurantsPage extends Component {
                 </div>
                 {/*//here we send restaurant to give new review*/}
                 <div className="p-col-12 p-md-1 plus-icon" style={{marginTop: '40px'}}>
-                    <Button icon='pi pi-plus' onClick={() => this.props.selectReview(true)}/>
+                    <Button icon='pi pi-plus' onClick={() => this.props.selectReview(restaurant, true)}/>
                 </div>
             </div>);
     }
@@ -73,7 +74,7 @@ class RestaurantsPage extends Component {
                     <div className="restaurant-detail">{restaurant.location}</div>
                     <hr className="ui-widget-content" style={{borderTop: 0}}/>
                     <Button icon="pi pi-search" onClick={() => this.props.selectRestaurant(restaurant, true)}/>
-                    <Button icon="pi pi-plus" onClick={() => this.props.selectReview(true)}/>
+                    <Button icon="pi pi-plus" onClick={() => this.props.selectReview(restaurant, true)}/>
                 </Panel>
             </div>);
     }
@@ -179,8 +180,9 @@ class RestaurantsPage extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return ({
+        currentUser: ownProps.currentUser,
         restaurants: state.restaurantsPage.get('restaurants'),
         restaurantsNames: state.restaurantsPage.get('restaurantsNames'),
         restaurantsLocations: state.restaurantsPage.get('restaurantsLocations'),
@@ -224,8 +226,8 @@ const mapDispatchToProps = (dispatch) => {
         selectRestaurant: (restaurant, visible) => {
             dispatch(RestaurantsPageActions.selectRestaurant(restaurant, visible));
         },
-        selectReview: (visible) => {
-            dispatch(RestaurantsPageActions.selectReview(visible));
+        selectReview: (restaurant, visible) => {
+            dispatch(RestaurantsPageActions.selectReview(restaurant, visible));
         },
         filterRestaurantsNames: () => {
             dispatch(RestaurantsPageActions.filterRestaurantsNames());

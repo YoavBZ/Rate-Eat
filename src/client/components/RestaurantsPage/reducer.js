@@ -17,6 +17,7 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
             state = state.set('selectedRestaurant', action.restaurant);
             return state.set('visibleRestaurant', action.visible);
         case RestaurantsPageActionsConstants.SELECT_REVIEW:
+            state = state.set('selectedRestaurant', action.restaurant);
             return state.set('visibleReview', action.visible);
         case RestaurantsPageActionsConstants.GET_RESTAURANTS_SUCCESS:
             state = state.set('restaurants', action.restaurants);

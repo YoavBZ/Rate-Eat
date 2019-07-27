@@ -77,10 +77,10 @@ function selectRestaurant(restaurant, visible) {
     }
 }
 
-function selectReview(visible) {
+function selectReview(restaurant, visible) {
     return {
         type: RestaurantsPageActionsConstants.SELECT_REVIEW,
-        visible
+        restaurant, visible
     }
 }
 

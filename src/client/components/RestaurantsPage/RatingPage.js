@@ -11,7 +11,7 @@ class RatingPage extends React.Component {
             <div>
                 <div className="content-section introduction">
                     <div className="feature-intro">
-                        <h1>Rating</h1>
+                        <h1>Rating </h1>
                         <p>Be nice with new rating ;) .</p>
                     </div>
                 </div>
@@ -41,17 +41,20 @@ class RatingPage extends React.Component {
                     <Rating value={this.props.foodQuality} cancel={false}
                             onChange={(e) => this.props.changeRate(e.value, RatesConstants.FOOD_QUALITY)}/>
 
-                    <Button icon="pi pi-plus-circle" onClick={() => this.props.addReview(this.props.bathroomQuality,
-                        this.props.staffKindness, this.props.cleanliness, this.props.driveThruQuality,
-                        this.props.deliverySpeed, this.props.foodQuality)}/>
+                    <Button icon="pi pi-plus-circle" onClick={() =>
+                        this.props.addReview(this.props.currentUser._id, this.props.selectedRestaurant.id,
+                        this.props.bathroomQuality, this.props.staffKindness, this.props.cleanliness,
+                        this.props.driveThruQuality, this.props.deliverySpeed, this.props.foodQuality)}/>
                 </div>
             </div>
         )
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return ({
+        currentUser: ownProps.currentUser,
+        selectedRestaurant: ownProps.selectedRestaurant,
         bathroomQuality: state.rates.get('bathroomQuality'),
         staffKindness: state.rates.get('staffKindness'),
         cleanliness: state.rates.get('cleanliness'),
@@ -66,8 +69,10 @@ const mapDispatchToProps = (dispatch) => {
         changeRate: (rate, category) => {
             dispatch(RestaurantsPageActions.changeRate(rate, category));
         },
-        addReview: (bathroomQuality, staffKindness, cleanliness, driveThruQuality, deliverySpeed, foodQuality, pictures) => {
+        addReview: (nameId, restaurantId, bathroomQuality, staffKindness, cleanliness, driveThruQuality, deliverySpeed, foodQuality, pictures) => {
             let review = {
+                userID: nameId,
+                restaurantID: restaurantId,
                 bathroomQuality: bathroomQuality,
                 staffKindness: staffKindness,
                 cleanliness: cleanliness,

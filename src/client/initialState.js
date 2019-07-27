@@ -39,7 +39,7 @@ export default {
         restaurantsLocationSearch: '',
         restaurantsScale: 0,
         layout: 'list',
-        selectedRestaurants: null,
+        selectedRestaurant: [],
         visibleRestaurant: false,
         visibleReview: false,
         sortKey: null,
