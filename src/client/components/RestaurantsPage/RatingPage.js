@@ -41,10 +41,13 @@ class RatingPage extends React.Component {
                     <Rating value={this.props.foodQuality} cancel={false}
                             onChange={(e) => this.props.changeRate(e.value, RatesConstants.FOOD_QUALITY)}/>
 
-                    <Button icon="pi pi-plus-circle" onClick={() =>
+                    <Button icon="pi pi-plus-circle" onClick={() => {
                         this.props.addReview(this.props.currentUser._id, this.props.selectedRestaurant.id,
-                        this.props.bathroomQuality, this.props.staffKindness, this.props.cleanliness,
-                        this.props.driveThruQuality, this.props.deliverySpeed, this.props.foodQuality)}/>
+                            this.props.bathroomQuality, this.props.staffKindness, this.props.cleanliness,
+                            this.props.driveThruQuality, this.props.deliverySpeed, this.props.foodQuality);
+                        this.props.clearReview();
+                    }
+                    }/>
                 </div>
             </div>
         )
@@ -68,6 +71,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         changeRate: (rate, category) => {
             dispatch(RestaurantsPageActions.changeRate(rate, category));
+        },
+        clearReview: () => {
+            dispatch(RestaurantsPageActions.clearReview());
         },
         addReview: (nameId, restaurantId, bathroomQuality, staffKindness, cleanliness, driveThruQuality, deliverySpeed, foodQuality, pictures) => {
             let review = {

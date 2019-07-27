@@ -91,6 +91,12 @@ function changeRate(rate, category) {
     }
 }
 
+function clearReview() {
+    return {
+        type: RestaurantsPageActionsConstants.CLEAR_RATE
+    }
+}
+
 function addReview(review) {
     return {
         type: RestaurantsPageActionsConstants.ADD_RATE,
@@ -171,6 +177,7 @@ let RestaurantsPageActions = {
     addReviewSuccess,
     addReviewFailure,
     changeRate,
+    clearReview,
     filterRestaurantsNames,
     filterRestaurantsLocations,
     changeRestaurantsNames,

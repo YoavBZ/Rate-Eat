@@ -59,6 +59,8 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
             return state.set('restaurantsLocationSearch', action.search);
         case RestaurantsPageActionsConstants.CHANGE_SCALE:
             return state.set('restaurantsScale', action.scale);
+        case RestaurantsPageActionsConstants.CLEAR_RATE:
+           return state.set( 'visibleReview' , false );
         default:
             return state;
     }
@@ -68,6 +70,14 @@ const RatesReducer = (state = initialState.rates, action) => {
     switch (action.type) {
         case RestaurantsPageActionsConstants.CHANGE_RATE:
             return state.set(action.category, action.rate);
+        case RestaurantsPageActionsConstants.CLEAR_RATE:
+            state = state.set( 'bathroomQuality' , 0 );
+            state = state.set( 'staffKindness' , 0 );
+            state = state.set( 'cleanliness' , 0 );
+            state = state.set( 'driveThruQuality' , 0 );
+            state = state.set( 'deliverySpeed' , 0 );
+            return state.set( 'foodQuality' , 0);
+
         default:
             return state;
     }
