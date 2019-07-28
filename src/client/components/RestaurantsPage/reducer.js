@@ -107,12 +107,11 @@ const RatesListReducer = (state = initialState.rates, action) => {
 const ReviewPicturesReducer = (state = initialState.reviewPictures, action) => {
     switch (action.type) {
         case ReviewPicturesConstants.ON_DROP:
-            state = state.set('files', action.files); 
-            return state.set('previews', action.previews);
+            return state.set('files', action.files); 
         default: //otherwise state is lost!
             return state;
     }
 };
 
 
-export {RestaurantsPageReducer, RatesReducer, ReviewPicturesReducer}
+export {RestaurantsPageReducer, RatesReducer, ReviewPicturesReducer, RatesListReducer}

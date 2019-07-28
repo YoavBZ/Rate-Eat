@@ -103,10 +103,7 @@ router.post('/someNameLocation', (req, res) => {
 });
 
 router.put('/', putPicture, (req, res) => {
-    console.log(req.body)
-    console.log(req.files)
     let id = req.body.id;
-    console.log(id)
     let user = {}
     user["username"] = req.body.username
     user["password"] = req.body.password

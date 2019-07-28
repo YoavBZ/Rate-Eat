@@ -9,14 +9,16 @@ class ReviewPictures extends Component {
   render() {
     const container = {
       border: '1px solid #a6a6a6',
-      height: 225,
-      width: 200,
+      height: '100px',
+      width: '100%',
+      float: 'left'
     };
 
     const img = {
       width: '100%',
-      height: '100%',
+    //   height: '100%',
       color: "#a6a6a6",
+      float: 'left'
     };
 
     
@@ -25,12 +27,13 @@ class ReviewPictures extends Component {
       position: 'relative',
       top: '50%',
       color:"#a6a6a6",
-      fontFamily: "Open Sans, Helvetica Neue sans-serif"
+      fontFamily: "Open Sans, Helvetica Neue sans-serif",
+      float: 'left'
     };
 
-    const thumbs = this.props.previews.map(preview => (
-        <img
-          src={preview}
+    const thumbs = this.props.files.map(file => (
+        <img key={file.name}
+          src={URL.createObjectURL(file)}
           style={img}
         />
     ));
@@ -45,7 +48,7 @@ class ReviewPictures extends Component {
                 style={img}
                 alt ="Profile Picture"
               /> */}
-              <div>{thumbs}</div>
+              <div style={{display:'flex'}}>{thumbs}</div>
           </div>
         )}
       </Dropzone>

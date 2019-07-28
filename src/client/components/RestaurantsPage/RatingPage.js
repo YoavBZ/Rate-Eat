@@ -9,7 +9,7 @@ import ReviewPictures from "./ReviewPictures";
 class RatingPage extends React.Component {
     render() {
         return (
-            <div>
+            <div style={{overflow:'scroll'}}>
                 <div className="content-section introduction">
                     <div className="feature-intro">
                         <h1>Rating </h1>
@@ -17,7 +17,7 @@ class RatingPage extends React.Component {
                     </div>
                 </div>
 
-                <div className="content-section implementation">
+                <div className="content-section implementation" style={{overflow:scroll}}>
                     <h3 className="first">Bathroom Quality {this.props.bathroomQuality}</h3>
                     <Rating value={this.props.bathroomQuality} cancel={false}
                             onChange={(e) => this.props.changeRate(e.value, RatesConstants.BATHROOM_QUALITY)}/>
@@ -44,7 +44,7 @@ class RatingPage extends React.Component {
                     
                     <ReviewPictures/>
 
-                    <Button icon="pi pi-plus-circle" onClick={() => {
+                    <Button label="Submit" onClick={() => {
                         this.props.addReview(this.props.currentUser._id, this.props.selectedRestaurant._id,
                             this.props.bathroomQuality, this.props.staffKindness, this.props.cleanliness,
                             this.props.driveThruQuality, this.props.deliverySpeed, this.props.foodQuality);
