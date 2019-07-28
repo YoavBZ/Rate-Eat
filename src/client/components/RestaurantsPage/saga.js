@@ -41,6 +41,26 @@ function* getReviewsList(action) {
     }
 }
 
+function* searchRestaurantRating(action) {
+    try {
+        const res = yield call(fetch, action.uri,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(action.payload)
+            });
+        const json = yield call([res, 'json']); //retrieve body of response
+        if (res.status >= 400) {
+            throw json;
+        }
+        yield put(RestaurantsPageActions.getReviewListSuccess(json));
+    } catch (e) {
+        yield put(RestaurantsPageActions.addReviewFailure(e.message));
+    }
+}
+
 function* addReview(action) {
     try {
         const res = yield call(fetch, action.uri,
@@ -107,6 +127,7 @@ function* RestaurantsPageSaga() {
     yield takeEvery(RestaurantsPageActionsConstants.ADD_RATE, addReview);
     yield takeEvery(RestaurantsPageActionsConstants.ADD_AVG, addScore);
     yield takeEvery(RestaurantsPageActionsConstants.SEARCH_RESTAURANT, searchRestaurant);
+    yield takeEvery(RestaurantsPageActionsConstants.SEARCH_RESTAURANT_RATING, searchRestaurantRating);
 }
 
 export default RestaurantsPageSaga;

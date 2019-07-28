@@ -76,7 +76,7 @@ router.post('/some', (req, res) => {
     let username = search.search;
 
     User.find(
-        {"username": username})
+        {"username": {$regex : username}})
         .then(user => res.json(user))
         .catch(err => res.status(400).json({message: "Failed to retrive users"}));
 });
@@ -86,7 +86,7 @@ router.post('/someLocation', (req, res) => {
     let location = search.search;
 
     User.find(
-        {"location": location})
+        {"location": {$regex : location}})
         .then(user => res.json(user))
         .catch(err => res.status(400).json({message: "Failed to retrive users"}));
 });
@@ -97,7 +97,7 @@ router.post('/someNameLocation', (req, res) => {
     let location = search.location;
 
     User.find(
-        {"username": username, "location": location})
+        {"username":  {$regex : username}, "location":  {$regex : location}})
         .then(user => res.json(user))
         .catch(err => res.status(400).json({message: "Failed to retrive users"}));
 });

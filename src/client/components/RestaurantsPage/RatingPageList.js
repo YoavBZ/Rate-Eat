@@ -2,17 +2,20 @@ import React from "react";
 import {Rating} from "primereact/components/rating/Rating";
 import RestaurantsPageActions from "./actions";
 import {connect} from "react-redux";
-import {DataView} from "primereact/components/dataview/DataView";
+import {DataView, DataViewLayoutOptions} from "primereact/components/dataview/DataView";
+import {Dropdown} from "primereact/components/dropdown/Dropdown";
+import {Button} from "primereact/button";
 
 class RatingPageList extends React.Component {
 
     render() {
+        const header = this.renderHeader();
         return (
             <div style={{margin: 'auto', width: '80%'}}>
                 <h1 style={{fontFamily: 'sans-serif'}}>Reviews</h1>
-                <DataView value={this.props.rates} onChange={this.props.onRateChange}
+                <DataView value={this.props.rates} onChange={this.props.onRateChange} header={header}
                           itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
-                          rows={4}/>
+                          rows={4} sortOrder={this.props.sortOrderRating} sortField={this.props.sortFieldRating}/>
             </div>
         );
     }
@@ -28,11 +31,10 @@ class RatingPageList extends React.Component {
 
 
     renderListItem(rate) {
-
         return (
             <div className="p-col-12" style={{padding: '2em', borderBottom: '1px solid #d9d9d9', display: 'flex'}}>
                 <div className="p-col-12 p-md-3" style={{width: '25%'}}>
-                    <img placeholder={'Image'} src={rate.image} alt={this.props.selectedRestaurant.name}
+                    <img placeholder={'Image'} src={rate.image}
                          style={{width: '100%'}}/>
                 </div>
                 <div className="p-col-12 p-md-8 review-details" style={{textAlign: 'left', margin: 'auto'}}>
@@ -76,13 +78,55 @@ class RatingPageList extends React.Component {
 
             </div>);
     }
+
+    renderHeader() {
+        const sortOptions = [
+            {label: 'Newest', value: 'publishDate'},
+            {label: 'Oldest', value: '!publishDate'}
+        ];
+        return (
+            <div>
+                <div className="p-grid">
+                    <div className="p-col-6" style={{textAlign: 'left'}}>
+                        <Dropdown options={sortOptions} value={this.props.sortKeyRating} placeholder="Sort By"
+                                  onChange={this.props.onSortChangeRating}/>
+                    </div>
+                    <div>
+                        <div className="p-col-6" style={{textAlign: 'right'}}>
+                            <h3>AVG Rating Above {this.props.restaurantsAVGRating}</h3>
+                            <Rating value={this.props.restaurantsAVGRating}
+                                    onChange={this.props.changeRestaurantsAVGRating} />
+                            <Button variant="primary"
+                                    onClick={() => this.props.searchAVGRatingHandler(
+                                        this.props.selectedRestaurant._id, this.props.restaurantsAVGRating)}
+                                    type="submit" label="Search"/>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div style={{textAlign: 'middle'}}>
+                    <Button variant="secondary" style={{padding: '6px'}}
+                            onClick={() => this.props.getReviewsList(this.props.selectedRestaurant._id)}
+                            type="submit" label="Back"/>
+                </div>
+            </div>
+
+        );
+    }
+
 }
 
 
 const mapStateToProps = (state, ownProps) => {
     return ({
         rates: ownProps.rates,
-        selectedRestaurant: state.restaurantsPage.get('selectedRestaurant')
+        selectedRestaurant: state.restaurantsPage.get('selectedRestaurant'),
+        sortKeyRating: state.restaurantsPage.get('sortKeyRating'),
+        sortOrderRating: state.restaurantsPage.get('sortOrderRating'),
+        sortFieldRating: state.restaurantsPage.get('sortFieldRating'),
+        restaurantsAVGRating: state.restaurantsPage.get('restaurantsAVGRating')
     });
 };
 
@@ -90,7 +134,26 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onRateChange: (event) => {
             dispatch(RestaurantsPageActions.onRateChange(event.value));
-        }
+        },
+        onSortChangeRating: (event) => {
+            const value = event.value;
+            if (value.indexOf('!') === 0) {
+                dispatch(RestaurantsPageActions.onSortChangeRating( -1, value, value));
+            } else {
+                dispatch(RestaurantsPageActions.onSortChangeRating(1, value, value));
+            }
+        },
+        getReviewsList: (restaurantID) => {
+            dispatch(RestaurantsPageActions.getReviewsList(restaurantID))
+        },
+        changeRestaurantsAVGRating: (event) => {
+            dispatch(RestaurantsPageActions.changeRestaurantsAVGRating(event.value));
+        },
+        searchAVGRatingHandler: (restaurantID, search) => {
+            dispatch(RestaurantsPageActions.searchAVGRatingHandler({restaurantID, search}))
+        },
+
+
 
     }
 };

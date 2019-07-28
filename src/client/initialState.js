@@ -41,6 +41,7 @@ export default {
         restaurantsNameSearch: '',
         restaurantsLocationSearch: '',
         restaurantsAVGSearch: 0,
+        restaurantsAVGRating: 0,
         restaurantsScale: 0,
         layout: 'list',
         selectedRestaurant: [],
@@ -48,7 +49,11 @@ export default {
         visibleReview: false,
         visibleReviewList: false,
         sortKey: null,
+        sortKeyRating: null,
         sortOrder: null,
+        sortOrderRating: null,
+        sortField: null,
+        sortFieldRating: null,
         rates: []
     }),
     googleMap: Map({
