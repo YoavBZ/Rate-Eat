@@ -32,12 +32,12 @@ class RatingPage extends React.Component {
         return (
             <div className="p-col-12" style={{padding: '2em', borderBottom: '1px solid #d9d9d9', display: 'flex'}}>
                 <div className="p-col-12 p-md-3" style={{width: '25%'}}>
-                    <img placeholder={'Image'} src={rate.image} alt={this.props.selectedUser.username}
+                    <img placeholder={'Image'} src={rate.image} alt={this.props.selectedUser.username || 'none'}
                          style={{width: '100%'}}/>
                 </div>
                 <div className="p-col-12 p-md-8 review-details" style={{textAlign: 'left', margin: 'auto'}}>
                     <div className="p-grid" style={{position: 'relative', left: '-100%'}}>
-                        <div className="p-col-2 p-sm-6">User Name: <b>{this.props.selectedUser.username}</b></div>
+                        <div className="p-col-2 p-sm-6">User Name: <b>{this.props.selectedUser.username || 'none'}</b></div>
                         {/*<div className="p-col-2 p-sm-6">Restaurant Name: <b>{this.props.restaurantName}</b></div>*/}
                         {/*<div className="p-col-2 p-sm-6">Location: <b>{user.location}</b></div>*/}
                     </div>

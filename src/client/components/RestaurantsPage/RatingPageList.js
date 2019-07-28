@@ -34,7 +34,7 @@ class RatingPageList extends React.Component {
         return (
             <div className="p-col-12" style={{padding: '2em', borderBottom: '1px solid #d9d9d9', display: 'flex'}}>
                 <div className="p-col-12 p-md-3" style={{width: '25%'}}>
-                    <img placeholder={'Image'} src={rate.image} alt={this.props.selectedRestaurant.name}
+                    <img placeholder={'Image'} src={rate.image}
                          style={{width: '100%'}}/>
                 </div>
                 <div className="p-col-12 p-md-8 review-details" style={{textAlign: 'left', margin: 'auto'}}>
