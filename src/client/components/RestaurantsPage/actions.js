@@ -35,6 +35,13 @@ function onSortChange(sortOrder, sortField, sortKey) {
     }
 }
 
+function onSortChangeRating(sortOrder, sortField, sortKey) {
+    return {
+        type: RestaurantsPageActionsConstants.ON_SORT_CHANGE_RATING,
+        sortOrder, sortField, sortKey
+    }
+}
+
 function getRestaurants() {
     return {
         type: RestaurantsPageActionsConstants.GET_RESTAURANTS,
@@ -175,6 +182,13 @@ function changeRestaurantsAVG(search) {
     }
 }
 
+function changeRestaurantsAVGRating(search) {
+    return {
+        type: RestaurantsPageActionsConstants.CHANGE_AVG_SEARCH_RATING,
+        search
+    }
+}
+
 function setRestaurantsScale(scale) {
     return {
         type: RestaurantsPageActionsConstants.CHANGE_SCALE,
@@ -203,6 +217,14 @@ function searchAVGHandler(search) {
         type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT,
         uri: 'api/restaurants/someAVG',
         payload: {search}
+    }
+}
+
+function searchAVGRatingHandler(restaurantID, search) {
+    return {
+        type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT_RATING,
+        uri: 'api/reviews/someAvg',
+        payload: {restaurantID, search}
     }
 }
 
@@ -247,13 +269,16 @@ let RestaurantsPageActions = {
     changeRestaurantsNames,
     changeRestaurantsLocations,
     changeRestaurantsAVG,
+    changeRestaurantsAVGRating,
     setRestaurantsScale,
     search,
     searchLocation,
     searchAVGHandler,
+    searchAVGRatingHandler,
     searchNameLocation,
 
-    onRateChange
+    onRateChange,
+    onSortChangeRating
 
 };
 

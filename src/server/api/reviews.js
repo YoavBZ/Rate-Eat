@@ -70,4 +70,30 @@ router.post('/getRestaurantReviews', (req, res) => {
     // TODO: remove review pictures!!
 });
 
+router.post('/someAvg', (req, res) => {
+    let restaurantID = req.body.restaurantID.restaurantID;
+    let search = req.body.restaurantID.search;
+    Review.find(
+        {"restaurantID": restaurantID})
+        .then( reviews => {
+
+            let newReviews =  reviews.filter( a => {
+                let sum = a.bathroomQuality + a.staffKindness + a.cleanliness +
+                          a.driveThruQuality + a.deliverySpeed + a.foodQuality;
+                if(( a.driveThruQuality > 0 ) && ( a.deliverySpeed > 0 ))
+                    sum /= 6;
+                else if(( a.driveThruQuality > 0 ) || ( a.deliverySpeed > 0 ))
+                    sum /= 5;
+                else
+                    sum /= 4;
+
+                return (sum >= search );
+            } );
+
+            res.json(newReviews);
+        })
+        .catch(err => res.status(400).json({message: "Failed to retrive reviews"}));
+    // TODO: remove review pictures!!
+});
+
 module.exports = router;

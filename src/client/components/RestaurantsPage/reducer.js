@@ -39,8 +39,8 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
         case RestaurantsPageActionsConstants.ADD_REVIEW_SUCCESS:
             // !!!!!!!!!!!!!! TODO WE NEED TO CLOSE WINDOW AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
             return state;
-        case RestaurantsPageActionsConstants.GET_REVIEW_LIST_SUCCESS:
-            return state.set('rates', action.review);
+        // case RestaurantsPageActionsConstants.GET_REVIEW_LIST_SUCCESS:
+        //     return state.set('rates', action.review);
         case RestaurantsPageActionsConstants.ADD_REVIEW_FAILURE:
             // !!!!!!!!!!!!!! TODO WE NEED TO NOTIFY  AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
             return state;
@@ -70,6 +70,17 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
             return state.set('restaurantsScale', action.scale);
         case RestaurantsPageActionsConstants.CLEAR_RATE:
             return state.set( 'visibleReview' , false );
+        case RestaurantsPageActionsConstants.CHANGE_AVG_SEARCH_RATING:
+            return state.set('restaurantsAVGRating', action.search);
+        case RestaurantsPageActionsConstants.GET_REVIEW_LIST_SUCCESS:
+            return state.set('rates', action.review);
+        case RestaurantsPageActionsConstants.CHANGE_RATE_LIST:
+            return state.set('rates', action.value);
+        case RestaurantsPageActionsConstants.ON_SORT_CHANGE_RATING:
+            state = state.set('sortOrderRating', action.sortOrder);
+            state = state.set('sortFieldRating', action.sortField);
+            return state.set('sortKeyRating', action.sortKey);
+
         default:
             return state;
     }
@@ -93,11 +104,6 @@ const RatesReducer = (state = initialState.rates, action) => {
 
 const RatesListReducer = (state = initialState.rates, action) => {
     switch (action.type) {
-        case RestaurantsPageActionsConstants.GET_REVIEW_LIST_SUCCESS:
-            return state.set('rates', action.review);
-        case RestaurantsPageActionsConstants.CHANGE_RATE_LIST:
-            return state.set('rates', action.value);
-
         default:
             return state;
     }
