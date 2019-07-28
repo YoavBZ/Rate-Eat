@@ -7,11 +7,11 @@ import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
 import {Panel} from "primereact/panel";
 import RatingPage from "./RatingPage";
+import RatingPageList from "./RatingPageList";
 import {AutoComplete} from 'primereact/autocomplete';
 import {Slider} from 'primereact/slider';
 import MapContainer from "../MapContainer/MapContainer";
 import {Rating} from "primereact/components/rating/Rating";
-import {InputText} from "primereact/components/inputtext/InputText";
 
 class RestaurantsPage extends Component {
 
@@ -34,12 +34,20 @@ class RestaurantsPage extends Component {
                     {this.renderRestaurantDialogContent()}
                 </Dialog>
 
-                <Dialog header="Restaurant Review" visible={this.props.visibleReview} modal={true}
+                <Dialog header="Restaurant Add Review" visible={this.props.visibleReview} modal={true}
                         style={{height: '85%', width: '50%', overflow:'overlay'}}
                         onHide={() => this.props.changeVisibilityReview(false)}>
                     <RatingPage selectedRestaurant={  this.props.selectedRestaurant}
                                 currentUser = { this.props.currentUser }/>
                 </Dialog>
+
+                <Dialog header="Restaurant List Review" visible={this.props.visibleReviewList} width="225px" modal={true}
+                        onHide={() => this.props.changeVisibilityReviewList(false)}
+                        onShow={() => this.props.getReviewsList(this.props.selectedRestaurant._id) }
+                >
+                    <RatingPageList rates={ this.props.rates } />
+                </Dialog>
+
             </div>
         );
     }
@@ -64,6 +72,10 @@ class RestaurantsPage extends Component {
                 {/*//here we send restaurant to give new review*/}
                 <div className="p-col-12 p-md-1 plus-icon" style={{marginTop: '40px'}}>
                     <Button icon='pi pi-plus' onClick={() => this.props.selectReview(restaurant, true)}/>
+                </div>
+
+                <div className="p-col-12 p-md-1 plus-icon" style={{marginTop: '40px'}}>
+                    <Button icon='pi pi-bars' onClick={() => this.props.selectReviewList(restaurant, true)}/>
                 </div>
             </div>);
     }
@@ -203,9 +215,12 @@ const mapStateToProps = (state, ownProps) => {
         selectedRestaurant: state.restaurantsPage.get('selectedRestaurant'),
         visibleRestaurant: state.restaurantsPage.get('visibleRestaurant'),
         visibleReview: state.restaurantsPage.get('visibleReview'),
+        visibleReviewList: state.restaurantsPage.get('visibleReviewList'),
         sortKey: state.restaurantsPage.get('sortKey'),
         sortOrder: state.restaurantsPage.get('sortOrder'),
-        sortField: state.usersPage.get('sortField')
+        sortField: state.restaurantsPage.get('sortField'),
+        rates: state.restaurantsPage.get('rates')
+
     });
 };
 
@@ -220,6 +235,9 @@ const mapDispatchToProps = (dispatch) => {
         changeVisibilityReview: (visible) => {
             dispatch(RestaurantsPageActions.changeVisibilityReview(visible));
         },
+        changeVisibilityReviewList: (visible) => {
+            dispatch(RestaurantsPageActions.changeVisibilityReviewList(visible));
+        },
         onSortChange: (event) => {
             const value = event.value;
             if (value.indexOf('score') === 0) {
@@ -231,11 +249,17 @@ const mapDispatchToProps = (dispatch) => {
         getRestaurants: () => {
             dispatch(RestaurantsPageActions.getRestaurants());
         },
+        getReviewsList: (restaurantID) => {
+            dispatch(RestaurantsPageActions.getReviewsList(restaurantID))
+        },
         selectRestaurant: (restaurant, visible) => {
             dispatch(RestaurantsPageActions.selectRestaurant(restaurant, visible));
         },
         selectReview: (restaurant, visible) => {
             dispatch(RestaurantsPageActions.selectReview(restaurant, visible));
+        },
+        selectReviewList: (restaurant, visible) => {
+            dispatch(RestaurantsPageActions.selectReviewList(restaurant, visible));
         },
         filterRestaurantsNames: () => {
             dispatch(RestaurantsPageActions.filterRestaurantsNames());

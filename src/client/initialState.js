@@ -43,8 +43,10 @@ export default {
         selectedRestaurant: [],
         visibleRestaurant: false,
         visibleReview: false,
+        visibleReviewList: false,
         sortKey: null,
         sortOrder: null,
+        rates: []
     }),
     googleMap: Map({
         showingInfoWindow: false,

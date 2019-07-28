@@ -21,6 +21,13 @@ function changeVisibilityReview(visible) {
     }
 }
 
+function changeVisibilityReviewList(visible) {
+    return {
+        type: RestaurantsPageActionsConstants.CHANGE_VISIBILITY_REVIEW_LIST,
+        visible
+    }
+}
+
 function onSortChange(sortOrder, sortField, sortKey) {
     return {
         type: RestaurantsPageActionsConstants.ON_SORT_CHANGE,
@@ -32,6 +39,14 @@ function getRestaurants() {
     return {
         type: RestaurantsPageActionsConstants.GET_RESTAURANTS,
         uri: 'api/restaurants/all'
+    }
+}
+
+function getReviewsList(restaurantID) {
+    return {
+        type: RestaurantsPageActionsConstants.GET_REVIEWS_LIST,
+        uri: '/api/reviews/getRestaurantReviews',
+        payload: {restaurantID}
     }
 }
 
@@ -52,6 +67,13 @@ function searchRestaurantsSuccess(restaurants) {
 function addReviewSuccess(review) {
     return {
         type: RestaurantsPageActionsConstants.ADD_REVIEW_SUCCESS,
+        review
+    }
+}
+
+function getReviewListSuccess(review) {
+    return {
+        type: RestaurantsPageActionsConstants.GET_REVIEW_LIST_SUCCESS,
         review
     }
 }
@@ -80,6 +102,13 @@ function selectRestaurant(restaurant, visible) {
 function selectReview(restaurant, visible) {
     return {
         type: RestaurantsPageActionsConstants.SELECT_REVIEW,
+        restaurant, visible
+    }
+}
+
+function selectReviewList(restaurant, visible) {
+    return {
+        type: RestaurantsPageActionsConstants.SELECT_REVIEW_LIST,
         restaurant, visible
     }
 }
@@ -185,20 +214,31 @@ function searchNameLocation(search, location, avg) {
     }
 }
 
+function onRateChange(value) {
+    return {
+        type: RestaurantsPageActionsConstants.CHANGE_RATE_LIST,
+        value
+    }
+}
+
 let RestaurantsPageActions = {
     changeVisibilityRestaurant,
     changeVisibilityReview,
+    changeVisibilityReviewList,
     changeLayout,
     onSortChange,
     getRestaurants,
+    getReviewsList,
     getRestaurantsSuccess,
     searchRestaurantsSuccess,
     getRestaurantsFailure,
     selectRestaurant,
     selectReview,
+    selectReviewList,
     addReview,
     addAVG,
     addReviewSuccess,
+    getReviewListSuccess,
     addReviewFailure,
     changeRate,
     clearReview,
@@ -211,7 +251,9 @@ let RestaurantsPageActions = {
     search,
     searchLocation,
     searchAVGHandler,
-    searchNameLocation
+    searchNameLocation,
+
+    onRateChange
 
 };
 

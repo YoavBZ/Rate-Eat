@@ -9,6 +9,8 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
             return state.set('visibleRestaurant', action.visible);
         case RestaurantsPageActionsConstants.CHANGE_VISIBILITY_REVIEW:
             return state.set('visibleReview', action.visible);
+        case RestaurantsPageActionsConstants.CHANGE_VISIBILITY_REVIEW_LIST:
+            return state.set('visibleReviewList', action.visible);
         case RestaurantsPageActionsConstants.ON_SORT_CHANGE:
             state = state.set('sortOrder', action.sortOrder);
             state = state.set('sortField', action.sortField);
@@ -19,6 +21,9 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
         case RestaurantsPageActionsConstants.SELECT_REVIEW:
             state = state.set('selectedRestaurant', action.restaurant);
             return state.set('visibleReview', action.visible);
+        case RestaurantsPageActionsConstants.SELECT_REVIEW_LIST:
+            state = state.set('selectedRestaurant', action.restaurant);
+            return state.set('visibleReviewList', action.visible);
         case RestaurantsPageActionsConstants.GET_RESTAURANTS_SUCCESS:
             state = state.set('restaurants', action.restaurants);
             let restaurantsNames = action.restaurants;
@@ -34,6 +39,8 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
         case RestaurantsPageActionsConstants.ADD_REVIEW_SUCCESS:
             // !!!!!!!!!!!!!! TODO WE NEED TO CLOSE WINDOW AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
             return state;
+        case RestaurantsPageActionsConstants.GET_REVIEW_LIST_SUCCESS:
+            return state.set('rates', action.review);
         case RestaurantsPageActionsConstants.ADD_REVIEW_FAILURE:
             // !!!!!!!!!!!!!! TODO WE NEED TO NOTIFY  AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
             return state;
@@ -84,4 +91,17 @@ const RatesReducer = (state = initialState.rates, action) => {
     }
 };
 
-export {RestaurantsPageReducer, RatesReducer}
+const RatesListReducer = (state = initialState.rates, action) => {
+    switch (action.type) {
+        case RestaurantsPageActionsConstants.GET_REVIEW_LIST_SUCCESS:
+            return state.set('rates', action.review);
+        case RestaurantsPageActionsConstants.CHANGE_RATE_LIST:
+            return state.set('rates', action.value);
+
+        default:
+            return state;
+    }
+};
+
+
+export {RestaurantsPageReducer, RatesReducer, RatesListReducer}
