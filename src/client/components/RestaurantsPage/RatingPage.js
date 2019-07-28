@@ -49,6 +49,7 @@ class RatingPage extends React.Component {
                             this.props.bathroomQuality, this.props.staffKindness, this.props.cleanliness,
                             this.props.driveThruQuality, this.props.deliverySpeed, this.props.foodQuality);
                         this.props.clearReview();
+                        this.props.clearReviewReopen();
                     }
                     }/>
                 </div>
@@ -78,6 +79,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         clearReview: () => {
             dispatch(RestaurantsPageActions.clearReview());
+        },
+        clearReviewReopen: () => {
+            dispatch(RestaurantsPageActions.getRestaurants());
         },
         addReview: (nameId, restaurantId, bathroomQuality, staffKindness, cleanliness, driveThruQuality, deliverySpeed, foodQuality, pictures) => {
             let review = {

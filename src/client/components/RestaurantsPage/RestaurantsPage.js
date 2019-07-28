@@ -10,6 +10,8 @@ import RatingPage from "./RatingPage";
 import {AutoComplete} from 'primereact/autocomplete';
 import {Slider} from 'primereact/slider';
 import MapContainer from "../MapContainer/MapContainer";
+import {Rating} from "primereact/components/rating/Rating";
+import {InputText} from "primereact/components/inputtext/InputText";
 
 class RestaurantsPage extends Component {
 
@@ -117,6 +119,15 @@ class RestaurantsPage extends Component {
                     <div className="p-col-6" style={{textAlign: 'right'}}>
                         <DataViewLayoutOptions layout={this.props.layout} onChange={this.props.changeLayout}/>
                     </div>
+                    <div>
+                    <div className="p-col-6" style={{textAlign: 'right'}}>
+                        <h3>AVG Rating Above {this.props.restaurantsAVGSearch}</h3>
+                        <Rating value={this.props.restaurantsAVGSearch}
+                                onChange={this.props.changeRestaurantsAVG} />
+                        <Button variant="primary"
+                                onClick={() => this.props.searchAVGHandler(this.props.restaurantsAVGSearch)}
+                                type="submit" label="Search"/>
+                    </div>
 
                     <div>
                         <AutoComplete value={this.props.restaurantsNameSearch}
@@ -140,6 +151,7 @@ class RestaurantsPage extends Component {
                         <Button variant="primary"
                                 onClick={() => this.props.searchLocationHandler(this.props.restaurantsLocationSearch)}
                                 type="submit" label="Search"/>
+                    </div>
                     </div>
 
                 </div>
@@ -185,6 +197,7 @@ const mapStateToProps = (state, ownProps) => {
         restaurantsLocationFilter: state.restaurantsPage.get('restaurantsLocationFilter'),
         restaurantsNameSearch: state.restaurantsPage.get('restaurantsNameSearch'),
         restaurantsLocationSearch: state.restaurantsPage.get('restaurantsLocationSearch'),
+        restaurantsAVGSearch: state.restaurantsPage.get('restaurantsAVGSearch'),
         restaurantsScale: state.restaurantsPage.get('restaurantsScale'),
         layout: state.restaurantsPage.get('layout'),
         selectedRestaurant: state.restaurantsPage.get('selectedRestaurant'),
@@ -236,11 +249,17 @@ const mapDispatchToProps = (dispatch) => {
         changeRestaurantsLocations: (event) => {
             dispatch(RestaurantsPageActions.changeRestaurantsLocations(event.value));
         },
+        changeRestaurantsAVG: (event) => {
+            dispatch(RestaurantsPageActions.changeRestaurantsAVG(event.value));
+        },
         searchHandler: (search) => {
             dispatch(RestaurantsPageActions.search({search}))
         },
         searchLocationHandler: (search) => {
             dispatch(RestaurantsPageActions.searchLocation({search}))
+        },
+        searchAVGHandler: (search) => {
+            dispatch(RestaurantsPageActions.searchAVGHandler({search}))
         },
         searchNameLocationHandler: (search, location) => {
             dispatch(RestaurantsPageActions.searchNameLocation({search, location}))

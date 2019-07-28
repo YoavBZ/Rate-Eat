@@ -37,6 +37,7 @@ export default {
         restaurantsLocationFilter: [],
         restaurantsNameSearch: '',
         restaurantsLocationSearch: '',
+        restaurantsAVGSearch: 0,
         restaurantsScale: 0,
         layout: 'list',
         selectedRestaurant: [],

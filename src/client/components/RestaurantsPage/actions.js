@@ -139,6 +139,13 @@ function changeRestaurantsLocations(search) {
     }
 }
 
+function changeRestaurantsAVG(search) {
+    return {
+        type: RestaurantsPageActionsConstants.CHANGE_AVG_SEARCH,
+        search
+    }
+}
+
 function setRestaurantsScale(scale) {
     return {
         type: RestaurantsPageActionsConstants.CHANGE_SCALE,
@@ -158,6 +165,14 @@ function searchLocation(search) {
     return {
         type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT,
         uri: 'api/restaurants/someLocation',
+        payload: {search}
+    }
+}
+
+function searchAVGHandler(search) {
+    return {
+        type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT,
+        uri: 'api/restaurants/someAVG',
         payload: {search}
     }
 }
@@ -191,9 +206,11 @@ let RestaurantsPageActions = {
     filterRestaurantsLocations,
     changeRestaurantsNames,
     changeRestaurantsLocations,
+    changeRestaurantsAVG,
     setRestaurantsScale,
     search,
     searchLocation,
+    searchAVGHandler,
     searchNameLocation
 
 };

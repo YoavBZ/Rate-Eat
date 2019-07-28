@@ -57,6 +57,8 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
             return state.set('restaurantsNameSearch', action.search);
         case RestaurantsPageActionsConstants.CHANGE_FILTER_LOCATIONS:
             return state.set('restaurantsLocationSearch', action.search);
+        case RestaurantsPageActionsConstants.CHANGE_AVG_SEARCH:
+            return state.set('restaurantsAVGSearch', action.search);
         case RestaurantsPageActionsConstants.CHANGE_SCALE:
             return state.set('restaurantsScale', action.scale);
         case RestaurantsPageActionsConstants.CLEAR_RATE:
@@ -77,7 +79,6 @@ const RatesReducer = (state = initialState.rates, action) => {
             state = state.set( 'driveThruQuality' , 0 );
             state = state.set( 'deliverySpeed' , 0 );
             return state.set( 'foodQuality' , 0);
-
         default:
             return state;
     }

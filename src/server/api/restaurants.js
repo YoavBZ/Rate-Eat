@@ -109,6 +109,16 @@ router.post('/someLocation', (req, res) => {
         .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
 });
 
+router.post('/someAVG', (req, res) => {
+    let search = req.body.search;
+    let avg = search.search;
+
+    Restaurant.find(
+        {"score": { $gte: avg }})
+        .then(user => res.json(user))
+        .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
+});
+
 router.post('/someNameLocation', (req, res) => {
     let search = req.body.search;
     let name = search.search;
