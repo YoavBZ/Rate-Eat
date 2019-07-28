@@ -177,11 +177,11 @@ function searchAVGHandler(search) {
     }
 }
 
-function searchNameLocation(search, location) {
+function searchNameLocation(search, location, avg) {
     return {
         type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT,
-        uri: 'api/restaurants/someNameLocation',
-        payload: {search , location}
+        uri: 'api/restaurants/someAll',
+        payload: {search , location, avg}
     }
 }
 

@@ -160,9 +160,9 @@ class RestaurantsPage extends Component {
                             onClick={() => this.props.getRestaurants()}
                             type="submit" label="Back"/>
                     <Button variant="secondary" style={{padding: '6px'}}
-                            onClick={() => this.props.searchNameLocationHandler(
-                                this.props.restaurantsNameSearch, this.props.restaurantsLocationSearch)}
-                            type="submit" label="SearchBoth"/>
+                            onClick={() => this.props.searchNameLocationHandler(this.props.restaurantsNameSearch,
+                                this.props.restaurantsLocationSearch, this.props.restaurantsAVGSearch)}
+                            type="submit" label="SearchAll"/>
                 </div>
                 <div style={{textAlign: 'middle'}}>
                     <h3>Closer: {100 - this.props.restaurantsScale}
@@ -261,8 +261,8 @@ const mapDispatchToProps = (dispatch) => {
         searchAVGHandler: (search) => {
             dispatch(RestaurantsPageActions.searchAVGHandler({search}))
         },
-        searchNameLocationHandler: (search, location) => {
-            dispatch(RestaurantsPageActions.searchNameLocation({search, location}))
+        searchNameLocationHandler: (search, location, avg) => {
+            dispatch(RestaurantsPageActions.searchNameLocation({search, location, avg}))
         },
         setRestaurantsScale: (event) => {
             dispatch(RestaurantsPageActions.setRestaurantsScale(event.value));

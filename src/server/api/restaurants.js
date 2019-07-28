@@ -94,7 +94,7 @@ router.post('/some', (req, res) => {
     let name = search.search;
 
     Restaurant.find(
-        {"name": name})
+        {"name": {$regex : name}})
         .then(user => res.json(user))
         .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
 });
@@ -104,7 +104,7 @@ router.post('/someLocation', (req, res) => {
     let location = search.search;
 
     Restaurant.find(
-        {"location": location})
+        {"location": {$regex : location}})
         .then(user => res.json(user))
         .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
 });
@@ -119,13 +119,14 @@ router.post('/someAVG', (req, res) => {
         .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
 });
 
-router.post('/someNameLocation', (req, res) => {
+router.post('/someAll', (req, res) => {
     let search = req.body.search;
     let name = search.search;
     let location = search.location;
+    let avg = search.avg;
 
     Restaurant.find(
-        {"name": name, "location": location})
+        {"name": {$regex : name}, "location": {$regex : location}, "score": { $gte: avg } })
         .then(user => res.json(user))
         .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
 });
