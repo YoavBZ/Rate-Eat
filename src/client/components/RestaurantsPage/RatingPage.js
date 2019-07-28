@@ -12,7 +12,7 @@ class RatingPage extends React.Component {
             <div>
                 <div className="content-section introduction">
                     <div className="feature-intro">
-                        <h1>Rating</h1>
+                        <h1>Rating </h1>
                         <p>Be nice with new rating ;) .</p>
                     </div>
                 </div>
@@ -44,9 +44,17 @@ class RatingPage extends React.Component {
                     
                     <ReviewPictures/>
 
-                    <Button icon="pi pi-plus-circle" onClick={() => this.props.addReview(this.props.bathroomQuality,
-                        this.props.staffKindness, this.props.cleanliness, this.props.driveThruQuality,
-                        this.props.deliverySpeed, this.props.foodQuality, this.props.userID, this.props.restaurantID)}/>
+                    <Button icon="pi pi-plus-circle" onClick={() => {
+                        this.props.addReview(this.props.currentUser._id, this.props.selectedRestaurant._id,
+                            this.props.bathroomQuality, this.props.staffKindness, this.props.cleanliness,
+                            this.props.driveThruQuality, this.props.deliverySpeed, this.props.foodQuality);
+                        this.props.addAVG(this.props.selectedRestaurant,
+                            this.props.bathroomQuality, this.props.staffKindness, this.props.cleanliness,
+                            this.props.driveThruQuality, this.props.deliverySpeed, this.props.foodQuality);
+                        this.props.clearReview();
+                        this.props.clearReviewReopen();
+                    }
+                    }/>
                 </div>
             </div>
         )
@@ -55,14 +63,15 @@ class RatingPage extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
     return ({
+        currentUser: ownProps.currentUser,
+        selectedRestaurant: ownProps.selectedRestaurant,
         bathroomQuality: state.rates.get('bathroomQuality'),
         staffKindness: state.rates.get('staffKindness'),
         cleanliness: state.rates.get('cleanliness'),
         driveThruQuality: state.rates.get('driveThruQuality'),
         deliverySpeed: state.rates.get('deliverySpeed'),
         foodQuality: state.rates.get('foodQuality'),
-        restaurantID: ownProps.restaurantID,
-        userID: state.home.get('user')._id
+        newScore: state.rates.get('newScore')
     });
 };
 
@@ -71,8 +80,16 @@ const mapDispatchToProps = (dispatch) => {
         changeRate: (rate, category) => {
             dispatch(RestaurantsPageActions.changeRate(rate, category));
         },
-        addReview: (bathroomQuality, staffKindness, cleanliness, driveThruQuality, deliverySpeed, foodQuality, pictures) => {
+        clearReview: () => {
+            dispatch(RestaurantsPageActions.clearReview());
+        },
+        clearReviewReopen: () => {
+            dispatch(RestaurantsPageActions.getRestaurants());
+        },
+        addReview: (nameId, restaurantId, bathroomQuality, staffKindness, cleanliness, driveThruQuality, deliverySpeed, foodQuality, pictures) => {
             let review = {
+                userID: nameId,
+                restaurantID: restaurantId,
                 bathroomQuality: bathroomQuality,
                 staffKindness: staffKindness,
                 cleanliness: cleanliness,
@@ -82,6 +99,19 @@ const mapDispatchToProps = (dispatch) => {
                 pictures: pictures
             };
             dispatch(RestaurantsPageActions.addReview(review));
+        },
+        addAVG: (restaurant, bathroomQuality, staffKindness, cleanliness, driveThruQuality, deliverySpeed, foodQuality, pictures) => {
+            let review = {
+                restaurant: restaurant,
+                bathroomQuality: bathroomQuality,
+                staffKindness: staffKindness,
+                cleanliness: cleanliness,
+                driveThruQuality: driveThruQuality,
+                deliverySpeed: deliverySpeed,
+                foodQuality: foodQuality,
+                pictures: pictures
+            };
+            dispatch(RestaurantsPageActions.addAVG(review));
         }
 
     }

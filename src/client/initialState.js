@@ -40,13 +40,16 @@ export default {
         restaurantsLocationFilter: [],
         restaurantsNameSearch: '',
         restaurantsLocationSearch: '',
+        restaurantsAVGSearch: 0,
         restaurantsScale: 0,
         layout: 'list',
-        selectedRestaurants: null,
+        selectedRestaurant: [],
         visibleRestaurant: false,
         visibleReview: false,
+        visibleReviewList: false,
         sortKey: null,
         sortOrder: null,
+        rates: []
     }),
     googleMap: Map({
         showingInfoWindow: false,
@@ -63,7 +66,8 @@ export default {
         driveThruQuality: 0,
         deliverySpeed: 0,
         foodQuality: 0,
-        pictures: 0
+        pictures: 0,
+        newScore: 0
     }),
     usersPage: Map({
         users: [],

@@ -21,6 +21,13 @@ function changeVisibilityReview(visible) {
     }
 }
 
+function changeVisibilityReviewList(visible) {
+    return {
+        type: RestaurantsPageActionsConstants.CHANGE_VISIBILITY_REVIEW_LIST,
+        visible
+    }
+}
+
 function onSortChange(sortOrder, sortField, sortKey) {
     return {
         type: RestaurantsPageActionsConstants.ON_SORT_CHANGE,
@@ -32,6 +39,14 @@ function getRestaurants() {
     return {
         type: RestaurantsPageActionsConstants.GET_RESTAURANTS,
         uri: 'api/restaurants/all'
+    }
+}
+
+function getReviewsList(restaurantID) {
+    return {
+        type: RestaurantsPageActionsConstants.GET_REVIEWS_LIST,
+        uri: '/api/reviews/getRestaurantReviews',
+        payload: {restaurantID}
     }
 }
 
@@ -52,6 +67,13 @@ function searchRestaurantsSuccess(restaurants) {
 function addReviewSuccess(review) {
     return {
         type: RestaurantsPageActionsConstants.ADD_REVIEW_SUCCESS,
+        review
+    }
+}
+
+function getReviewListSuccess(review) {
+    return {
+        type: RestaurantsPageActionsConstants.GET_REVIEW_LIST_SUCCESS,
         review
     }
 }
@@ -77,10 +99,17 @@ function selectRestaurant(restaurant, visible) {
     }
 }
 
-function selectReview(visible) {
+function selectReview(restaurant, visible) {
     return {
         type: RestaurantsPageActionsConstants.SELECT_REVIEW,
-        visible
+        restaurant, visible
+    }
+}
+
+function selectReviewList(restaurant, visible) {
+    return {
+        type: RestaurantsPageActionsConstants.SELECT_REVIEW_LIST,
+        restaurant, visible
     }
 }
 
@@ -91,11 +120,25 @@ function changeRate(rate, category) {
     }
 }
 
+function clearReview() {
+    return {
+        type: RestaurantsPageActionsConstants.CLEAR_RATE
+    }
+}
+
 function addReview(review) {
     return {
         type: RestaurantsPageActionsConstants.ADD_RATE,
         uri: '/api/reviews',
         payload: review
+    }
+}
+
+function addAVG(review) {
+    return {
+        type: RestaurantsPageActionsConstants.ADD_AVG,
+        uri: '/api/restaurants/updateScore',
+        payload: { review }
     }
 }
 
@@ -125,6 +168,13 @@ function changeRestaurantsLocations(search) {
     }
 }
 
+function changeRestaurantsAVG(search) {
+    return {
+        type: RestaurantsPageActionsConstants.CHANGE_AVG_SEARCH,
+        search
+    }
+}
+
 function setRestaurantsScale(scale) {
     return {
         type: RestaurantsPageActionsConstants.CHANGE_SCALE,
@@ -148,37 +198,62 @@ function searchLocation(search) {
     }
 }
 
-function searchNameLocation(search, location) {
+function searchAVGHandler(search) {
     return {
         type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT,
-        uri: 'api/restaurants/someNameLocation',
-        payload: {search , location}
+        uri: 'api/restaurants/someAVG',
+        payload: {search}
+    }
+}
+
+function searchNameLocation(search, location, avg) {
+    return {
+        type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT,
+        uri: 'api/restaurants/someAll',
+        payload: {search , location, avg}
+    }
+}
+
+function onRateChange(value) {
+    return {
+        type: RestaurantsPageActionsConstants.CHANGE_RATE_LIST,
+        value
     }
 }
 
 let RestaurantsPageActions = {
     changeVisibilityRestaurant,
     changeVisibilityReview,
+    changeVisibilityReviewList,
     changeLayout,
     onSortChange,
     getRestaurants,
+    getReviewsList,
     getRestaurantsSuccess,
     searchRestaurantsSuccess,
     getRestaurantsFailure,
     selectRestaurant,
     selectReview,
+    selectReviewList,
     addReview,
+    addAVG,
     addReviewSuccess,
+    getReviewListSuccess,
     addReviewFailure,
     changeRate,
+    clearReview,
     filterRestaurantsNames,
     filterRestaurantsLocations,
     changeRestaurantsNames,
     changeRestaurantsLocations,
+    changeRestaurantsAVG,
     setRestaurantsScale,
     search,
     searchLocation,
-    searchNameLocation
+    searchAVGHandler,
+    searchNameLocation,
+
+    onRateChange
 
 };
 

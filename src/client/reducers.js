@@ -4,7 +4,7 @@ import RegisterReducer from './components/Register/reducer';
 import LoginReducer from './components/Login/reducer';
 import HomeReducer from './components/Home/reducer';
 import {EditReviewReducer, ProfileReducer, EditPictureReducer} from './components/Profile/reducer'
-import {RatesReducer, RestaurantsPageReducer, ReviewPicturesReducer} from "./components/RestaurantsPage/reducer";
+import {RatesReducer, RatesListReducer, RestaurantsPageReducer, ReviewPicturesReducer} from "./components/RestaurantsPage/reducer";
 import {UsersPageReducer, UsersRatesReducer } from "./components/UsersPage/reducer";
 import DragAndDropReducer from './components/DragAndDrop/reducer';
 
@@ -18,6 +18,7 @@ export default combineReducers({
     usersPage: UsersPageReducer,
     usersRatesPage: UsersRatesReducer,
     rates: RatesReducer,
+    ratesList: RatesListReducer,
     editReview: EditReviewReducer,
     dragAndDrop: DragAndDropReducer,
     editPicture: EditPictureReducer,

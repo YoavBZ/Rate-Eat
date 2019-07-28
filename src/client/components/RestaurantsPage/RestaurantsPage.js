@@ -7,9 +7,11 @@ import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
 import {Panel} from "primereact/panel";
 import RatingPage from "./RatingPage";
+import RatingPageList from "./RatingPageList";
 import {AutoComplete} from 'primereact/autocomplete';
 import {Slider} from 'primereact/slider';
 import MapContainer from "../MapContainer/MapContainer";
+import {Rating} from "primereact/components/rating/Rating";
 
 class RestaurantsPage extends Component {
 
@@ -26,16 +28,26 @@ class RestaurantsPage extends Component {
                           itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
                           rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
 
-                <Dialog header="Restaurant Details" visible={this.props.visibleRestaurant} width="225px" modal={true}
-                        contentStyle={{overflow: "auto"}}
+                <Dialog header="Restaurant Details" visible={this.props.visibleRestaurant} modal={true}
+                        style={{height: '85%', width: '85%'}} contentStyle={{overflowX: 'hidden', maxHeight: "300px"}}
                         onHide={() => this.props.changeVisibilityRestaurant(false)}>
                     {this.renderRestaurantDialogContent()}
                 </Dialog>
 
-                <Dialog header="Restaurant Review" visible={this.props.visibleReview} width="225px" modal={true}
+                <Dialog header="Restaurant Add Review" visible={this.props.visibleReview} modal={true}
+                        style={{height: '85%', width: '50%', overflow:'overlay'}}
                         onHide={() => this.props.changeVisibilityReview(false)}>
-                    <RatingPage/>
+                    <RatingPage selectedRestaurant={  this.props.selectedRestaurant}
+                                currentUser = { this.props.currentUser }/>
                 </Dialog>
+
+                <Dialog header="Restaurant List Review" visible={this.props.visibleReviewList} width="225px" modal={true}
+                        onHide={() => this.props.changeVisibilityReviewList(false)}
+                        onShow={() => this.props.getReviewsList(this.props.selectedRestaurant._id) }
+                >
+                    <RatingPageList rates={ this.props.rates } />
+                </Dialog>
+
             </div>
         );
     }
@@ -59,7 +71,11 @@ class RestaurantsPage extends Component {
                 </div>
                 {/*//here we send restaurant to give new review*/}
                 <div className="p-col-12 p-md-1 plus-icon" style={{marginTop: '40px'}}>
-                    <Button icon='pi pi-plus' onClick={() => this.props.selectReview(true)}/>
+                    <Button icon='pi pi-plus' onClick={() => this.props.selectReview(restaurant, true)}/>
+                </div>
+
+                <div className="p-col-12 p-md-1 plus-icon" style={{marginTop: '40px'}}>
+                    <Button icon='pi pi-bars' onClick={() => this.props.selectReviewList(restaurant, true)}/>
                 </div>
             </div>);
     }
@@ -72,7 +88,7 @@ class RestaurantsPage extends Component {
                     <div className="restaurant-detail">{restaurant.location}</div>
                     <hr className="ui-widget-content" style={{borderTop: 0}}/>
                     <Button icon="pi pi-search" onClick={() => this.props.selectRestaurant(restaurant, true)}/>
-                    <Button icon="pi pi-plus" onClick={() => this.props.selectReview(true)}/>
+                    <Button icon="pi pi-plus" onClick={() => this.props.selectReview(restaurant, true)}/>
                 </Panel>
             </div>);
     }
@@ -80,20 +96,15 @@ class RestaurantsPage extends Component {
     renderRestaurantDialogContent() {
         if (this.props.selectedRestaurant) {
             return (
-                <div className="p-grid" style={{fontSize: '16px', textAlign: 'center', padding: '20px'}}>
+                <div className="p-grid" style={{fontSize: '32px', textAlign: 'center', padding: '40px'}}>
                     <div className="p-col-12" style={{textAlign: 'center'}}>
                         <img placeholder={'Image'} src={this.props.selectedRestaurant.image}
-                             alt={this.props.selectedRestaurant.name} style={{width: '75%'}}/>
+                             alt={this.props.selectedRestaurant.name} style={{height: '210px', width: '415px'}}/>
                     </div>
 
-                    <div className="p-col-4">Name:</div>
-                    <div className="p-col-8">{this.props.selectedRestaurant.name}</div>
+                    <div className="p-col-4">Name: {this.props.selectedRestaurant.name} </div>
 
-                    <div className="p-col-4">Location:</div>
-                    <div className="p-col-8">{this.props.selectedRestaurant.location}</div>
-
-                    <div className="p-col-4">Rating:</div>
-                    <div className="p-col-8">{this.props.selectedRestaurant.score}</div>
+                    <div className="p-col-4">Location: {this.props.selectedRestaurant.location} </div>
 
                     <MapContainer name={this.props.selectedRestaurant.name}
                                   position={this.props.selectedRestaurant.coords}/>
@@ -108,7 +119,7 @@ class RestaurantsPage extends Component {
         const sortOptions = [
             {label: 'By Name', value: 'name'},
             {label: 'By City', value: 'location'},
-            {label: 'By Ratings', value: 'brand'}
+            {label: 'By Ratings', value: 'score'}
         ];
         return (
             <div>
@@ -119,6 +130,15 @@ class RestaurantsPage extends Component {
                     </div>
                     <div className="p-col-6" style={{textAlign: 'right'}}>
                         <DataViewLayoutOptions layout={this.props.layout} onChange={this.props.changeLayout}/>
+                    </div>
+                    <div>
+                    <div className="p-col-6" style={{textAlign: 'right'}}>
+                        <h3>AVG Rating Above {this.props.restaurantsAVGSearch}</h3>
+                        <Rating value={this.props.restaurantsAVGSearch}
+                                onChange={this.props.changeRestaurantsAVG} />
+                        <Button variant="primary"
+                                onClick={() => this.props.searchAVGHandler(this.props.restaurantsAVGSearch)}
+                                type="submit" label="Search"/>
                     </div>
 
                     <div>
@@ -144,6 +164,7 @@ class RestaurantsPage extends Component {
                                 onClick={() => this.props.searchLocationHandler(this.props.restaurantsLocationSearch)}
                                 type="submit" label="Search"/>
                     </div>
+                    </div>
 
                 </div>
                 <div style={{textAlign: 'middle'}}>
@@ -151,9 +172,9 @@ class RestaurantsPage extends Component {
                             onClick={() => this.props.getRestaurants()}
                             type="submit" label="Back"/>
                     <Button variant="secondary" style={{padding: '6px'}}
-                            onClick={() => this.props.searchNameLocationHandler(
-                                this.props.restaurantsNameSearch, this.props.restaurantsLocationSearch)}
-                            type="submit" label="SearchBoth"/>
+                            onClick={() => this.props.searchNameLocationHandler(this.props.restaurantsNameSearch,
+                                this.props.restaurantsLocationSearch, this.props.restaurantsAVGSearch)}
+                            type="submit" label="SearchAll"/>
                 </div>
                 <div style={{textAlign: 'middle'}}>
                     <h3>Closer: {100 - this.props.restaurantsScale}
@@ -178,8 +199,9 @@ class RestaurantsPage extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return ({
+        currentUser: ownProps.currentUser,
         restaurants: state.restaurantsPage.get('restaurants'),
         restaurantsNames: state.restaurantsPage.get('restaurantsNames'),
         restaurantsLocations: state.restaurantsPage.get('restaurantsLocations'),
@@ -187,14 +209,18 @@ const mapStateToProps = (state) => {
         restaurantsLocationFilter: state.restaurantsPage.get('restaurantsLocationFilter'),
         restaurantsNameSearch: state.restaurantsPage.get('restaurantsNameSearch'),
         restaurantsLocationSearch: state.restaurantsPage.get('restaurantsLocationSearch'),
+        restaurantsAVGSearch: state.restaurantsPage.get('restaurantsAVGSearch'),
         restaurantsScale: state.restaurantsPage.get('restaurantsScale'),
         layout: state.restaurantsPage.get('layout'),
         selectedRestaurant: state.restaurantsPage.get('selectedRestaurant'),
         visibleRestaurant: state.restaurantsPage.get('visibleRestaurant'),
         visibleReview: state.restaurantsPage.get('visibleReview'),
+        visibleReviewList: state.restaurantsPage.get('visibleReviewList'),
         sortKey: state.restaurantsPage.get('sortKey'),
         sortOrder: state.restaurantsPage.get('sortOrder'),
-        sortField: state.usersPage.get('sortField')
+        sortField: state.restaurantsPage.get('sortField'),
+        rates: state.restaurantsPage.get('rates')
+
     });
 };
 
@@ -209,10 +235,13 @@ const mapDispatchToProps = (dispatch) => {
         changeVisibilityReview: (visible) => {
             dispatch(RestaurantsPageActions.changeVisibilityReview(visible));
         },
+        changeVisibilityReviewList: (visible) => {
+            dispatch(RestaurantsPageActions.changeVisibilityReviewList(visible));
+        },
         onSortChange: (event) => {
             const value = event.value;
-            if (value.indexOf('!') === 0) {
-                dispatch(RestaurantsPageActions.onSortChange(-1, value.substring(1, value.length), value));
+            if (value.indexOf('score') === 0) {
+                dispatch(RestaurantsPageActions.onSortChange(-1, value, value));
             } else {
                 dispatch(RestaurantsPageActions.onSortChange(1, value, value));
             }
@@ -220,11 +249,17 @@ const mapDispatchToProps = (dispatch) => {
         getRestaurants: () => {
             dispatch(RestaurantsPageActions.getRestaurants());
         },
+        getReviewsList: (restaurantID) => {
+            dispatch(RestaurantsPageActions.getReviewsList(restaurantID))
+        },
         selectRestaurant: (restaurant, visible) => {
             dispatch(RestaurantsPageActions.selectRestaurant(restaurant, visible));
         },
-        selectReview: (visible) => {
-            dispatch(RestaurantsPageActions.selectReview(visible));
+        selectReview: (restaurant, visible) => {
+            dispatch(RestaurantsPageActions.selectReview(restaurant, visible));
+        },
+        selectReviewList: (restaurant, visible) => {
+            dispatch(RestaurantsPageActions.selectReviewList(restaurant, visible));
         },
         filterRestaurantsNames: () => {
             dispatch(RestaurantsPageActions.filterRestaurantsNames());
@@ -238,14 +273,20 @@ const mapDispatchToProps = (dispatch) => {
         changeRestaurantsLocations: (event) => {
             dispatch(RestaurantsPageActions.changeRestaurantsLocations(event.value));
         },
+        changeRestaurantsAVG: (event) => {
+            dispatch(RestaurantsPageActions.changeRestaurantsAVG(event.value));
+        },
         searchHandler: (search) => {
             dispatch(RestaurantsPageActions.search({search}))
         },
         searchLocationHandler: (search) => {
             dispatch(RestaurantsPageActions.searchLocation({search}))
         },
-        searchNameLocationHandler: (search, location) => {
-            dispatch(RestaurantsPageActions.searchNameLocation({search, location}))
+        searchAVGHandler: (search) => {
+            dispatch(RestaurantsPageActions.searchAVGHandler({search}))
+        },
+        searchNameLocationHandler: (search, location, avg) => {
+            dispatch(RestaurantsPageActions.searchNameLocation({search, location, avg}))
         },
         setRestaurantsScale: (event) => {
             dispatch(RestaurantsPageActions.setRestaurantsScale(event.value));
