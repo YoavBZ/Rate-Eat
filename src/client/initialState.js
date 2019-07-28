@@ -60,7 +60,8 @@ export default {
         driveThruQuality: 0,
         deliverySpeed: 0,
         foodQuality: 0,
-        pictures: 0
+        pictures: 0,
+        newScore: 0
     }),
     usersPage: Map({
         users: [],

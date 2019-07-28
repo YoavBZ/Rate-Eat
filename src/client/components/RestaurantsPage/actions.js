@@ -105,6 +105,14 @@ function addReview(review) {
     }
 }
 
+function addAVG(review) {
+    return {
+        type: RestaurantsPageActionsConstants.ADD_AVG,
+        uri: '/api/restaurants/updateScore',
+        payload: { review }
+    }
+}
+
 function filterRestaurantsNames() {
     return {
         type: RestaurantsPageActionsConstants.FILTER_NAMES
@@ -174,6 +182,7 @@ let RestaurantsPageActions = {
     selectRestaurant,
     selectReview,
     addReview,
+    addAVG,
     addReviewSuccess,
     addReviewFailure,
     changeRate,

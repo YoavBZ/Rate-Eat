@@ -42,7 +42,10 @@ class RatingPage extends React.Component {
                             onChange={(e) => this.props.changeRate(e.value, RatesConstants.FOOD_QUALITY)}/>
 
                     <Button icon="pi pi-plus-circle" onClick={() => {
-                        this.props.addReview(this.props.currentUser._id, this.props.selectedRestaurant.id,
+                        this.props.addReview(this.props.currentUser._id, this.props.selectedRestaurant._id,
+                            this.props.bathroomQuality, this.props.staffKindness, this.props.cleanliness,
+                            this.props.driveThruQuality, this.props.deliverySpeed, this.props.foodQuality);
+                        this.props.addAVG(this.props.selectedRestaurant,
                             this.props.bathroomQuality, this.props.staffKindness, this.props.cleanliness,
                             this.props.driveThruQuality, this.props.deliverySpeed, this.props.foodQuality);
                         this.props.clearReview();
@@ -63,7 +66,8 @@ const mapStateToProps = (state, ownProps) => {
         cleanliness: state.rates.get('cleanliness'),
         driveThruQuality: state.rates.get('driveThruQuality'),
         deliverySpeed: state.rates.get('deliverySpeed'),
-        foodQuality: state.rates.get('foodQuality')
+        foodQuality: state.rates.get('foodQuality'),
+        newScore: state.rates.get('newScore')
     });
 };
 
@@ -88,6 +92,19 @@ const mapDispatchToProps = (dispatch) => {
                 pictures: pictures
             };
             dispatch(RestaurantsPageActions.addReview(review));
+        },
+        addAVG: (restaurant, bathroomQuality, staffKindness, cleanliness, driveThruQuality, deliverySpeed, foodQuality, pictures) => {
+            let review = {
+                restaurant: restaurant,
+                bathroomQuality: bathroomQuality,
+                staffKindness: staffKindness,
+                cleanliness: cleanliness,
+                driveThruQuality: driveThruQuality,
+                deliverySpeed: deliverySpeed,
+                foodQuality: foodQuality,
+                pictures: pictures
+            };
+            dispatch(RestaurantsPageActions.addAVG(review));
         }
 
     }

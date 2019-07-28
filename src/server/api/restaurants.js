@@ -53,6 +53,42 @@ router.post('/', (req, res) => {
         .catch(err => res.status(400).json({message: "restaurant is already exist"}));
 });
 
+router.post('/updateScore' , (req, res) => {
+
+    let sum = req.body.review.bathroomQuality + req.body.review.staffKindness + req.body.review.cleanliness +
+        req.body.review.driveThruQuality + req.body.review.deliverySpeed + req.body.review.foodQuality;
+    if( ( req.body.review.driveThruQuality > 0 ) && ( req.body.review.deliverySpeed > 0 ))
+        sum = sum / 6;
+    else if( ( req.body.review.driveThruQuality > 0 ) || ( req.body.review.deliverySpeed > 0 ))
+        sum = sum / 5;
+    else
+        sum = sum / 4;
+
+
+    let name = req.body.review.restaurant._id;
+    let oldScore = req.body.review.restaurant.score;
+    let scoreNum = req.body.review.restaurant.scoreNumber;
+
+    let newScore = oldScore * scoreNum ;
+    newScore += sum;
+    scoreNum += 1;
+
+    newScore /= scoreNum;
+
+
+    Restaurant.updateOne(
+        {"_id": name},
+        {
+            $set: {
+                "score": newScore,
+                "scoreNumber": scoreNum
+            }
+        }).then(restaurant => res.json(restaurant))
+        .catch(err => res.status(400).json({message: "Cannot update restaurant score"}));
+
+});
+
+
 router.post('/some', (req, res) => {
     let search = req.body.search;
     let name = search.search;

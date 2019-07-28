@@ -60,7 +60,7 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
         case RestaurantsPageActionsConstants.CHANGE_SCALE:
             return state.set('restaurantsScale', action.scale);
         case RestaurantsPageActionsConstants.CLEAR_RATE:
-           return state.set( 'visibleReview' , false );
+            return state.set( 'visibleReview' , false );
         default:
             return state;
     }

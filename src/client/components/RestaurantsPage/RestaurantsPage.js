@@ -27,7 +27,7 @@ class RestaurantsPage extends Component {
                           rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
 
                 <Dialog header="Restaurant Details" visible={this.props.visibleRestaurant} modal={true}
-                        style={{height: '85%', width: '70%'}} contentStyle={{overflowX: 'hidden'}}
+                        style={{height: '85%', width: '85%'}} contentStyle={{overflowX: 'hidden', maxHeight: "300px"}}
                         onHide={() => this.props.changeVisibilityRestaurant(false)}>
                     {this.renderRestaurantDialogContent()}
                 </Dialog>
@@ -82,20 +82,15 @@ class RestaurantsPage extends Component {
     renderRestaurantDialogContent() {
         if (this.props.selectedRestaurant) {
             return (
-                <div className="p-grid" style={{fontSize: '16px', textAlign: 'center', padding: '20px'}}>
+                <div className="p-grid" style={{fontSize: '32px', textAlign: 'center', padding: '40px'}}>
                     <div className="p-col-12" style={{textAlign: 'center'}}>
                         <img placeholder={'Image'} src={this.props.selectedRestaurant.image}
                              alt={this.props.selectedRestaurant.name} style={{height: '210px', width: '415px'}}/>
                     </div>
 
-                    <div className="p-col-4">Name:</div>
-                    <div className="p-col-8">{this.props.selectedRestaurant.name}</div>
+                    <div className="p-col-4">Name: {this.props.selectedRestaurant.name} </div>
 
-                    <div className="p-col-4">Location:</div>
-                    <div className="p-col-8">{this.props.selectedRestaurant.location}</div>
-
-                    <div className="p-col-4">Rating:</div>
-                    <div className="p-col-8">{this.props.selectedRestaurant.score}</div>
+                    <div className="p-col-4">Location: {this.props.selectedRestaurant.location} </div>
 
                     <MapContainer name={this.props.selectedRestaurant.name}
                                   position={this.props.selectedRestaurant.coords}/>
@@ -110,7 +105,7 @@ class RestaurantsPage extends Component {
         const sortOptions = [
             {label: 'By Name', value: 'name'},
             {label: 'By City', value: 'location'},
-            {label: 'By Ratings', value: 'brand'}
+            {label: 'By Ratings', value: 'score'}
         ];
         return (
             <div>
@@ -214,8 +209,8 @@ const mapDispatchToProps = (dispatch) => {
         },
         onSortChange: (event) => {
             const value = event.value;
-            if (value.indexOf('!') === 0) {
-                dispatch(RestaurantsPageActions.onSortChange(-1, value.substring(1, value.length), value));
+            if (value.indexOf('score') === 0) {
+                dispatch(RestaurantsPageActions.onSortChange(-1, value, value));
             } else {
                 dispatch(RestaurantsPageActions.onSortChange(1, value, value));
             }
