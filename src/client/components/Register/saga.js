@@ -3,13 +3,11 @@ import {call, put, takeEvery} from 'redux-saga/effects'
 import RegisterActions from './actions'
 
 function* registerUser(action) {
-    // console.log(action.user.get('username'))
     try {
         const res = yield call(fetch, action.uri,
             {
                 method: 'POST',
                 headers: {
-                    // 'Content-Type': 'multipart/form-data; boundary=1000000000000'
                 },
                 body: action.user
             });

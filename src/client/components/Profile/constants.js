@@ -15,8 +15,8 @@ const ProfileActionsConstants = {
 
 const EditReviewActionsConstats = {
     EDIT_MY_REVIEWS: 'EDIT_MY_REVIEWS',
-    INIT_MY_REVIEW: 'INIT_MY_REVIEW'
-
+    EDIT_MY_REVIEWS_SUCCESS: 'EDIT_MY_REVIEWS_SUCCESS',
+    EDIT_MY_REVIEWS_FAILURE: 'EDIT_MY_REVIEWS_FAILURE',
 }
 
 const EditPictureActionsConstats = {

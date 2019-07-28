@@ -3,7 +3,6 @@ import {call, put, takeEvery} from 'redux-saga/effects'
 import UsersPageActions from "./actions";
 
 function* getUsers(action) {
-    console.log('UsersPageSaga=', action);
     try {
         const res = yield call(fetch, action.uri,
             {
@@ -23,7 +22,6 @@ function* getUsers(action) {
 }
 
 function* getReviews(action) {
-    console.log('UsersReviewSaga=', action);
     try {
         const res = yield call(fetch, action.uri,
             {

@@ -31,4 +31,9 @@ const RatesConstants = {
     FOOD_QUALITY: 'foodQuality',
 };
 
-export {RestaurantsPageActionsConstants, RatesConstants}
+const ReviewPicturesConstants = {
+    ON_DROP: 'ON_DROP',
+};
+
+
+export {RestaurantsPageActionsConstants, RatesConstants, ReviewPicturesConstants}

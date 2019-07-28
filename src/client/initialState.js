@@ -3,6 +3,10 @@ import {AppPages} from './components/App/constants';
 import {HomePages} from './components/Home/constants';
 
 export default {
+    reviewPictures: Map({
+        previews:[],
+        files: []
+    }),
     dragAndDrop: Map({
         preview: undefined,
         files: undefined
@@ -11,7 +15,6 @@ export default {
         preview: undefined,
     }),
     editReview: Map({
-        editReview: false,
         review: undefined
     }),
     profile: Map({

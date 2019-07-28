@@ -1,4 +1,4 @@
-import {RestaurantsPageActionsConstants} from "./constants";
+import {RestaurantsPageActionsConstants, ReviewPicturesConstants} from "./constants";
 
 function changeLayout(layout) {
     return {
@@ -182,4 +182,17 @@ let RestaurantsPageActions = {
 
 };
 
-export default RestaurantsPageActions
+
+function onDrop(files, previews) {
+    return {
+        type: ReviewPicturesConstants.ON_DROP,
+        files,
+        previews
+    }
+}
+
+let ReviewPicturesActions = {
+    onDrop
+};
+
+export {RestaurantsPageActions, ReviewPicturesActions}

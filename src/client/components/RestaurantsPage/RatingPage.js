@@ -2,8 +2,9 @@ import React from "react";
 import {Rating} from "primereact/components/rating/Rating";
 import {RatesConstants} from "./constants";
 import {Button} from "primereact/components/button/Button";
-import RestaurantsPageActions from "./actions";
+import {RestaurantsPageActions} from "./actions";
 import {connect} from "react-redux";
+import ReviewPictures from "./ReviewPictures";
 
 class RatingPage extends React.Component {
     render() {
@@ -40,24 +41,28 @@ class RatingPage extends React.Component {
                     <h3>Food Quality {this.props.foodQuality}</h3>
                     <Rating value={this.props.foodQuality} cancel={false}
                             onChange={(e) => this.props.changeRate(e.value, RatesConstants.FOOD_QUALITY)}/>
+                    
+                    <ReviewPictures/>
 
                     <Button icon="pi pi-plus-circle" onClick={() => this.props.addReview(this.props.bathroomQuality,
                         this.props.staffKindness, this.props.cleanliness, this.props.driveThruQuality,
-                        this.props.deliverySpeed, this.props.foodQuality)}/>
+                        this.props.deliverySpeed, this.props.foodQuality, this.props.userID, this.props.restaurantID)}/>
                 </div>
             </div>
         )
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return ({
         bathroomQuality: state.rates.get('bathroomQuality'),
         staffKindness: state.rates.get('staffKindness'),
         cleanliness: state.rates.get('cleanliness'),
         driveThruQuality: state.rates.get('driveThruQuality'),
         deliverySpeed: state.rates.get('deliverySpeed'),
-        foodQuality: state.rates.get('foodQuality')
+        foodQuality: state.rates.get('foodQuality'),
+        restaurantID: ownProps.restaurantID,
+        userID: state.home.get('user')._id
     });
 };
 

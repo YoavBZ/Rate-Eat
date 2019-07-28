@@ -91,15 +91,33 @@ let ProfileActions = {
 
 };
 
-function editMyReview() {
+function editMyReview(review) {
     return {
         type: EditReviewActionsConstats.EDIT_MY_REVIEWS,
-
+        uri: '/api/reviews/',
+        review: {review}
     }
 }
 
+function editMyReviewSuccess(review) {
+    return {
+        type: EditReviewActionsConstats.EDIT_MY_REVIEWS_SUCCESS,
+        review
+    }
+}
+
+function editMyReviewFailure(msg) {
+    return {
+        type: EditReviewActionsConstats.EDIT_MY_REVIEWS_FAILURE,
+        msg
+    }
+}
+
+
 let EditReviewActions = {
     editMyReview,
+    editMyReviewSuccess,
+    editMyReviewFailure
 };
 
 

@@ -2,7 +2,7 @@ import {all} from 'redux-saga/effects'
 import RegisterSaga from './components/Register/saga'
 import LoginSaga from './components/Login/saga'
 // import HomeSaga from './components/Home/saga'
-import ProfileSaga from './components/Profile/saga'
+import {ProfileSaga, EditReviewSaga} from './components/Profile/saga'
 import RestaurantsPageSaga from "./components/RestaurantsPage/saga";
 import UsersPageSaga from "./components/UsersPage/saga";
 
@@ -13,6 +13,7 @@ export default function* Sagas() {
         // HomeSaga(),
         ProfileSaga(),
         RestaurantsPageSaga(),
-        UsersPageSaga()
+        UsersPageSaga(),
+        EditReviewSaga()
     ])
 }

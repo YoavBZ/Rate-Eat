@@ -23,7 +23,9 @@ const ProfileReducer = (state = initialState.profile, action) => {
             return state.set('layout', action.layout);
         case EditPictureActionsConstats.ON_DROP:
             return state.set('picture', action.files);
-            
+        case EditReviewActionsConstats.EDIT_MY_REVIEWS_SUCCESS:
+            let reviews = state.get('reviews')
+            return state.set('reviews',reviews.map(review => review._id == action.review._id ? action.review : review))
         default: //otherwise state is lost!
             return state;
     }
@@ -31,8 +33,6 @@ const ProfileReducer = (state = initialState.profile, action) => {
 
 const EditReviewReducer = (state = initialState.editReview, action) => {
     switch (action.type) {
-        case EditReviewActionsConstats.EDIT_MY_REVIEWS:
-            return state.set('editReview', true);
         default: //otherwise state is lost!
             return state;
     }

@@ -1,5 +1,5 @@
 import initialState from '../../initialState';
-import {RestaurantsPageActionsConstants} from "./constants";
+import {RestaurantsPageActionsConstants, ReviewPicturesConstants} from "./constants";
 
 const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) => {
     switch (action.type) {
@@ -72,4 +72,16 @@ const RatesReducer = (state = initialState.rates, action) => {
     }
 };
 
-export {RestaurantsPageReducer, RatesReducer}
+
+const ReviewPicturesReducer = (state = initialState.reviewPictures, action) => {
+    switch (action.type) {
+        case ReviewPicturesConstants.ON_DROP:
+            state = state.set('files', action.files); 
+            return state.set('previews', action.previews);
+        default: //otherwise state is lost!
+            return state;
+    }
+};
+
+
+export {RestaurantsPageReducer, RatesReducer, ReviewPicturesReducer}

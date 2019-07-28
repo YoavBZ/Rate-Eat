@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const Review = require('../model/Review');
+var ObjectID = require('mongodb').ObjectID;
+
 
 // @route POST api/items
 // @desc register new user
@@ -26,22 +28,21 @@ router.post('/', (req, res) => {
 });
 
 router.put('/', (req, res) => {
+    let review = req.body.review
     Review.updateOne(
-        {"_id": req.body._id},
+        {"_id": ObjectID(req.body.review.id)},
         {
             $set: {
-                "bathroomQuality": req.body.bathroomQuality,
-                "staffKindness": req.body.staffKindness,
-                "cleanliness": req.body.cleanliness,
-                "driveThruQuality": req.body.driveThruQuality,
-                "deliverySpeed": req.body.deliverySpeed,
-                "foodQuality": req.body.foodQuality,
-                "pictures": req.body.pictures,
-                "publishDate": Date.now()
+                "bathroomQuality": review.bathroomQuality,
+                "staffKindness": review.staffKindness,
+                "cleanliness": review.cleanliness,
+                "driveThruQuality": review.driveThruQuality,
+                "deliverySpeed": review.deliverySpeed,
+                "foodQuality": review.foodQuality,
             }
         })
-        .then(review => res.json({message: "update had completed successfully"}))
-        .catch(err => res.status(400).json({message: "update had failed"}));
+        .then(review => Review.find({"_id": req.body.review.id}).then(review => res.json(review[0])).catch(err => res.status(500).json({message: `Server Error`})))
+        .catch(err => {console.log(err); res.status(400).json({message: "update had failed"})});
 });
 
 router.delete('/', (req, res) => {

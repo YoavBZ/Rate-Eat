@@ -1,24 +1,21 @@
 import React, {Component, useEffect, useState} from 'react';
 import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
-import {EditPictureActions} from './actions'
+import {ReviewPicturesActions} from './actions'
 
-class EditPicture extends Component {
+
+class ReviewPictures extends Component {
   
   render() {
     const container = {
       border: '1px solid #a6a6a6',
       height: 225,
       width: 200,
-      float: 'left'
     };
 
     const img = {
-      display: 'block',
       width: '100%',
       height: '100%',
-      fontFamily: "Open Sans, Helvetica Neue sans-serif",
-      textAlign: "center",
       color: "#a6a6a6",
     };
 
@@ -31,16 +28,24 @@ class EditPicture extends Component {
       fontFamily: "Open Sans, Helvetica Neue sans-serif"
     };
 
+    const thumbs = this.props.previews.map(preview => (
+        <img
+          src={preview}
+          style={img}
+        />
+    ));
+
     return (
-      <Dropzone accept='image/*' disabled={!this.props.edit} onDrop={this.props.onDrop}>
+      <Dropzone accept='image/*' multiple onDrop={this.props.onDrop}>
         {({getRootProps, getInputProps}) => (
-          <div style={container}{...getRootProps()}>
+          <div style = {container} {...getRootProps()}>
             <input name='picture'  {...getInputProps()} />
-              <img
-                src={this.props.preview == undefined ? this.props.profilePicture.picture : this.props.preview}
+              {/* <img
+                src={undefined}
                 style={img}
                 alt ="Profile Picture"
-              />
+              /> */}
+              <div>{thumbs}</div>
           </div>
         )}
       </Dropzone>
@@ -50,19 +55,19 @@ class EditPicture extends Component {
 
 
 const mapStateToProps = (state) => ({
-  preview: state.editPicture.get('preview'),
-  profilePicture: state.home.get('user'),
-  picture: state.profile.get('picture'),
-  edit: state.profile.get('edit'),
+  previews: state.reviewPictures.get('previews'),
+  files: state.reviewPictures.get('files'),
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onDrop: (files) => {
-      dispatch(EditPictureActions.onDrop(files[0], URL.createObjectURL(files[0])));
+        let previews = files.map(file=> URL.createObjectURL(file))
+        console.log(previews)
+        dispatch(ReviewPicturesActions.onDrop(files, previews));
     }
   }
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditPicture);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewPictures);

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {DataView, DataViewLayoutOptions} from 'primereact/dataview';
 import {Button} from "primereact/button";
-import RestaurantsPageActions from "./actions";
+import {RestaurantsPageActions} from "./actions";
 import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
 import {Panel} from "primereact/panel";

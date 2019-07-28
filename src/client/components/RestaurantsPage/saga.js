@@ -1,9 +1,8 @@
 import {RestaurantsPageActionsConstants} from './constants'
 import {call, put, takeEvery} from 'redux-saga/effects'
-import RestaurantsPageActions from "./actions";
+import {RestaurantsPageActions} from "./actions";
 
 function* getRestaurants(action) {
-    console.log('RestaurantsPageSaga=', action);
     try {
         const res = yield call(fetch, action.uri,
             {
@@ -43,7 +42,6 @@ function* addReview(action) {
 }
 
 function* searchRestaurant(action) {
-    console.log('RestaurantsSearchSaga=', action);
     try {
         const res = yield call(fetch, action.uri,
             {
