@@ -81,8 +81,10 @@ class RatingPageList extends React.Component {
 
     renderHeader() {
         const sortOptions = [
-            {label: 'Newest', value: 'publishDate'},
-            {label: 'Oldest', value: '!publishDate'}
+            {label: 'Newest', value: 'publishDateTime'},
+            {label: 'Oldest', value: '!publishDateTime'},
+            {label: 'Best', value: 'AVG'},
+            {label: 'Worst', value: '!AVG'}
         ];
         return (
             <div>
@@ -138,9 +140,9 @@ const mapDispatchToProps = (dispatch) => {
         onSortChangeRating: (event) => {
             const value = event.value;
             if (value.indexOf('!') === 0) {
-                dispatch(RestaurantsPageActions.onSortChangeRating( -1, value, value));
+                dispatch(RestaurantsPageActions.onSortChangeRating( 1, value.substring(1, value.length), value));
             } else {
-                dispatch(RestaurantsPageActions.onSortChangeRating(1, value, value));
+                dispatch(RestaurantsPageActions.onSortChangeRating(-1, value, value));
             }
         },
         getReviewsList: (restaurantID) => {

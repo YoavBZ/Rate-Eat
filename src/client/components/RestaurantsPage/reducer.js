@@ -77,6 +77,7 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
         case RestaurantsPageActionsConstants.CHANGE_RATE_LIST:
             return state.set('rates', action.value);
         case RestaurantsPageActionsConstants.ON_SORT_CHANGE_RATING:
+
             state = state.set('sortOrderRating', action.sortOrder);
             state = state.set('sortFieldRating', action.sortField);
             return state.set('sortKeyRating', action.sortKey);

@@ -12,7 +12,9 @@ const ReviewSchema = new Schema({
     deliverySpeed: Number,
     foodQuality: Number,
     pictures: [String],
-    publishDate: Date
+    publishDate: Date,
+    publishDateTime: Number,
+    AVG: Number
 });
 
 module.exports = Review = mongoose.model('review', ReviewSchema);
