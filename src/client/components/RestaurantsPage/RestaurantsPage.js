@@ -119,7 +119,8 @@ class RestaurantsPage extends Component {
         const sortOptions = [
             {label: 'By Name', value: 'name'},
             {label: 'By City', value: 'location'},
-            {label: 'By Ratings', value: 'score'}
+            {label: 'Best Ratings', value: '!score'},
+            {label: 'Worst Ratings', value: 'score'}
         ];
         return (
             <div>
@@ -217,8 +218,11 @@ const mapStateToProps = (state, ownProps) => {
         visibleReview: state.restaurantsPage.get('visibleReview'),
         visibleReviewList: state.restaurantsPage.get('visibleReviewList'),
         sortKey: state.restaurantsPage.get('sortKey'),
+        sortKeyRating: state.restaurantsPage.get('sortKeyRating'),
         sortOrder: state.restaurantsPage.get('sortOrder'),
+        sortOrderRating: state.restaurantsPage.get('sortOrderRating'),
         sortField: state.restaurantsPage.get('sortField'),
+        sortFieldRating: state.restaurantsPage.get('sortFieldRating'),
         rates: state.restaurantsPage.get('rates')
 
     });
@@ -240,8 +244,8 @@ const mapDispatchToProps = (dispatch) => {
         },
         onSortChange: (event) => {
             const value = event.value;
-            if (value.indexOf('score') === 0) {
-                dispatch(RestaurantsPageActions.onSortChange(-1, value, value));
+            if (value.indexOf('!') === 0) {
+                dispatch(RestaurantsPageActions.onSortChange(-1, value.substring(1, value.length), value));
             } else {
                 dispatch(RestaurantsPageActions.onSortChange(1, value, value));
             }

@@ -15,6 +15,15 @@ var ObjectID = require('mongodb').ObjectID;
 
 router.post('/', cpUpload, (req, res) => {
     let pictures = req.files['files[]'].map(file => file.path)
+    let sum = req.body.bathroomQuality + req.body.staffKindness + req.body.cleanliness +
+        req.body.driveThruQuality + req.body.deliverySpeed + req.body.foodQuality;
+    if( ( req.body.driveThruQuality > 0 ) && ( req.body.deliverySpeed > 0 ) )
+        sum /= 6;
+    else if( ( req.body.driveThruQuality > 0 ) || ( req.body.deliverySpeed > 0 ) )
+        sum /= 5;
+    else
+        sum /= 4;
+
     const newReview = new Review({
         userID: req.body.userID,
         restaurantID: req.body.restaurantID,
@@ -25,7 +34,9 @@ router.post('/', cpUpload, (req, res) => {
         deliverySpeed: req.body.deliverySpeed,
         foodQuality: req.body.foodQuality,
         pictures: pictures,
-        publishDate: Date.now()
+        publishDate: Date.now(),
+        publishDateTime: Date.now(),
+        AVG: sum
     });
     newReview.save()
         .then(review => res.json(review))
@@ -34,6 +45,14 @@ router.post('/', cpUpload, (req, res) => {
 
 router.put('/', (req, res) => {
     let review = req.body.review
+    let sum = req.body.bathroomQuality + req.body.staffKindness + req.body.cleanliness +
+              req.body.driveThruQuality + req.body.deliverySpeed + req.body.foodQuality;
+    if( ( req.body.driveThruQuality > 0 ) && ( req.body.deliverySpeed > 0 ) )
+        sum /= 6;
+    else if( ( req.body.driveThruQuality > 0 ) || ( req.body.deliverySpeed > 0 ) )
+        sum /= 5;
+    else
+        sum /= 4;
     Review.updateOne(
         {"_id": ObjectID(req.body.review.id)},
         {
@@ -44,6 +63,10 @@ router.put('/', (req, res) => {
                 "driveThruQuality": review.driveThruQuality,
                 "deliverySpeed": review.deliverySpeed,
                 "foodQuality": review.foodQuality,
+                "pictures": req.body.pictures,
+                "publishDate": Date.now(),
+                "publishDateTime": Date.now(),
+                "AVG": sum
             }
         })
         .then(review => Review.find({"_id": req.body.review.id}).then(review => res.json(review[0])).catch(err => res.status(500).json({message: `Server Error`})))

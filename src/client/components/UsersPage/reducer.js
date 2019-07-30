@@ -25,6 +25,10 @@ const UsersPageReducer = (state = initialState.usersPage, action) => {
             return state.set(action.field, action.value);
         // case UsersPageActionsConstants.SEARCH_USERS:
         //     return state.set('searchNow', action.search);
+        case UsersPageActionsConstants.ON_SORT_CHANGE_RATING:
+            state = state.set('sortOrderRating', action.sortOrder);
+            state = state.set('sortFieldRating', action.sortField);
+            return state.set('sortKeyRating', action.sortKey);
         default:
             return state;
     }

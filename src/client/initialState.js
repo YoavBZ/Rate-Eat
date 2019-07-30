@@ -83,8 +83,11 @@ export default {
         selectedUser: null,
         visibleReview: false,
         sortKey: null,
+        sortKeyRating: null,
         sortOrder: null,
+        sortOrderRating: null,
         sortField: null,
+        sortFieldRating: null,
         rates: []
     }),
     login: Map({

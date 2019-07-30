@@ -3,16 +3,20 @@ import {Rating} from "primereact/components/rating/Rating";
 import UsersPageActions from "./actions";
 import {connect} from "react-redux";
 import {DataView} from "primereact/components/dataview/DataView";
+import {Dropdown} from "primereact/components/dropdown/Dropdown";
+import {Button} from "primereact/button";
+import RestaurantsPageActions from "../RestaurantsPage/actions";
 
 class RatingPage extends React.Component {
 
     render() {
+        const header = this.renderHeader();
         return (
             <div style={{margin: 'auto', width: '80%'}}>
                 <h1 style={{fontFamily: 'sans-serif'}}>Reviews</h1>
-                <DataView value={this.props.rates} onChange={this.props.onRateChange}
+                <DataView value={this.props.rates} onChange={this.props.onRateChange} header={header}
                           itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
-                          rows={4}/>
+                          rows={4} sortOrder={this.props.sortOrderRating} sortField={this.props.sortFieldRating}/>
             </div>
         );
     }
@@ -75,6 +79,26 @@ class RatingPage extends React.Component {
 
             </div>);
     }
+
+    renderHeader() {
+        const sortOptions = [
+            {label: 'Newest', value: 'publishDateTime'},
+            {label: 'Oldest', value: '!publishDateTime'},
+            {label: 'Best', value: 'AVG'},
+            {label: 'Worst', value: '!AVG'}
+        ];
+        return (
+                <div className="p-grid">
+                    <div className="p-col-6" style={{textAlign: 'left'}}>
+                        <Dropdown options={sortOptions} value={this.props.sortKeyRating} placeholder="Sort By"
+                                  onChange={this.props.onSortChangeRating}/>
+                    </div>
+
+                </div>
+
+        );
+    }
+
 }
 
 
@@ -87,7 +111,10 @@ const mapStateToProps = (state, ownProps) => {
         cleanliness: state.rates.get('cleanliness'),
         driveThruQuality: state.rates.get('driveThruQuality'),
         deliverySpeed: state.rates.get('deliverySpeed'),
-        foodQuality: state.rates.get('foodQuality')
+        foodQuality: state.rates.get('foodQuality'),
+        sortKeyRating: state.usersPage.get('sortKeyRating'),
+        sortOrderRating: state.usersPage.get('sortOrderRating'),
+        sortFieldRating: state.usersPage.get('sortFieldRating')
     });
 };
 
@@ -95,6 +122,14 @@ const mapDispatchToProps = (dispatch) => {
     return {
         showReviews: () => {
             dispatch( UsersPageActions.showReviews() );
+        },
+        onSortChangeRating: (event) => {
+        const value = event.value;
+        if (value.indexOf('!') === 0) {
+            dispatch(RestaurantsPageActions.onSortChangeRating( 1, value.substring(1, value.length), value));
+        } else {
+            dispatch(RestaurantsPageActions.onSortChangeRating(-1, value, value));
+        }
         },
         onRateChange: (event) => {
            dispatch(UsersPageActions.onRateChange(event.value));
