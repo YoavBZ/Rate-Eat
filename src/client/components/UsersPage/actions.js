@@ -111,6 +111,13 @@ function searchNameLocation(search, location) {
     }
 }
 
+function onSortChangeRating(sortOrder, sortField, sortKey) {
+    return {
+        type: UsersPageActionsConstants.ON_SORT_CHANGE_RATING,
+        sortOrder, sortField, sortKey
+    }
+}
+
 let UsersPageActions = {
     getUsers,
     getReviews,
@@ -128,7 +135,8 @@ let UsersPageActions = {
 
     onRateChange,
     getReviewSuccess,
-    getReviewFailure
+    getReviewFailure,
+    onSortChangeRating
 };
 
 export default UsersPageActions
