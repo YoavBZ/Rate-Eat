@@ -4,8 +4,6 @@ import {HomePages} from './components/Home/constants';
 
 export default {
     reviewPictures: Map({
-        previews:[],
-        files: []
     }),
     dragAndDrop: Map({
         preview: undefined,
@@ -15,7 +13,8 @@ export default {
         preview: undefined,
     }),
     editReview: Map({
-        review: undefined
+        // review: undefined,
+        // files: []
     }),
     profile: Map({
         edit: false,
@@ -72,7 +71,8 @@ export default {
         deliverySpeed: 0,
         foodQuality: 0,
         pictures: 0,
-        newScore: 0
+        newScore: 0,
+        files: [],
     }),
     usersPage: Map({
         users: [],

@@ -113,11 +113,87 @@ function editMyReviewFailure(msg) {
     }
 }
 
+function deleteReview(id){
+    return {
+        type: EditReviewActionsConstats.DELETE_REVIEW,
+        uri: 'api/reviews/',
+        id: {id}
+    }
+}
+
+function deleteReviewSuccess(id) {
+    return {
+        type: EditReviewActionsConstats.DELETE_REVIEW_SUCCESS,
+        id
+    }
+}
+
+function deleteReviewFailure(msg) {
+    return {
+        type: EditReviewActionsConstats.DELETE_REVIEW_FAILURE,
+        msg
+    }
+}
+
+function getRestaurantName(id, callback) {
+    return {
+        type: EditReviewActionsConstats.GET_RESTAURANT_NAME,
+        uri: '/api/restaurants/getName',
+        id: {id},
+        callback
+    }
+}
+
+function getRestaurantNameSuccess(name, callback) {
+    return {
+        type: EditReviewActionsConstats.GET_RESTAURANT_NAME_SUCCESS,
+        name,
+        callback
+    }
+}
+
+function getRestaurantNameFailure(msg) {
+    return {
+        type: EditReviewActionsConstats.GET_RESTAURANT_NAME_FAILURE,
+        msg
+    }
+}
+
+function editMyReviewWithPictures(review) {
+    return {
+        type: EditReviewActionsConstats.EDIT_MY_REVIEWS_WITH_PICTURES,
+        uri: '/api/reviews/updateWithPictures',
+        review
+    }
+}
+
+function editMyReviewWithPicturesSuccess(review) {
+    return {
+        type: EditReviewActionsConstats.EDIT_MY_REVIEWS_WITH_PICTURES_SUCCESS,
+        review
+    }
+}
+
+function editMyReviewWithPicturesFailure(msg) {
+    return {
+        type: EditReviewActionsConstats.EDIT_MY_REVIEWS_WITH_PICTURES_FAILURE,
+        msg
+    }
+}
 
 let EditReviewActions = {
     editMyReview,
     editMyReviewSuccess,
-    editMyReviewFailure
+    editMyReviewFailure,
+    deleteReview,
+    deleteReviewSuccess,
+    deleteReviewFailure,
+    getRestaurantName,
+    getRestaurantNameSuccess,
+    getRestaurantNameFailure,
+    editMyReviewWithPictures,
+    editMyReviewWithPicturesSuccess,
+    editMyReviewWithPicturesFailure
 };
 
 

@@ -57,17 +57,14 @@ class ReviewPictures extends Component {
 }
 
 
-const mapStateToProps = (state) => ({
-  previews: state.reviewPictures.get('previews'),
-  files: state.reviewPictures.get('files'),
+const mapStateToProps = (state, ownProps) => ({
+  files: ownProps.files,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onDrop: (files) => {
-        let previews = files.map(file=> URL.createObjectURL(file))
-        console.log(previews)
-        dispatch(ReviewPicturesActions.onDrop(files, previews));
+        dispatch(ReviewPicturesActions.onDrop(files));
     }
   }
 };

@@ -137,7 +137,7 @@ function addReview(review) {
     return {
         type: RestaurantsPageActionsConstants.ADD_RATE,
         uri: '/api/reviews',
-        payload: review
+        review
     }
 }
 

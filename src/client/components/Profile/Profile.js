@@ -93,7 +93,7 @@ class Profile extends Component {
                     <h1 style={{fontFamily: 'sans-serif'}}>My Reviews</h1>
                     <DataView value={this.props.reviews} layout={this.props.layout} header={this.renderHeader()}
                               itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
-                              rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
+                              rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField} style={{width: 'max-content'}}/>
 
                     <Dialog header="Review Details" visible={this.props.visibleReview} width="225px" modal={true}
                             onHide={() => this.props.changeVisibilityMyReview(false)}>

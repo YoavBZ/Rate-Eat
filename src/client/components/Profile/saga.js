@@ -52,7 +52,6 @@ function* ProfileSaga() {
 
 
 function* updateUserReviews(action) {
-    console.log(action.review)
     try {
         const res = yield call(fetch, action.uri,
             {
@@ -67,7 +66,6 @@ function* updateUserReviews(action) {
         if (res.status >= 400) {
             throw json;
         }
-        console.log("combing back from saga")
         yield put(EditReviewActions.editMyReviewSuccess(json));
     } catch (e) {
         yield put(EditReviewActions.editMyReviewFailure(e));
@@ -75,9 +73,80 @@ function* updateUserReviews(action) {
 }
 
 
+function* deleteReview(action) {
+    try {
+        const res = yield call(fetch, action.uri,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(action.id)
+            });
+            
+        const json = yield call([res, 'json']); //retrieve body of response
+        if (res.status >= 400) {
+            throw json;
+        }
+        yield put(EditReviewActions.deleteReviewSuccess(json.id));
+    } catch (e) {
+        yield put(EditReviewActions.editMyReviewFailure(e));
+    }
+}
+
+
+
+function* getRestaurantName(action) {
+    try {
+        const res = yield call(fetch, action.uri,
+            {
+                method: 'Post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(action.id)
+            });
+            
+        const json = yield call([res, 'json']); //retrieve body of response
+        if (res.status >= 400) {
+            throw json;
+        }
+        yield put(EditReviewActions.getRestaurantNameSuccess(json.name, action.callback));
+    } catch (e) {
+        yield put(EditReviewActions.getRestaurantNameFailure(e));
+    }
+}
+
+
+function* updateUserReviewsWithPictures(action) {
+    console.log(action.review.get('id'))
+    try {
+        const res = yield call(fetch, action.uri,
+            {
+                method: 'PUT',
+                headers: {
+                },
+                body: action.review
+            });
+        const json = yield call([res, 'json']); //retrieve body of response
+        if (res.status >= 400) {
+            throw json;
+        }
+        yield put(EditReviewActions.editMyReviewWithPicturesSuccess(json));
+    } catch (e) {
+        yield put(EditReviewActions.editMyReviewWithPicturesFailure(e.message));
+    }
+}
+
+
 function* EditReviewSaga() {
     //using takeEvery, you take the action away from reducer to saga
     yield takeEvery(EditReviewActionsConstats.EDIT_MY_REVIEWS, updateUserReviews);
+    yield takeEvery(EditReviewActionsConstats.DELETE_REVIEW, deleteReview);
+    yield takeEvery(EditReviewActionsConstats.GET_RESTAURANT_NAME, getRestaurantName);
+    yield takeEvery(EditReviewActionsConstats.EDIT_MY_REVIEWS_WITH_PICTURES, updateUserReviewsWithPictures);
+
+    
 }
 
 export {ProfileSaga, EditReviewSaga};

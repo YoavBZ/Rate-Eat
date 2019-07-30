@@ -1,6 +1,6 @@
 import React from "react";
 import {Rating} from "primereact/components/rating/Rating";
-import RestaurantsPageActions from "./actions";
+import {RestaurantsPageActions} from "./actions";
 import {connect} from "react-redux";
 import {DataView, DataViewLayoutOptions} from "primereact/components/dataview/DataView";
 import {Dropdown} from "primereact/components/dropdown/Dropdown";

@@ -67,9 +67,8 @@ function* addReview(action) {
             {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(action.payload)
+                body: action.review
             });
         const json = yield call([res, 'json']); //retrieve body of response
         if (res.status >= 400) {

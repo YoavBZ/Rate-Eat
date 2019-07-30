@@ -42,12 +42,12 @@ class RatingPage extends React.Component {
                     <Rating value={this.props.foodQuality} cancel={false}
                             onChange={(e) => this.props.changeRate(e.value, RatesConstants.FOOD_QUALITY)}/>
                     
-                    <ReviewPictures/>
+                    <ReviewPictures files={this.props.files}/>
 
                     <Button label="Submit" onClick={() => {
                         this.props.addReview(this.props.currentUser._id, this.props.selectedRestaurant._id,
                             this.props.bathroomQuality, this.props.staffKindness, this.props.cleanliness,
-                            this.props.driveThruQuality, this.props.deliverySpeed, this.props.foodQuality);
+                            this.props.driveThruQuality, this.props.deliverySpeed, this.props.foodQuality, this.props.files);
                         this.props.addAVG(this.props.selectedRestaurant,
                             this.props.bathroomQuality, this.props.staffKindness, this.props.cleanliness,
                             this.props.driveThruQuality, this.props.deliverySpeed, this.props.foodQuality);
@@ -71,7 +71,8 @@ const mapStateToProps = (state, ownProps) => {
         driveThruQuality: state.rates.get('driveThruQuality'),
         deliverySpeed: state.rates.get('deliverySpeed'),
         foodQuality: state.rates.get('foodQuality'),
-        newScore: state.rates.get('newScore')
+        newScore: state.rates.get('newScore'),
+        files: state.rates.get('files'),
     });
 };
 
@@ -86,19 +87,21 @@ const mapDispatchToProps = (dispatch) => {
         clearReviewReopen: () => {
             dispatch(RestaurantsPageActions.getRestaurants());
         },
-        addReview: (nameId, restaurantId, bathroomQuality, staffKindness, cleanliness, driveThruQuality, deliverySpeed, foodQuality, pictures) => {
-            let review = {
-                userID: nameId,
-                restaurantID: restaurantId,
-                bathroomQuality: bathroomQuality,
-                staffKindness: staffKindness,
-                cleanliness: cleanliness,
-                driveThruQuality: driveThruQuality,
-                deliverySpeed: deliverySpeed,
-                foodQuality: foodQuality,
-                pictures: pictures
-            };
-            dispatch(RestaurantsPageActions.addReview(review));
+        addReview: (nameId, restaurantId, bathroomQuality, staffKindness, cleanliness, driveThruQuality, deliverySpeed, foodQuality, files) => {
+            console.log(files[0])
+            let formData = new FormData()
+            formData.append('userID', nameId);
+            formData.append('restaurantID', restaurantId);
+            formData.append('bathroomQuality', bathroomQuality);
+            formData.append('staffKindness', staffKindness);
+            formData.append('cleanliness', cleanliness);
+            formData.append('driveThruQuality', driveThruQuality);
+            formData.append('deliverySpeed', deliverySpeed);
+            formData.append('foodQuality', foodQuality);
+            for ( let i = 0; i<files.length; i++){
+                formData.append('files[]', files[i]);    
+            }
+            dispatch(RestaurantsPageActions.addReview(formData));
         },
         addAVG: (restaurant, bathroomQuality, staffKindness, cleanliness, driveThruQuality, deliverySpeed, foodQuality, pictures) => {
             let review = {

@@ -24,15 +24,30 @@ const ProfileReducer = (state = initialState.profile, action) => {
         case EditPictureActionsConstats.ON_DROP:
             return state.set('picture', action.files);
         case EditReviewActionsConstats.EDIT_MY_REVIEWS_SUCCESS:
+        case EditReviewActionsConstats.EDIT_MY_REVIEWS_WITH_PICTURES_SUCCESS:
             let reviews = state.get('reviews')
             return state.set('reviews',reviews.map(review => review._id == action.review._id ? action.review : review))
+        case EditReviewActionsConstats.DELETE_REVIEW_SUCCESS:
+            let updatedReviews = state.get('reviews')
+            return state.set('reviews', updatedReviews.filter(review => review._id != action.id))
+        case EditReviewActionsConstats.EDIT_MY_REVIEWS_SUCCESS:
+        case EditReviewActionsConstats.EDIT_MY_REVIEWS_WITH_PICTURES_SUCCESS:  
+            console.log(action.msg)
+            return state;
         default: //otherwise state is lost!
+        
             return state;
     }
 };
 
 const EditReviewReducer = (state = initialState.editReview, action) => {
     switch (action.type) {
+        case EditReviewActionsConstats.GET_RESTAURANT_NAME_SUCCESS:
+            action.callback(action.name)
+            return state;
+        case EditReviewActionsConstats.GET_RESTAURANT_NAME_FAILIRE:
+            console.log(action.msg)
+            return state;    
         default: //otherwise state is lost!
             return state;
     }

@@ -3,6 +3,7 @@ const router = express.Router();
 
 const Restaurant = require('../model/Restaurant');
 const Review = require('../model/Review');
+var ObjectID = require('mongodb').ObjectID;
 
 // @route GET api/items
 // @desc Get all users with given name or location
@@ -129,6 +130,13 @@ router.post('/someAll', (req, res) => {
         {"name": {$regex : name}, "location": {$regex : location}, "score": { $gte: avg } })
         .then(user => res.json(user))
         .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
+});
+
+
+router.post('/getName', (req, res) => {
+    Restaurant.find({"_id": req.body.id})
+    .then(restaurant => res.json({name: restaurant[0].name}))
+    .catch(err => res.status(400).json({message: "Server Error"}))
 });
 
 module.exports = router;

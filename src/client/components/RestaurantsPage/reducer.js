@@ -97,6 +97,11 @@ const RatesReducer = (state = initialState.rates, action) => {
             state = state.set( 'driveThruQuality' , 0 );
             state = state.set( 'deliverySpeed' , 0 );
             return state.set( 'foodQuality' , 0);
+        case ReviewPicturesConstants.ON_DROP:
+            
+            let previews = action.files.map(file => URL.createObjectURL(file))
+            console.log(action.files)
+            return state.set('files', action.files);     
         default:
             return state;
     }
@@ -112,8 +117,7 @@ const RatesListReducer = (state = initialState.rates, action) => {
 
 const ReviewPicturesReducer = (state = initialState.reviewPictures, action) => {
     switch (action.type) {
-        case ReviewPicturesConstants.ON_DROP:
-            return state.set('files', action.files); 
+
         default: //otherwise state is lost!
             return state;
     }
