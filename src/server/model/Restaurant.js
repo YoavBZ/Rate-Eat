@@ -6,6 +6,12 @@ const RestaurantSchema = new Schema({
     name: String,
     location: String,
     score: Number,
+    bathroomQuality: Number,
+    staffKindness: Number,
+    cleanliness: Number,
+    driveThruQuality: Number,
+    deliverySpeed: Number,
+    foodQuality: Number,
     scoreNumber: Number
 });
 

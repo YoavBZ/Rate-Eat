@@ -127,6 +127,26 @@ router.post('/someAvg', (req, res) => {
 
 
 
+router.post('/someDate', (req, res) => {
+    let restaurantID = req.body.restaurantID;
+    let search = req.body.search;
+    Review.find(
+        {"restaurantID": restaurantID})
+        .then( reviews => {
+
+            let newReviews =  reviews.filter( a => {
+                let nowValue = Date.now();
+                return ( nowValue - a.publishDateTime ) < search;
+            } );
+
+            res.json(newReviews);
+        })
+        .catch(err => res.status(400).json({message: "Failed to retrive reviews"}));
+    // TODO: remove review pictures!!
+});
+
+
+
 router.put('/updateWithPictures', cpUpload, (req, res) => {
     console.log(req.body)
     console.log(req.files)

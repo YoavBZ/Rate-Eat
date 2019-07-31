@@ -35,6 +35,13 @@ function onSortChange(sortOrder, sortField, sortKey) {
     }
 }
 
+function onSortChangeRestaurant(sortKeyRestaurant) {
+    return {
+        type: RestaurantsPageActionsConstants.ON_SORT_CHANGE_RESTAURANT,
+        sortKeyRestaurant
+    }
+}
+
 function onSortChangeRating(sortOrder, sortField, sortKey) {
     return {
         type: RestaurantsPageActionsConstants.ON_SORT_CHANGE_RATING,
@@ -228,6 +235,30 @@ function searchAVGRatingHandler(restaurantID, search) {
     }
 }
 
+function searchDayRatingHandler(restaurantID, search) {
+    return {
+        type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT_DATE,
+        uri: 'api/reviews/someDate',
+        payload: { restaurantID , search}
+    }
+}
+
+function searchWeekRatingHandler(restaurantID, search) {
+    return {
+        type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT_DATE,
+        uri: 'api/reviews/someDate',
+        payload: { restaurantID , search}
+    }
+}
+
+function searchMonthRatingHandler(restaurantID, search) {
+    return {
+        type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT_DATE,
+        uri: 'api/reviews/someDate',
+        payload: { restaurantID , search}
+    }
+}
+
 function searchNameLocation(search, location, avg) {
     return {
         type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT,
@@ -249,6 +280,7 @@ let RestaurantsPageActions = {
     changeVisibilityReviewList,
     changeLayout,
     onSortChange,
+    onSortChangeRestaurant,
     getRestaurants,
     getReviewsList,
     getRestaurantsSuccess,
@@ -275,6 +307,9 @@ let RestaurantsPageActions = {
     searchLocation,
     searchAVGHandler,
     searchAVGRatingHandler,
+    searchDayRatingHandler,
+    searchWeekRatingHandler,
+    searchMonthRatingHandler,
     searchNameLocation,
 
     onRateChange,

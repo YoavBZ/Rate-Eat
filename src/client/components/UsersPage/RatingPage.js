@@ -4,8 +4,6 @@ import UsersPageActions from "./actions";
 import {connect} from "react-redux";
 import {DataView} from "primereact/components/dataview/DataView";
 import {Dropdown} from "primereact/components/dropdown/Dropdown";
-import {Button} from "primereact/button";
-import RestaurantsPageActions from "../RestaurantsPage/actions";
 
 class RatingPage extends React.Component {
 
@@ -126,9 +124,9 @@ const mapDispatchToProps = (dispatch) => {
         onSortChangeRating: (event) => {
         const value = event.value;
         if (value.indexOf('!') === 0) {
-            dispatch(RestaurantsPageActions.onSortChangeRating( 1, value.substring(1, value.length), value));
+            dispatch(UsersPageActions.onSortChangeRating( 1, value.substring(1, value.length), value));
         } else {
-            dispatch(RestaurantsPageActions.onSortChangeRating(-1, value, value));
+            dispatch(UsersPageActions.onSortChangeRating(-1, value, value));
         }
         },
         onRateChange: (event) => {

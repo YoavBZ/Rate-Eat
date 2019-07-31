@@ -49,10 +49,13 @@ export default {
         visibleReviewList: false,
         sortKey: null,
         sortKeyRating: null,
+        sortKeyRestaurant: null,
         sortOrder: null,
         sortOrderRating: null,
+        sortOrderRestaurant: null,
         sortField: null,
         sortFieldRating: null,
+        sortFieldRestaurant: null,
         rates: []
     }),
     googleMap: Map({

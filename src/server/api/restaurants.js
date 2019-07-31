@@ -71,17 +71,49 @@ router.post('/updateScore' , (req, res) => {
     let scoreNum = req.body.review.restaurant.scoreNumber;
 
     let newScore = oldScore * scoreNum ;
+    let newBathroomQuality =
+        req.body.review.bathroomQuality + ( req.body.review.restaurant.bathroomQuality * scoreNum );
+    let newStaffKindness =
+        req.body.review.staffKindness + ( req.body.review.restaurant.staffKindness * scoreNum );
+    let newCleanliness =
+        req.body.review.cleanliness + ( req.body.review.restaurant.cleanliness * scoreNum );
+    let newDriveThruQuality =
+        req.body.review.driveThruQuality + ( req.body.review.restaurant.driveThruQuality * scoreNum );
+    let newDeliverySpeed =
+        req.body.review.deliverySpeed + ( req.body.review.restaurant.deliverySpeed * scoreNum );
+    let newFoodQuality =
+        req.body.review.foodQuality + ( req.body.review.restaurant.foodQuality * scoreNum );
+
     newScore += sum;
     scoreNum += 1;
 
     newScore /= scoreNum;
+    newBathroomQuality /= scoreNum;
+    newStaffKindness /= scoreNum;
+    newCleanliness /= scoreNum;
 
+    if( req.body.review.driveThruQuality > 0 )
+        newDriveThruQuality /= scoreNum;
+    else
+        newDriveThruQuality /= ( scoreNum - 1 );
+    if( req.body.review.deliverySpeed > 0 )
+        newDeliverySpeed /= scoreNum;
+    else
+        newDeliverySpeed /= ( scoreNum - 1 );
+
+    newFoodQuality /= scoreNum;
 
     Restaurant.updateOne(
         {"_id": name},
         {
             $set: {
                 "score": newScore,
+                "bathroomQuality": newBathroomQuality,
+                "staffKindness": newStaffKindness,
+                "cleanliness": newCleanliness,
+                "driveThruQuality": newDriveThruQuality,
+                "deliverySpeed": newDeliverySpeed,
+                "foodQuality": newFoodQuality,
                 "scoreNumber": scoreNum
             }
         }).then(restaurant => res.json(restaurant))
@@ -113,9 +145,17 @@ router.post('/someLocation', (req, res) => {
 router.post('/someAVG', (req, res) => {
     let search = req.body.search;
     let avg = search.search;
+    let key = search.key;
 
+    if(key === 'score'){
+        Restaurant.find(
+            { "score" : { $gte: avg }})
+            .then(user => res.json(user))
+            .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
+    }
+    else
     Restaurant.find(
-        {"score": { $gte: avg }})
+        { "bathroomQuality" : { $gte: avg }})
         .then(user => res.json(user))
         .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
 });

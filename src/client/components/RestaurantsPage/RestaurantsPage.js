@@ -122,6 +122,15 @@ class RestaurantsPage extends Component {
             {label: 'Best Ratings', value: '!score'},
             {label: 'Worst Ratings', value: 'score'}
         ];
+        const rateOptions = [
+            {label: 'bathroomQuality', value: 'bathroomQuality'},
+            {label: 'StaffKindness', value: 'staffKindness'},
+            {label: 'cleanliness', value: 'cleanliness'},
+            {label: 'driveThruQuality', value: 'driveThruQuality'},
+            {label: 'deliverySpeed', value: 'deliverySpeed'},
+            {label: 'foodQuality', value: 'foodQuality'},
+            {label: 'score', value: 'score'}
+        ];
         return (
             <div>
                 <div className="p-grid">
@@ -135,10 +144,13 @@ class RestaurantsPage extends Component {
                     <div>
                     <div className="p-col-6" style={{textAlign: 'right'}}>
                         <h3>AVG Rating Above {this.props.restaurantsAVGSearch}</h3>
+                        <Dropdown options={rateOptions} value={this.props.sortKeyRestaurant} placeholder="Sort By"
+                                  onChange={this.props.onSortChangeRestaurant}/>
                         <Rating value={this.props.restaurantsAVGSearch}
                                 onChange={this.props.changeRestaurantsAVG} />
                         <Button variant="primary"
-                                onClick={() => this.props.searchAVGHandler(this.props.restaurantsAVGSearch)}
+                                onClick={() => this.props.searchAVGHandler(
+                                    this.props.sortKeyRestaurant, this.props.restaurantsAVGSearch)}
                                 type="submit" label="Search"/>
                     </div>
 
@@ -219,6 +231,7 @@ const mapStateToProps = (state, ownProps) => {
         visibleReviewList: state.restaurantsPage.get('visibleReviewList'),
         sortKey: state.restaurantsPage.get('sortKey'),
         sortKeyRating: state.restaurantsPage.get('sortKeyRating'),
+        sortKeyRestaurant: state.restaurantsPage.get('sortKeyRestaurant'),
         sortOrder: state.restaurantsPage.get('sortOrder'),
         sortOrderRating: state.restaurantsPage.get('sortOrderRating'),
         sortField: state.restaurantsPage.get('sortField'),
@@ -249,6 +262,10 @@ const mapDispatchToProps = (dispatch) => {
             } else {
                 dispatch(RestaurantsPageActions.onSortChange(1, value, value));
             }
+        },
+        onSortChangeRestaurant: (event) => {
+            const value = event.value;
+            dispatch(RestaurantsPageActions.onSortChangeRestaurant(value));
         },
         getRestaurants: () => {
             dispatch(RestaurantsPageActions.getRestaurants());
@@ -286,8 +303,8 @@ const mapDispatchToProps = (dispatch) => {
         searchLocationHandler: (search) => {
             dispatch(RestaurantsPageActions.searchLocation({search}))
         },
-        searchAVGHandler: (search) => {
-            dispatch(RestaurantsPageActions.searchAVGHandler({search}))
+        searchAVGHandler: (key, search) => {
+            dispatch(RestaurantsPageActions.searchAVGHandler({key, search}))
         },
         searchNameLocationHandler: (search, location, avg) => {
             dispatch(RestaurantsPageActions.searchNameLocation({search, location, avg}))

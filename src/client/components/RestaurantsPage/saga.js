@@ -127,6 +127,7 @@ function* RestaurantsPageSaga() {
     yield takeEvery(RestaurantsPageActionsConstants.ADD_AVG, addScore);
     yield takeEvery(RestaurantsPageActionsConstants.SEARCH_RESTAURANT, searchRestaurant);
     yield takeEvery(RestaurantsPageActionsConstants.SEARCH_RESTAURANT_RATING, searchRestaurantRating);
+    yield takeEvery(RestaurantsPageActionsConstants.SEARCH_RESTAURANT_DATE, searchRestaurantRating);
 }
 
 export default RestaurantsPageSaga;

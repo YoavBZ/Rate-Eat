@@ -92,6 +92,15 @@ class RatingPageList extends React.Component {
                     <div className="p-col-6" style={{textAlign: 'left'}}>
                         <Dropdown options={sortOptions} value={this.props.sortKeyRating} placeholder="Sort By"
                                   onChange={this.props.onSortChangeRating}/>
+                        <Button variant="primary" onClick={() =>
+                            this.props.searchDayRatingHandler(this.props.selectedRestaurant._id)}
+                                type="submit" label="This Day"/>
+                        <Button variant="primary" onClick={() =>
+                            this.props.searchWeekRatingHandler(this.props.selectedRestaurant._id)}
+                                type="submit" label="This Week"/>
+                        <Button variant="primary" onClick={() =>
+                            this.props.searchMonthRatingHandler(this.props.selectedRestaurant._id)}
+                                type="submit" label="This Month"/>
                     </div>
                     <div>
                         <div className="p-col-6" style={{textAlign: 'right'}}>
@@ -153,6 +162,15 @@ const mapDispatchToProps = (dispatch) => {
         },
         searchAVGRatingHandler: (restaurantID, search) => {
             dispatch(RestaurantsPageActions.searchAVGRatingHandler({restaurantID, search}))
+        },
+        searchDayRatingHandler: (restaurantID) => {
+            dispatch(RestaurantsPageActions.searchDayRatingHandler(restaurantID , 86400000))
+        },
+        searchWeekRatingHandler: (restaurantID) => {
+            dispatch(RestaurantsPageActions.searchWeekRatingHandler(restaurantID, 604800000))
+        },
+        searchMonthRatingHandler: (restaurantID) => {
+            dispatch(RestaurantsPageActions.searchMonthRatingHandler(restaurantID, 2592000000))
         },
 
 

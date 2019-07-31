@@ -15,6 +15,8 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
             state = state.set('sortOrder', action.sortOrder);
             state = state.set('sortField', action.sortField);
             return state.set('sortKey', action.sortKey);
+        case RestaurantsPageActionsConstants.ON_SORT_CHANGE_RESTAURANT:
+            return state.set('sortKeyRestaurant', action.sortKeyRestaurant);
         case RestaurantsPageActionsConstants.SELECT_RESTAURANT:
             state = state.set('selectedRestaurant', action.restaurant);
             return state.set('visibleRestaurant', action.visible);
@@ -39,9 +41,7 @@ const RestaurantsPageReducer = (state = initialState.restaurantsPage, action) =>
         case RestaurantsPageActionsConstants.ADD_REVIEW_SUCCESS:
             // !!!!!!!!!!!!!! TODO WE NEED TO CLOSE WINDOW AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
             return state;
-        // case RestaurantsPageActionsConstants.GET_REVIEW_LIST_SUCCESS:
-        //     return state.set('rates', action.review);
-        case RestaurantsPageActionsConstants.ADD_REVIEW_FAILURE:
+         case RestaurantsPageActionsConstants.ADD_REVIEW_FAILURE:
             // !!!!!!!!!!!!!! TODO WE NEED TO NOTIFY  AND ZERO ALL PARAMETERS!!!!!!!!!!!!!!!
             return state;
         case RestaurantsPageActionsConstants.FILTER_NAMES:
