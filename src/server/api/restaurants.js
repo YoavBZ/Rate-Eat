@@ -153,9 +153,39 @@ router.post('/someAVG', (req, res) => {
             .then(user => res.json(user))
             .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
     }
+    else if(key === 'bathroomQuality'){
+        Restaurant.find(
+            { "bathroomQuality" : { $gte: avg }})
+            .then(user => res.json(user))
+            .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
+    }
+    else if(key === 'StaffKindness'){
+        Restaurant.find(
+            { "StaffKindness" : { $gte: avg }})
+            .then(user => res.json(user))
+            .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
+    }
+    else if(key === 'cleanliness'){
+        Restaurant.find(
+            { "cleanliness" : { $gte: avg }})
+            .then(user => res.json(user))
+            .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
+    }
+    else if(key === 'driveThruQuality'){
+        Restaurant.find(
+            { "driveThruQuality" : { $gte: avg }})
+            .then(user => res.json(user))
+            .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
+    }
+    else if(key === 'deliverySpeed'){
+        Restaurant.find(
+            { "deliverySpeed" : { $gte: avg }})
+            .then(user => res.json(user))
+            .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
+    }
     else
     Restaurant.find(
-        { "bathroomQuality" : { $gte: avg }})
+        { "foodQuality" : { $gte: avg }})
         .then(user => res.json(user))
         .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
 });
