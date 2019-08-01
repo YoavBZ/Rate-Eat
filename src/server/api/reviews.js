@@ -14,17 +14,19 @@ var ObjectID = require('mongodb').ObjectID;
 // @access public
 
 router.post('/', cpUpload, (req, res) => {
-    //let pictures = req.files['files[]'].map(file => file.path)
+    let pictures = req.files['files[]'].map(file => file.path)
     let divider = 4;
 
     let sum = parseInt(req.body.bathroomQuality) + parseInt(req.body.staffKindness) +
               parseInt(req.body.cleanliness) + parseInt(req.body.foodQuality);
 
-    if( req.body.driveThruQuality > 0 ){
+
+    if( req.body.driveThruQuality !== 'null' ){
         sum += parseInt(req.body.driveThruQuality);
         divider++;
     }
-    if( req.body.deliverySpeed > 0 ) {
+
+    if( req.body.deliverySpeed !== 'null' ) {
         sum += parseInt(req.body.deliverySpeed);
         divider++;
     }
@@ -35,13 +37,13 @@ router.post('/', cpUpload, (req, res) => {
     const newReview = new Review({
         userID: req.body.userID,
         restaurantID: req.body.restaurantID,
-        bathroomQuality: req.body.bathroomQuality,
-        staffKindness: req.body.staffKindness,
-        cleanliness: req.body.cleanliness,
-        driveThruQuality: req.body.driveThruQuality,
-        deliverySpeed: req.body.deliverySpeed,
-        foodQuality: req.body.foodQuality,
-        //pictures: pictures,
+        bathroomQuality: parseInt(req.body.bathroomQuality),
+        staffKindness: parseInt(req.body.staffKindness),
+        cleanliness: parseInt(req.body.cleanliness),
+        driveThruQuality: (req.body.driveThruQuality !== 'null' ? parseInt(req.body.driveThruQuality) : 0 ),
+        deliverySpeed: (req.body.deliverySpeed !== 'null' ? parseInt(req.body.deliverySpeed) : 0 ),
+        foodQuality: parseInt(req.body.foodQuality),
+        pictures: pictures,
         publishDate: Date.now(),
         publishDateTime: Date.now(),
         AVG: sum
@@ -58,19 +60,20 @@ router.put('/', (req, res) => {
 
     let sum = parseInt(req.body.bathroomQuality) + parseInt(req.body.staffKindness) +
         parseInt(req.body.cleanliness) + parseInt(req.body.foodQuality);
-    console.log(sum);
 
-    if( req.body.driveThruQuality > 0 ){
+
+    if( req.body.driveThruQuality !== 'null' ){
         sum += parseInt(req.body.driveThruQuality);
-        divider = divider - 1;
+        divider++;
     }
-    console.log(sum);
-    if( req.body.deliverySpeed > 0 ) {
+
+    if( req.body.deliverySpeed !== 'null' ) {
         sum += parseInt(req.body.deliverySpeed);
         divider++;
     }
 
     sum /= divider;
+
 
     Review.updateOne(
         {"_id": ObjectID(req.body.review.id)},
