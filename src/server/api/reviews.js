@@ -17,21 +17,22 @@ router.post('/', cpUpload, (req, res) => {
     let pictures = req.files['files[]'].map(file => file.path)
     let divider = 4;
 
-    let sum = req.body.bathroomQuality + req.body.staffKindness + req.body.cleanliness +
-        req.body.foodQuality;
+    let sum = parseInt(req.body.bathroomQuality) + parseInt(req.body.staffKindness) +
+              parseInt(req.body.cleanliness) + parseInt(req.body.foodQuality);
+    console.log(sum);
+
     if( req.body.driveThruQuality > 0 ){
-        sum += req.body.driveThruQuality;
-        divider++;
+        sum += parseInt(req.body.driveThruQuality);
+        divider = divider - 1;
     }
+    console.log(sum);
     if( req.body.deliverySpeed > 0 ) {
-        sum += req.body.deliverySpeed;
+        sum += parseInt(req.body.deliverySpeed);
         divider++;
     }
 
     sum /= divider;
 
-    console.log(sum);
-    console.log(req.body);
 
     const newReview = new Review({
         userID: req.body.userID,
@@ -57,14 +58,17 @@ router.put('/', (req, res) => {
 
     let divider = 4;
 
-    let sum = req.body.bathroomQuality + req.body.staffKindness + req.body.cleanliness +
-        req.body.foodQuality;
+    let sum = parseInt(req.body.bathroomQuality) + parseInt(req.body.staffKindness) +
+        parseInt(req.body.cleanliness) + parseInt(req.body.foodQuality);
+    console.log(sum);
+
     if( req.body.driveThruQuality > 0 ){
-        sum += req.body.driveThruQuality;
-        divider++;
+        sum += parseInt(req.body.driveThruQuality);
+        divider = divider - 1;
     }
+    console.log(sum);
     if( req.body.deliverySpeed > 0 ) {
-        sum += req.body.deliverySpeed;
+        sum += parseInt(req.body.deliverySpeed);
         divider++;
     }
 
