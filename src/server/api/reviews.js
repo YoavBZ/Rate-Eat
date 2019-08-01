@@ -15,14 +15,23 @@ var ObjectID = require('mongodb').ObjectID;
 
 router.post('/', cpUpload, (req, res) => {
     let pictures = req.files['files[]'].map(file => file.path)
+    let divider = 4;
+
     let sum = req.body.bathroomQuality + req.body.staffKindness + req.body.cleanliness +
-        req.body.driveThruQuality + req.body.deliverySpeed + req.body.foodQuality;
-    if( ( req.body.driveThruQuality > 0 ) && ( req.body.deliverySpeed > 0 ) )
-        sum /= 6;
-    else if( ( req.body.driveThruQuality > 0 ) || ( req.body.deliverySpeed > 0 ) )
-        sum /= 5;
-    else
-        sum /= 4;
+        req.body.foodQuality;
+    if( req.body.driveThruQuality > 0 ){
+        sum += req.body.driveThruQuality;
+        divider++;
+    }
+    if( req.body.deliverySpeed > 0 ) {
+        sum += req.body.deliverySpeed;
+        divider++;
+    }
+
+    sum /= divider;
+
+    console.log(sum);
+    console.log(req.body);
 
     const newReview = new Review({
         userID: req.body.userID,
@@ -45,14 +54,22 @@ router.post('/', cpUpload, (req, res) => {
 
 router.put('/', (req, res) => {
     let review = req.body.review
+
+    let divider = 4;
+
     let sum = req.body.bathroomQuality + req.body.staffKindness + req.body.cleanliness +
-              req.body.driveThruQuality + req.body.deliverySpeed + req.body.foodQuality;
-    if( ( req.body.driveThruQuality > 0 ) && ( req.body.deliverySpeed > 0 ) )
-        sum /= 6;
-    else if( ( req.body.driveThruQuality > 0 ) || ( req.body.deliverySpeed > 0 ) )
-        sum /= 5;
-    else
-        sum /= 4;
+        req.body.foodQuality;
+    if( req.body.driveThruQuality > 0 ){
+        sum += req.body.driveThruQuality;
+        divider++;
+    }
+    if( req.body.deliverySpeed > 0 ) {
+        sum += req.body.deliverySpeed;
+        divider++;
+    }
+
+    sum /= divider;
+
     Review.updateOne(
         {"_id": ObjectID(req.body.review.id)},
         {
