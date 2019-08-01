@@ -56,33 +56,48 @@ router.post('/', (req, res) => {
 
 router.post('/updateScore' , (req, res) => {
 
-    let sum = req.body.review.bathroomQuality + req.body.review.staffKindness + req.body.review.cleanliness +
-        req.body.review.driveThruQuality + req.body.review.deliverySpeed + req.body.review.foodQuality;
-    if( ( req.body.review.driveThruQuality > 0 ) && ( req.body.review.deliverySpeed > 0 ))
-        sum = sum / 6;
-    else if( ( req.body.review.driveThruQuality > 0 ) || ( req.body.review.deliverySpeed > 0 ))
-        sum = sum / 5;
-    else
-        sum = sum / 4;
+    let divider = 4;
+
+    let sum = parseInt(req.body.review.bathroomQuality) + parseInt(req.body.review.staffKindness) +
+        parseInt(req.body.review.cleanliness) + parseInt(req.body.review.foodQuality);
+
+    if( req.body.review.driveThruQuality !== null ){
+        sum += parseInt(req.body.review.driveThruQuality);
+        divider++;
+    }
+
+    if( req.body.review.deliverySpeed !== null ) {
+        sum += parseInt(req.body.review.deliverySpeed);
+        divider++;
+    }
+
+    sum /= divider;
+
 
 
     let name = req.body.review.restaurant._id;
-    let oldScore = req.body.review.restaurant.score;
-    let scoreNum = req.body.review.restaurant.scoreNumber;
+    let oldScore = parseInt(req.body.review.restaurant.score);
+    let scoreNum = parseInt(req.body.review.restaurant.scoreNumber);
 
     let newScore = oldScore * scoreNum ;
-    let newBathroomQuality =
-        req.body.review.bathroomQuality + ( req.body.review.restaurant.bathroomQuality * scoreNum );
-    let newStaffKindness =
-        req.body.review.staffKindness + ( req.body.review.restaurant.staffKindness * scoreNum );
-    let newCleanliness =
-        req.body.review.cleanliness + ( req.body.review.restaurant.cleanliness * scoreNum );
-    let newDriveThruQuality =
-        req.body.review.driveThruQuality + ( req.body.review.restaurant.driveThruQuality * scoreNum );
-    let newDeliverySpeed =
-        req.body.review.deliverySpeed + ( req.body.review.restaurant.deliverySpeed * scoreNum );
-    let newFoodQuality =
-        req.body.review.foodQuality + ( req.body.review.restaurant.foodQuality * scoreNum );
+    let newBathroomQuality = parseInt(req.body.review.bathroomQuality) +
+        ( parseInt(req.body.review.restaurant.bathroomQuality) * scoreNum );
+    let newStaffKindness = parseInt(req.body.review.staffKindness) +
+        ( parseInt(req.body.review.restaurant.staffKindness) * scoreNum );
+    let newCleanliness = parseInt(req.body.review.cleanliness) +
+        ( parseInt(req.body.review.restaurant.cleanliness) * scoreNum );
+    let newFoodQuality = parseInt(req.body.review.foodQuality) +
+        ( parseInt(req.body.review.restaurant.foodQuality) * scoreNum );
+
+
+    let newDriveThruQuality =(parseInt(req.body.review.restaurant.driveThruQuality) * scoreNum );
+    let newDeliverySpeed = ( parseInt(req.body.review.restaurant.deliverySpeed) * scoreNum );
+
+    if( req.body.review.driveThruQuality !== null )
+        newDriveThruQuality += parseInt(req.body.review.driveThruQuality);
+
+    if( req.body.review.deliverySpeed !== null )
+        newDeliverySpeed += parseInt(req.body.review.deliverySpeed);
 
     newScore += sum;
     scoreNum += 1;
@@ -91,18 +106,22 @@ router.post('/updateScore' , (req, res) => {
     newBathroomQuality /= scoreNum;
     newStaffKindness /= scoreNum;
     newCleanliness /= scoreNum;
-
-    if( req.body.review.driveThruQuality > 0 )
-        newDriveThruQuality /= scoreNum;
-    else
-        newDriveThruQuality /= ( scoreNum - 1 );
-    if( req.body.review.deliverySpeed > 0 )
-        newDeliverySpeed /= scoreNum;
-    else
-        newDeliverySpeed /= ( scoreNum - 1 );
-
     newFoodQuality /= scoreNum;
 
+    if( req.body.review.driveThruQuality !== null )
+        newDriveThruQuality /= scoreNum;
+    else {
+        if( scoreNum !== 1 )
+            newDriveThruQuality /= (scoreNum - 1);
+
+    }
+    if( req.body.review.deliverySpeed !== null )
+        newDeliverySpeed /= scoreNum;
+    else {
+        if( scoreNum !== 1 )
+            newDeliverySpeed /= (scoreNum - 1);
+
+    }
     Restaurant.updateOne(
         {"_id": name},
         {
