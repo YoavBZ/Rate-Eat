@@ -14,18 +14,16 @@ var ObjectID = require('mongodb').ObjectID;
 // @access public
 
 router.post('/', cpUpload, (req, res) => {
-    let pictures = req.files['files[]'].map(file => file.path)
+    //let pictures = req.files['files[]'].map(file => file.path)
     let divider = 4;
 
     let sum = parseInt(req.body.bathroomQuality) + parseInt(req.body.staffKindness) +
               parseInt(req.body.cleanliness) + parseInt(req.body.foodQuality);
-    console.log(sum);
 
     if( req.body.driveThruQuality > 0 ){
         sum += parseInt(req.body.driveThruQuality);
-        divider = divider - 1;
+        divider++;
     }
-    console.log(sum);
     if( req.body.deliverySpeed > 0 ) {
         sum += parseInt(req.body.deliverySpeed);
         divider++;
@@ -43,7 +41,7 @@ router.post('/', cpUpload, (req, res) => {
         driveThruQuality: req.body.driveThruQuality,
         deliverySpeed: req.body.deliverySpeed,
         foodQuality: req.body.foodQuality,
-        pictures: pictures,
+        //pictures: pictures,
         publishDate: Date.now(),
         publishDateTime: Date.now(),
         AVG: sum
