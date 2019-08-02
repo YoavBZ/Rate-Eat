@@ -3,6 +3,11 @@ import Dropzone from 'react-dropzone';
 import {connect} from 'react-redux';
 import {EditPictureActions} from './actions'
 
+
+// This Component will allow a user to change his Profile picture
+// Component main attributes:
+// DropZone - drag and drop area for the new profile picture
+
 class EditPicture extends Component {
 
     render() {

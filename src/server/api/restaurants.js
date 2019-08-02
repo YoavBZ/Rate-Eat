@@ -5,9 +5,8 @@ const Restaurant = require('../model/Restaurant');
 const Review = require('../model/Review');
 var ObjectID = require('mongodb').ObjectID;
 
-// @route GET api/items
-// @desc Get all users with given name or location
-// @access public
+// @route GET api/restaurants
+// @desc Get all users with a given name or location
 router.get('/', (req, res) => {
     let name = req.body.name;
     let location = req.body.location;
@@ -40,9 +39,8 @@ router.get('/all', (req, res) => {
         .catch(err => res.status(500).json({message: "server error"}));
 });
 
-// @route POST api/items
-// @desc register new user
-// @access public
+// @route POST api/restaurants
+// @desc enter new restaurant
 router.post('/', (req, res) => {
     const newRestaurant = new Restaurant({
         id: req.body.id,
@@ -54,6 +52,9 @@ router.post('/', (req, res) => {
         .catch(err => res.status(400).json({message: "restaurant is already exist"}));
 });
 
+// @route POST api/restaurants/updateScore
+// @desc this method will update a restaurant avarage and every topic socre.
+//       this method is only called upon the creation of a new review
 router.post('/updateScore', (req, res) => {
 
     let divider = 4;
@@ -211,6 +212,10 @@ router.post('/someAll', (req, res) => {
         .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
 });
 
+
+// @route POST api/restaurants/getName
+// @desc this method recives a restaurant id and returns its name
+
 router.post('/getName', (req, res) => {
     Restaurant.find({"_id": req.body.id})
         .then(restaurant => res.json({name: restaurant[0].name}))
@@ -218,7 +223,9 @@ router.post('/getName', (req, res) => {
 });
 
 
-
+// @route POST api/restaurants/updateRestaurantScore
+// @desc this method will update a restaurant avarage and every topic socre.
+//       this method is called every time an update is being sent from the EditReview componet
 router.post('/updateRestaurantScore' , (req, res) => {
     let oldReview = req.body.oldReview;
     let newReview = req.body.newReview;

@@ -6,6 +6,14 @@ import FacebookLogin from 'react-facebook-login';
 import {connect} from 'react-redux';
 import {Growl} from 'primereact/growl'
 
+
+// This Component will allow a user to login to the system.
+// Component main attributes:
+// InputText - Username - insert the username
+// InputText - Password - insert the user's password
+// FacebookLogin - login via facebook
+// Submit - submits the new data for the user
+
 class Login extends Component {
 
     render() {

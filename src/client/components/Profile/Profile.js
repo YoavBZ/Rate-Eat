@@ -10,6 +10,17 @@ import {Dropdown} from "primereact/dropdown";
 import EditReview from './EditReview';
 import EditPicture from './EditPicture';
 
+
+// This Component will allow a user to edit his entire data in the system.
+// Component main attributes:
+// EditPicture - Allow a user to change profile picture
+// InputText - Username - change the username
+// InputText - Password - change the user's password
+// InputText - Location - change user's location
+// Dataview - displays the users reviews and allow the users to interact with them
+// Edit Button - enables editing the user's data
+// Submit - submits the new data for the user
+
 class Profile extends Component {
 
     componentDidMount() {

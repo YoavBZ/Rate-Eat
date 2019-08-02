@@ -5,6 +5,20 @@ import {Rating} from 'primereact/rating';
 import {connect} from 'react-redux';
 import {EditReviewActions} from './actions';
 
+// This Component will be displayed for every review a user had written       
+// Component main attributes:
+// Rating - Bathroom Quality
+// Rating - Staff Kindness
+// Rating - Staff Kindness
+// Rating - Cleanliness
+// Rating - Drive Thru Quality
+// Rating - Delivery Speed
+// Rating - Food Quality
+// DropZone - drag and drop area for new photos for the review
+// Edit Button - enables editing the current review
+// Delete Button - deletes the selceted review
+// Submit - submits the new data for the user
+
 class EditReview extends Component {
     state = {
         edit: false,
@@ -23,6 +37,7 @@ class EditReview extends Component {
     }
 
     render() {
+        //CSS styles
         const container = {
             height: '100px',
             width: '100%',

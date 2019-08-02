@@ -9,9 +9,9 @@ const Review = require('../model/Review');
 const Restaurant = require('../model/Restaurant');
 var ObjectID = require('mongodb').ObjectID;
 
-// @route POST api/items
-// @desc register new user
-// @access public
+
+// @route PUT api/reviews/
+// @desc this method will create a new review based on the data sent from the client side
 
 router.post('/', cpUpload, (req, res) => {
     let pictures = req.files['files[]'] !== undefined ? req.files['files[]'].map(file => file.path) : undefined;
@@ -51,6 +51,10 @@ router.post('/', cpUpload, (req, res) => {
         .catch(err => res.status(400).json({message: "you have already reviewed this restaurant"}));
 });
 
+
+
+// @route PUT api/reviews/
+// @desc this method will update a review without getting a images for the update
 router.put('/', (req, res) => {
     let review = req.body.review
 
@@ -89,6 +93,9 @@ router.put('/', (req, res) => {
         .then(review => Review.find({"_id": req.body.review.id}).then(review =>res.json(review[0])).catch(err => res.status(500).json({message: `Server Error`})))
         .catch(err => res.status(400).json({message: "update had failed"}));
 });
+
+// @route POST api/reviews/getUserReviews
+// @desc this method will delete a review and update the restaurant average deatils
 
 router.delete('/', (req, res) => {
     let review = req.body.review
@@ -149,6 +156,9 @@ router.delete('/', (req, res) => {
 
 });
 
+// @route POST api/reviews/getUserReviews
+// @desc this method will return all of the reviews written on the given user
+
 router.post('/getUserReviews', (req, res) => {
     let userID = req.body.userID
     Review.find(
@@ -156,6 +166,11 @@ router.post('/getUserReviews', (req, res) => {
         .then(reviews => res.json(reviews))
         .catch(err => res.status(400).json({message: "Failed to retrive reviews"}));
 });
+
+
+
+// @route POST api/reviews/getRestaurantReviews
+// @desc this method will return all of the reviews written on the given restaurant
 
 router.post('/getRestaurantReviews', (req, res) => {
     let restaurantID = req.body.restaurantID
@@ -206,6 +221,10 @@ router.post('/someDate', (req, res) => {
         })
         .catch(err => res.status(400).json({message: "Failed to retrive reviews"}));
 });
+
+
+// @route PUT api/reviews/updateWithPictures
+// @desc this method will update a review and will set new pictures to that review (with the ones given from the user)
 
 router.put('/updateWithPictures', cpUpload, (req, res) => {
     let review = req.body

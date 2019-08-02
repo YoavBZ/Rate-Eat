@@ -5,6 +5,16 @@ import {connect} from 'react-redux';
 import RegisterActions from './actions';
 import DragAndDrop from '../DragAndDrop/DragAndDrop'
 
+
+
+// This Component will allow a user to register to the system.
+// Component main attributes:
+// DragAndDrop - Allow a user to select a  profile picture
+// InputText - Username - select the username
+// InputText - Password - select the user's password
+// InputText - Location - select the user's location
+// Submit - submits the new data for the user
+
 class Register extends React.Component {
     render() {
         const input = {
