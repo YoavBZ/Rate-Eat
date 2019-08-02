@@ -7,6 +7,11 @@ import {Dropdown} from "primereact/components/dropdown/Dropdown";
 
 class RatingPage extends React.Component {
 
+    /*
+        Component for a rating page.
+        Contains a Rating component for each rating factor.
+    */
+
     render() {
         const header = this.renderHeader();
         return (
@@ -95,7 +100,6 @@ class RatingPage extends React.Component {
 
         );
     }
-
 }
 
 const mapStateToProps = (state, ownProps) => {

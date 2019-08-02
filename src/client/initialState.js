@@ -2,6 +2,10 @@ const {Map} = require('immutable');
 import {AppPages} from './components/App/constants';
 import {HomePages} from './components/Home/constants';
 
+/*
+    Initial app components states.
+*/
+
 export default {
     reviewPictures: Map({}),
     dragAndDrop: Map({

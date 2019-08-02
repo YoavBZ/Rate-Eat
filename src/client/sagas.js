@@ -6,6 +6,10 @@ import {EditReviewSaga, ProfileSaga} from './components/Profile/saga'
 import RestaurantsPageSaga from "./components/RestaurantsPage/saga";
 import UsersPageSaga from "./components/UsersPage/saga";
 
+/*
+    Combining all Saga generators using Redux-Saga all function.
+*/
+
 export default function* Sagas() {
     yield all([
         RegisterSaga(),

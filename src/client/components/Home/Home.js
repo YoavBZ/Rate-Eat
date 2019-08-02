@@ -8,6 +8,15 @@ import RestaurantsPage from "../RestaurantsPage/RestaurantsPage";
 import UsersPage from "../UsersPage/UsersPage";
 
 class Home extends Component {
+
+    /*
+        Main page component.
+        Contains 3 sub-page components:
+        1. Profile
+        2. RestaurantsPage
+        3. UsersPage
+    */
+
     render() {
         let models = [
             {

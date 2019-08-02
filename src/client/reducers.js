@@ -13,6 +13,10 @@ import {
 import {UsersPageReducer, UsersRatesReducer} from "./components/UsersPage/reducer";
 import DragAndDropReducer from './components/DragAndDrop/reducer';
 
+/*
+    Combining all app reducers using Redux combineReducers.
+*/
+
 export default combineReducers({
     app: AppReducer,
     register: RegisterReducer,

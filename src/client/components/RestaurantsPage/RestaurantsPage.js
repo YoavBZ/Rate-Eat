@@ -16,6 +16,12 @@ import {coordinates} from "../../coordinates";
 
 class RestaurantsPage extends Component {
 
+    /*
+        Component for restaurants sub-page.
+        Contains a search and sorting interface,
+        and a DataView component that collects all the restaurants details.
+    */
+
     componentDidMount() {
         this.props.getRestaurants(coordinates[this.props.currentUser.location]);
     }

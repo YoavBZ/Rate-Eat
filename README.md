@@ -31,7 +31,11 @@ It contains 3 sub-pages that the user can navigate between: Profile, Restaurants
 
 In the Profile the user can see his personal information and reviews, and modify them.
 
-In RestaurantsPage the user can see his personal information and reviews, and modify them.
+In RestaurantsPage the user can search for a restaurant, see its information, its review and submit a new review.
+
+In UsersPage the user can search for users and see their reviews. 
+
+Both UserPage and RestaurantPage support search by name and by location, as well as sorting by different parameters.
 
 Tech stack:
 * React

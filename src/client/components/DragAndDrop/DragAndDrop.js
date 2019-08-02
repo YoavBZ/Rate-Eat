@@ -5,6 +5,10 @@ import DragAndDropActions from './actions'
 
 class DragAndDrop extends Component {
 
+    /*
+        Component for image drag-and-drop ability.
+    */
+
     render() {
         const container = {
             border: '1px solid #a6a6a6',
@@ -12,7 +16,6 @@ class DragAndDrop extends Component {
             width: 200,
             float: 'left'
         };
-
 
         const img = {
             display: 'block',
