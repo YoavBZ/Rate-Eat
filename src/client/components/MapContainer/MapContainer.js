@@ -2,6 +2,12 @@ import React from 'react'
 import {GoogleApiWrapper, InfoWindow, Map, Marker} from 'google-maps-react';
 
 class MapContainer extends React.Component {
+
+    /*
+        Google Maps wrapper.
+        Contains Map, Marker and InfoWindow components.
+    */
+
     state = {
         showingInfoWindow: false,
         activeMarker: {},

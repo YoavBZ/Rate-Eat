@@ -1,6 +1,10 @@
 # Assignment 3
 
-Components:
+Yoav Bar-Zeev 204694814
+Shaked Megidish 312431596
+Yoav Elmoalem 20456655
+
+### Components:
 * App
     * Home
         * Profile
@@ -31,9 +35,17 @@ It contains 3 sub-pages that the user can navigate between: Profile, Restaurants
 
 In the Profile the user can see his personal information and reviews, and modify them.
 
-In RestaurantsPage the user can see his personal information and reviews, and modify them.
+In RestaurantsPage the user can search for a restaurant, see its information, its review and submit a new review.
 
-Tech stack:
+In UsersPage the user can search for users and see their reviews. 
+
+Both UserPage and RestaurantPage support search by name and by location, as well as sorting by different parameters.
+
+### Extra features:
+* Facebook Login - Authentication method for logging-in.
+* Google Maps API - Used for displaying each restaurant location by its latitude & longitude coordinates.
+
+### Tech stack:
 * React
 * Redux
 * Saga

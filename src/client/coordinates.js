@@ -1,3 +1,7 @@
+/*
+    A sample of Israeli cities, contains each city latitude & longitude coordinates.
+*/
+
 export const coordinates = {
     "Be'er Sheva": {
         'lat': 31.2615691,

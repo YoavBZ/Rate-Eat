@@ -11,6 +11,12 @@ import {InputText} from "primereact/components/inputtext/InputText";
 
 export class UsersPage extends Component {
 
+    /*
+        Component for users sub-page.
+        Contains a search and sorting interface,
+        and a DataView component that collects all the users details.
+    */
+
     componentDidMount() {
         this.props.getUsers();
     }

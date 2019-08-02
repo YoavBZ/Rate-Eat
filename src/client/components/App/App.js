@@ -8,14 +8,17 @@ import AppActions from './actions';
 import {AppPages} from './constants';
 import Home from '../Home/Home';
 
-// This Component is the main app of the client side.
-// Component main attributes:
-// MenuBar - just for display allows a user to select Login Register or (once Logged in to Logout)
-// Button - Login - opens the Login component (upon a succsessful login will send the user to the Home component)
-// Button - Register - opens the Register component (upon a succsessful register will send the user to the Home component)
-// Button - Logout - logs the user out of the system (upon a succsessful logout will send the user to the Login component)
-
 class App extends React.Component {
+
+    /*
+        This Component is the main app of the client side.
+        Component main attributes:
+        MenuBar - just for display allows a user to select Login Register or (once Logged in to Logout)
+        Button - Login - opens the Login component (upon a successful login will send the user to the Home component)
+        Button - Register - opens the Register component (upon a successful register will send the user to the Home component)
+        Button - Logout - logs the user out of the system (upon a successful logout will send the user to the Login component)
+    */
+
     render() {
         const menubarStyle = {
             backgroundColor: "#343a40",
