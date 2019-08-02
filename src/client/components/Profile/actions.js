@@ -113,11 +113,11 @@ function editMyReviewFailure(msg) {
     }
 }
 
-function deleteReview(id){
+function deleteReview(review){
     return {
         type: EditReviewActionsConstats.DELETE_REVIEW,
         uri: 'api/reviews/',
-        id: {id}
+        review: {review}
     }
 }
 

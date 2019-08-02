@@ -81,7 +81,7 @@ function* deleteReview(action) {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(action.id)
+                body: JSON.stringify(action.review)
             });
             
         const json = yield call([res, 'json']); //retrieve body of response
@@ -119,7 +119,6 @@ function* getRestaurantName(action) {
 
 
 function* updateUserReviewsWithPictures(action) {
-    console.log(action.review.get('id'))
     try {
         const res = yield call(fetch, action.uri,
             {
@@ -140,7 +139,6 @@ function* updateUserReviewsWithPictures(action) {
 
 
 function* addScore(action) {
-    console.log(JSON.stringify(action))
     try {
         const res = yield call(fetch, action.uri,
             {

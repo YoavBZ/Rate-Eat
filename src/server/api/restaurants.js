@@ -231,50 +231,66 @@ router.post('/getName', (req, res) => {
 
 
 router.post('/updateRestaurantScore' , (req, res) => {
-    console.log(req.body.oldReview)
-    console.log(req.body.newReview)
-
     let oldReview = req.body.oldReview;
     let newReview = req.body.newReview;
-    let newSum = newReview.bathroomQuality + newReview.staffKindness + newReview.cleanliness +
-    newReview.driveThruQuality + newReview.deliverySpeed + newReview.foodQuality;
-    if( ( newReview.driveThruQuality > 0 ) && ( newReview.deliverySpeed > 0 ))
-        sum = sum / 6;
-    else if( ( newReview.driveThruQuality > 0 ) || ( newReview.deliverySpeed > 0 ))
-        sum = sum / 5;
-    else
-        sum = sum / 4;
-    Restaurant.find({"_id":newReview.restaurantID})
+
+    let divider = 4;
+    let newSum = (newReview.bathroomQuality + newReview.staffKindness + newReview.cleanliness + newReview.foodQuality);
+
+    if( newReview.driveThruQuality != 0 ){
+        newSum += parseInt(newReview.driveThruQuality);
+        divider++;
+    }
+
+    if( newReview.deliverySpeed != 0 ) {
+        newSum += parseInt(newReview.deliverySpeed);
+        divider++;
+    }
+
+    newSum /= divider;
+
+    Restaurant.find({"_id":ObjectID(oldReview.restaurantID)})
     .then(restaurant => {
+        restaurant = restaurant[0]
         let oldScore = restaurant.score;
         let scoreNum = restaurant.scoreNumber;
-        let newScore = ((oldScore * scoreNum) - oldScore + sum)/scoreNum ;
+        let newScore = ((oldScore * scoreNum) - oldReview.AVG + newSum)/scoreNum ;
         let newBathroomQuality =
             ( restaurant.bathroomQuality * scoreNum - oldReview.bathroomQuality + newReview.bathroomQuality )/scoreNum;
         let newStaffKindness =
             ( restaurant.staffKindness * scoreNum - oldReview.staffKindness + newReview.staffKindness )/scoreNum;
         let newCleanliness =
            ( restaurant.cleanliness * scoreNum - oldReview.cleanliness + newReview.cleanliness )/scoreNum;
-        let newDriveThruQuality =
-            ( restaurant.driveThruQuality * scoreNum - oldReview.driveThruQuality + newReview.driveThruQuality );
-        let newDeliverySpeed =
-            ( restaurant.deliverySpeed * scoreNum - oldReview.deliverySpeed + newReview.deliverySpeed );
         let newFoodQuality =
             ( restaurant.foodQuality * scoreNum - oldReview.foodQuality + newReview.foodQuality )/scoreNum;
 
-            
-        if( req.body.review.driveThruQuality > 0 )
-            newDriveThruQuality /= scoreNum;
-        else
-            newDriveThruQuality /= ( scoreNum - 1 );
-        if( req.body.review.deliverySpeed > 0 )
-            newDeliverySpeed /= scoreNum;
-        else
-            newDeliverySpeed /= ( scoreNum - 1 );
-            let name = req.body.review.restaurant._id;
 
+        let newDriveThruQuality = (parseInt(restaurant.driveThruQuality) * scoreNum );
+        let newDeliverySpeed = (parseInt(restaurant.deliverySpeed) * scoreNum );
+
+        if( newReview.driveThruQuality !== null )
+            newDriveThruQuality += parseInt(newReview.driveThruQuality);
+
+        if( newReview.deliverySpeed !== null )
+            newDeliverySpeed += parseInt(newReview.deliverySpeed);
+
+        if( newReview.driveThruQuality !== null )
+            newDriveThruQuality /= scoreNum;
+        else {
+            if( scoreNum !== 1 )
+                newDriveThruQuality /= (scoreNum - 1);
+    
+        }
+        if( newReview.deliverySpeed !== null )
+            newDeliverySpeed /= scoreNum;
+        else {
+            if( scoreNum !== 1 )
+                newDeliverySpeed /= (scoreNum - 1);
+    
+        }
+        
         Restaurant.updateOne(
-            {"_id": name},
+            {"_id": ObjectID(restaurant._id)},
             {
                 $set: {
                     "score": newScore,
@@ -285,8 +301,8 @@ router.post('/updateRestaurantScore' , (req, res) => {
                     "deliverySpeed": newDeliverySpeed,
                     "foodQuality": newFoodQuality,
                 }
-            }).then(restaurant => res.json(restaurant))
-            .catch(err => res.status(400).json({message: "Cannot update restaurant score"}));
+            }).then(restaurant =>  res.json(restaurant))
+            .catch(err =>res.status(400).json({message: "Cannot update restaurant score"}));
     })
 
     .catch(err => res.status(400).json({message: "Cannot update restaurant score"}))

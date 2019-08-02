@@ -118,7 +118,7 @@ class EditReview extends Component {
 
                 <div className="p-col-12 p-md-1 search-icon" style={{marginTop: '40px'}}>
                     <Button icon='pi pi-pencil' onClick={() => this.setState({edit:true})}/>
-                    <Button icon='pi pi-trash' onClick={() => this.props.removeReview(this.props.review._id)}/>
+                    <Button icon='pi pi-trash' onClick={() => this.props.removeReview(this.props.review)}/>
                     {this.state.edit && <Button label="Submit" onClick={() => {
                     this.setState({edit:false});
                     this.props.updateRatingHandler(
@@ -222,8 +222,8 @@ const mapDispatchToProps = (dispatch) => {
             };
             dispatch(EditReviewActions.updateAVG(oldReview, newReview));
         },
-        removeReview: (id) =>{
-            dispatch(EditReviewActions.deleteReview(id))
+        removeReview: (review) =>{
+            dispatch(EditReviewActions.deleteReview(review))
         }
     }
 };

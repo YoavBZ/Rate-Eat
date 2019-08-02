@@ -6,6 +6,7 @@ var upload = multer({ dest: 'reviewUploads/' })
 var cpUpload = upload.fields([{ name: 'files[]'}])
 
 const Review = require('../model/Review');
+const Restaurant = require('../model/Restaurant');
 var ObjectID = require('mongodb').ObjectID;
 
 
@@ -58,23 +59,21 @@ router.put('/', (req, res) => {
 
     let divider = 4;
 
-    let sum = parseInt(req.body.bathroomQuality) + parseInt(req.body.staffKindness) +
-        parseInt(req.body.cleanliness) + parseInt(req.body.foodQuality);
+    let sum = review.bathroomQuality + review.staffKindness +
+        review.cleanliness + review.foodQuality
 
 
-    if( req.body.driveThruQuality !== 'null' ){
-        sum += parseInt(req.body.driveThruQuality);
+    if( review.driveThruQuality != 0 ){
+        sum += review.driveThruQuality;
         divider++;
     }
 
-    if( req.body.deliverySpeed !== 'null' ) {
-        sum += parseInt(req.body.deliverySpeed);
+    if( review.deliverySpeed != 0 ) {
+        sum += review.deliverySpeed;
         divider++;
     }
 
     sum /= divider;
-
-
     Review.updateOne(
         {"_id": ObjectID(req.body.review.id)},
         {
@@ -85,21 +84,78 @@ router.put('/', (req, res) => {
                 "driveThruQuality": review.driveThruQuality,
                 "deliverySpeed": review.deliverySpeed,
                 "foodQuality": review.foodQuality,
-                "pictures": req.body.pictures,
                 "publishDate": Date.now(),
                 "publishDateTime": Date.now(),
                 "AVG": sum
             }
         })
-        .then(review => Review.find({"_id": req.body.review.id}).then(review => res.json(review[0])).catch(err => res.status(500).json({message: `Server Error`})))
-        .catch(err => {console.log(err); res.status(400).json({message: "update had failed"})});
+        .then(review => Review.find({"_id": req.body.review.id}).then(review =>res.json(review[0])).catch(err => res.status(500).json({message: `Server Error`})))
+        .catch(err => res.status(400).json({message: "update had failed"}));
 });
 
 router.delete('/', (req, res) => {
-    Review.deleteOne(
-        {"_id": ObjectID(req.body.id)})
-        .then(review => res.json({message: "review had been removed successfully", id:req.body.id}))
-        .catch(err => res.status(400).json({message: "remove had failed"}));
+    // console.log(req.body)
+    let review = req.body.review
+    console.log(review.restaurantID)
+    Restaurant.find(
+        {"_id": ObjectID(review.restaurantID)})
+        .then(restaurant =>{
+            restaurant = restaurant[0]
+            console.log(restaurant)
+            let oldScore = restaurant.score;
+            let scoreNum = restaurant.scoreNumber;
+            let updateRestaurant = undefined
+            if(scoreNum == 1){
+                updateRestaurant = {
+                    "bathroomQuality": 0,
+                    "staffKindness": 0,
+                    "cleanliness": 0,
+                    "driveThruQuality": 0,
+                    "deliverySpeed": 0,
+                    "foodQuality": 0,
+                    "score": 0,
+                    "scoreNumber":0
+                }
+            }else{
+                let newScoreNum = restaurant.scoreNumber -1;
+                let newScore = ((oldScore * scoreNum) - review.AVG)/newScoreNum ;
+                let newBathroomQuality =
+                    ( restaurant.bathroomQuality * scoreNum - review.bathroomQuality)/newScoreNum;
+                let newStaffKindness =
+                    ( restaurant.staffKindness * scoreNum - review.staffKindness)/newScoreNum;
+                let newCleanliness =
+                    ( restaurant.cleanliness * scoreNum - review.cleanliness)/newScoreNum;
+                let newDriveThruQuality =
+                    ( restaurant.driveThruQuality * scoreNum - review.driveThruQuality )/newScore;
+                let newDeliverySpeed =
+                    ( restaurant.deliverySpeed * scoreNum - review.deliverySpeed )/newScore;
+                let newFoodQuality =
+                    ( restaurant.foodQuality * scoreNum - review.foodQuality)/newScoreNum;
+
+                updateRestaurant = {
+                    "bathroomQuality": newBathroomQuality,
+                    "staffKindness": newStaffKindness,
+                    "cleanliness": newCleanliness,
+                    "driveThruQuality": newDriveThruQuality,
+                    "deliverySpeed": newDeliverySpeed,
+                    "foodQuality": newFoodQuality,
+                    "score": newScore,
+                    "scoreNumber":newScoreNum
+                }
+            }
+            Restaurant.updateOne(
+                {"_id": ObjectID(restaurant._id)},
+                {$set: updateRestaurant})
+                .then(data => Review.deleteOne({"_id": ObjectID(review._id)}))
+                    .then(deleteAck => res.json({message: "review had been removed successfully", id:review._id}))
+                    .catch(err => res.status(400).json({message: "remove had failed"}))
+                .catch(err =>{console.log(err); res.status(400).json({message: "remove had failed"})})
+        })
+        .catch(err => res.status(400).json({message: "remove had failed"}))
+    // Review.deleteOne(
+    //     {"_id": ObjectID(req.body.id)})
+    //     .then(review => res.json({message: "review had been removed successfully", id:req.body.id}))
+    //     .catch(err => res.status(400).json({message: "remove had failed"}));
     // TODO: remove review pictures!!
 });
 
@@ -170,14 +226,25 @@ router.post('/someDate', (req, res) => {
 
 
 router.put('/updateWithPictures', cpUpload, (req, res) => {
-    let sum = req.body.bathroomQuality + req.body.staffKindness + req.body.cleanliness +
-    req.body.driveThruQuality + req.body.deliverySpeed + req.body.foodQuality;
-    if( ( req.body.driveThruQuality > 0 ) && ( req.body.deliverySpeed > 0 ) )
-        sum /= 6;
-    else if( ( req.body.driveThruQuality > 0 ) || ( req.body.deliverySpeed > 0 ) )
-        sum /= 5;
-    else
-        sum /= 4;
+    let review = req.body
+
+    let divider = 4;
+
+    let sum = review.bathroomQuality + review.staffKindness +
+        review.cleanliness + review.foodQuality
+
+
+    if( req.body.driveThruQuality != 0 ){
+        sum += review.driveThruQuality;
+        divider++;
+    }
+
+    if( req.body.deliverySpeed != 0 ) {
+        sum += review.deliverySpeed;
+        divider++;
+    }
+
+    sum /= divider;
 
     let pictures = req.files['files[]'].map(file => file.path)
     Review.updateOne(
@@ -195,7 +262,7 @@ router.put('/updateWithPictures', cpUpload, (req, res) => {
             }
         })
         .then(review => Review.find({"_id": req.body.id}).then(review => res.json(review[0])).catch(err => res.status(500).json({message: `Server Error`})))
-        .catch(err => {console.log(err); res.status(400).json({message: "update had failed"})});
+        .catch(err => res.status(400).json({message: "update had failed"}));
 });
 
 
