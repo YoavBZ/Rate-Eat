@@ -29,7 +29,7 @@ class RestaurantsPage extends Component {
                           rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
 
                 <Dialog header="Restaurant Details" visible={this.props.visibleRestaurant} modal={true}
-                        style={{height: '85%', width: '85%'}} contentStyle={{overflowX: 'hidden', maxHeight: "300px"}}
+                        style={{height: '85%', width: '85%'}} contentStyle={{overflowX: 'hidden'}}
                         onHide={() => this.props.changeVisibilityRestaurant(false)}>
                     {this.renderRestaurantDialogContent()}
                 </Dialog>
@@ -183,7 +183,7 @@ class RestaurantsPage extends Component {
                 <div style={{textAlign: 'middle'}}>
                     <Button variant="secondary" style={{padding: '6px'}}
                             onClick={() => this.props.getRestaurants()}
-                            type="submit" label="Back"/>
+                            type="submit" label="Clear"/>
                     <Button variant="secondary" style={{padding: '6px'}}
                             onClick={() => this.props.searchNameLocationHandler(this.props.restaurantsNameSearch,
                                 this.props.restaurantsLocationSearch, this.props.restaurantsAVGSearch)}

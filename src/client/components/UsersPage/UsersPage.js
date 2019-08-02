@@ -41,9 +41,8 @@ export class UsersPage extends Component {
             position: "relative",
             top: "-100%",
             left: "-10%",
-            borderRadius: "100px",
-            
-        }
+            borderRadius: "100px"
+        };
         return (
             <div style={{padding: "2em", borderBottom: '1px solid #d9d9d9', height:"120px"}}>
                 Name: <b>{user.username}</b><br/>Location: <b>{user.location}</b><br/>
@@ -98,7 +97,7 @@ export class UsersPage extends Component {
                 <div style={this.props.style}>
                     <Button variant="secondary" style={{padding: '6px'}}
                             onClick={() => this.props.getUsers()}
-                            type="submit" label="Back"/>
+                            type="submit" label="Clear"/>
                     <Button variant="secondary" style={{padding: '6px'}}
                             onClick={() => this.props.searchNameLocationHandler(
                                 this.props.search, this.props.searchLocation)}
