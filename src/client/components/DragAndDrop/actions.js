@@ -1,5 +1,4 @@
 import DragAndDropConstants from './constants.js';
-import initialState from '../../initialState';
 
 function onDrop(files, preview) {
     return {

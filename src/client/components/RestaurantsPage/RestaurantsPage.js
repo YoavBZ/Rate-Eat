@@ -12,11 +12,12 @@ import {AutoComplete} from 'primereact/autocomplete';
 import {Slider} from 'primereact/slider';
 import MapContainer from "../MapContainer/MapContainer";
 import {Rating} from "primereact/components/rating/Rating";
+import {coordinates} from "../../coordinates";
 
 class RestaurantsPage extends Component {
 
     componentDidMount() {
-        this.props.getRestaurants();
+        this.props.getRestaurants(coordinates[this.props.currentUser.location]);
     }
 
     render() {
@@ -29,25 +30,25 @@ class RestaurantsPage extends Component {
                           rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField}/>
 
                 <Dialog header="Restaurant Details" visible={this.props.visibleRestaurant} modal={true}
-                        style={{height: '85%', width: '85%'}} contentStyle={{overflowX: 'hidden', maxHeight: "300px"}}
+                        style={{height: '85%', width: '85%'}} contentStyle={{overflowX: 'hidden'}}
                         onHide={() => this.props.changeVisibilityRestaurant(false)}>
                     {this.renderRestaurantDialogContent()}
                 </Dialog>
 
                 <Dialog header="Restaurant Add Review" visible={this.props.visibleReview} modal={true}
-                        style={{height: '85%', width: '50%', overflow:'overlay'}}
+                        style={{height: '85%', width: '50%', overflow: 'overlay'}}
                         onHide={() => this.props.changeVisibilityReview(false)}>
-                    <RatingPage selectedRestaurant={  this.props.selectedRestaurant}
-                                currentUser = { this.props.currentUser }/>
+                    <RatingPage selectedRestaurant={this.props.selectedRestaurant}
+                                currentUser={this.props.currentUser}/>
                 </Dialog>
 
-                <Dialog header="Restaurant List Review" visible={this.props.visibleReviewList} width="225px" modal={true}
+                <Dialog header="Restaurant List Review" visible={this.props.visibleReviewList} width="225px"
+                        modal={true}
                         onHide={() => this.props.changeVisibilityReviewList(false)}
-                        onShow={() => this.props.getReviewsList(this.props.selectedRestaurant._id) }
+                        onShow={() => this.props.getReviewsList(this.props.selectedRestaurant._id)}
                 >
-                    <RatingPageList rates={ this.props.rates } />
+                    <RatingPageList rates={this.props.rates}/>
                 </Dialog>
-
             </div>
         );
     }
@@ -120,7 +121,8 @@ class RestaurantsPage extends Component {
             {label: 'By Name', value: 'name'},
             {label: 'By City', value: 'location'},
             {label: 'Best Ratings', value: '!score'},
-            {label: 'Worst Ratings', value: 'score'}
+            {label: 'Worst Ratings', value: 'score'},
+            // {label: 'Closer-Better', value: 'closerBetter'}
         ];
         const rateOptions = [
             {label: 'bathroomQuality', value: 'bathroomQuality'},
@@ -142,48 +144,47 @@ class RestaurantsPage extends Component {
                         <DataViewLayoutOptions layout={this.props.layout} onChange={this.props.changeLayout}/>
                     </div>
                     <div>
-                    <div className="p-col-6" style={{textAlign: 'right'}}>
-                        <h3>AVG Rating Above {this.props.restaurantsAVGSearch}</h3>
-                        <Dropdown options={rateOptions} value={this.props.sortKeyRestaurant} placeholder="Sort By"
-                                  onChange={this.props.onSortChangeRestaurant}/>
-                        <Rating value={this.props.restaurantsAVGSearch}
-                                onChange={this.props.changeRestaurantsAVG} />
-                        <Button variant="primary"
-                                onClick={() => this.props.searchAVGHandler(
-                                    this.props.sortKeyRestaurant, this.props.restaurantsAVGSearch)}
-                                type="submit" label="Search"/>
-                    </div>
+                        <div className="p-col-6" style={{textAlign: 'right'}}>
+                            <h3>AVG Rating Above {this.props.restaurantsAVGSearch}</h3>
+                            <Dropdown options={rateOptions} value={this.props.sortKeyRestaurant} placeholder="Sort By"
+                                      onChange={this.props.onSortChangeRestaurant}/>
+                            <Rating value={this.props.restaurantsAVGSearch}
+                                    onChange={this.props.changeRestaurantsAVG}/>
+                            <Button variant="primary"
+                                    onClick={() => this.props.searchAVGHandler(
+                                        this.props.sortKeyRestaurant, this.props.restaurantsAVGSearch)}
+                                    type="submit" label="Search"/>
+                        </div>
 
-                    <div>
-                        <AutoComplete value={this.props.restaurantsNameSearch}
-                                      onChange={this.props.changeRestaurantsNames}
-                                      suggestions={this.props.restaurantsNamesFilter}
-                                      completeMethod={this.props.filterRestaurantsNames}
-                                      size={30} placeholder="Names" minLength={1}/>
+                        <div>
+                            <AutoComplete value={this.props.restaurantsNameSearch}
+                                          onChange={this.props.changeRestaurantsNames}
+                                          suggestions={this.props.restaurantsNamesFilter}
+                                          completeMethod={this.props.filterRestaurantsNames}
+                                          size={30} placeholder="Names" minLength={1}/>
 
-                        <Button variant="primary"
-                                onClick={() => this.props.searchHandler(this.props.restaurantsNameSearch)}
-                                type="submit" label="Search"/>
+                            <Button variant="primary"
+                                    onClick={() => this.props.searchHandler(this.props.restaurantsNameSearch)}
+                                    type="submit" label="Search"/>
+                        </div>
+                        <div>
+                            <AutoComplete value={this.props.restaurantsLocationSearch}
+                                          onChange={this.props.changeRestaurantsLocations}
+                                          suggestions={this.props.restaurantsLocationFilter}
+                                          completeMethod={this.props.filterRestaurantsLocations}
+                                          size={30} placeholder="Locations" minLength={1}/>
 
-                    </div>
-                    <div>
-                        <AutoComplete value={this.props.restaurantsLocationSearch}
-                                      onChange={this.props.changeRestaurantsLocations}
-                                      suggestions={this.props.restaurantsLocationFilter}
-                                      completeMethod={this.props.filterRestaurantsLocations}
-                                      size={30} placeholder="Locations" minLength={1}/>
-
-                        <Button variant="primary"
-                                onClick={() => this.props.searchLocationHandler(this.props.restaurantsLocationSearch)}
-                                type="submit" label="Search"/>
-                    </div>
+                            <Button variant="primary"
+                                    onClick={() => this.props.searchLocationHandler(this.props.restaurantsLocationSearch)}
+                                    type="submit" label="Search"/>
+                        </div>
                     </div>
 
                 </div>
                 <div style={{textAlign: 'middle'}}>
                     <Button variant="secondary" style={{padding: '6px'}}
-                            onClick={() => this.props.getRestaurants()}
-                            type="submit" label="Back"/>
+                            onClick={() => this.props.getRestaurants(coordinates[this.props.currentUser.location])}
+                            type="submit" label="Clear"/>
                     <Button variant="secondary" style={{padding: '6px'}}
                             onClick={() => this.props.searchNameLocationHandler(this.props.restaurantsNameSearch,
                                 this.props.restaurantsLocationSearch, this.props.restaurantsAVGSearch)}
@@ -267,8 +268,8 @@ const mapDispatchToProps = (dispatch) => {
             const value = event.value;
             dispatch(RestaurantsPageActions.onSortChangeRestaurant(value));
         },
-        getRestaurants: () => {
-            dispatch(RestaurantsPageActions.getRestaurants());
+        getRestaurants: (userCoords) => {
+            dispatch(RestaurantsPageActions.getRestaurants(userCoords));
         },
         getReviewsList: (restaurantID) => {
             dispatch(RestaurantsPageActions.getReviewsList(restaurantID))

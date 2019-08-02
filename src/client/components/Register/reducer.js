@@ -2,7 +2,6 @@ import initialState from '../../initialState';
 import {RegisterActionsConstants} from './constants.js';
 import DragAndDropConstants from '../DragAndDrop/constants';
 
-
 const RegisterReducer = (state = initialState.register, action) => {
     switch (action.type) {
         case RegisterActionsConstants.CHANGE_REGISTER_FIELD:

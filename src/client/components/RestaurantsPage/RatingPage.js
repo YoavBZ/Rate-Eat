@@ -9,7 +9,7 @@ import ReviewPictures from "./ReviewPictures";
 class RatingPage extends React.Component {
     render() {
         return (
-            <div style={{overflow:'scroll'}}>
+            <div style={{overflow: 'scroll'}}>
                 <div className="content-section introduction">
                     <div className="feature-intro">
                         <h1>Rating </h1>
@@ -17,7 +17,7 @@ class RatingPage extends React.Component {
                     </div>
                 </div>
 
-                <div className="content-section implementation" style={{overflow:scroll}}>
+                <div className="content-section implementation" style={{overflow: scroll}}>
                     <h3 className="first">Bathroom Quality {this.props.bathroomQuality}</h3>
                     <Rating value={this.props.bathroomQuality} cancel={false}
                             onChange={(e) => this.props.changeRate(e.value, RatesConstants.BATHROOM_QUALITY)}/>
@@ -41,7 +41,7 @@ class RatingPage extends React.Component {
                     <h3>Food Quality {this.props.foodQuality}</h3>
                     <Rating value={this.props.foodQuality} cancel={false}
                             onChange={(e) => this.props.changeRate(e.value, RatesConstants.FOOD_QUALITY)}/>
-                    
+
                     <ReviewPictures files={this.props.files}/>
 
                     <Button label="Submit" onClick={() => {
@@ -98,8 +98,8 @@ const mapDispatchToProps = (dispatch) => {
             formData.append('driveThruQuality', driveThruQuality);
             formData.append('deliverySpeed', deliverySpeed);
             formData.append('foodQuality', foodQuality);
-            for ( let i = 0; i<files.length; i++){
-                formData.append('files[]', files[i]);    
+            for (let i = 0; i < files.length; i++) {
+                formData.append('files[]', files[i]);
             }
             dispatch(RestaurantsPageActions.addReview(formData));
         },

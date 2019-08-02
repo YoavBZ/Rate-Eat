@@ -19,7 +19,6 @@ class RatingPage extends React.Component {
         );
     }
 
-
     itemTemplate = (rate) => {
         if (!rate) {
             return null;
@@ -27,7 +26,6 @@ class RatingPage extends React.Component {
 
         return this.renderListItem(rate);
     };
-
 
     renderListItem(rate) {
 
@@ -39,7 +37,8 @@ class RatingPage extends React.Component {
                 </div>
                 <div className="p-col-12 p-md-8 review-details" style={{textAlign: 'left', margin: 'auto'}}>
                     <div className="p-grid" style={{position: 'relative', left: '-100%'}}>
-                        <div className="p-col-2 p-sm-6">User Name: <b>{this.props.selectedUser.username || 'none'}</b></div>
+                        <div className="p-col-2 p-sm-6">User Name: <b>{this.props.selectedUser.username || 'none'}</b>
+                        </div>
                         {/*<div className="p-col-2 p-sm-6">Restaurant Name: <b>{this.props.restaurantName}</b></div>*/}
                         {/*<div className="p-col-2 p-sm-6">Location: <b>{user.location}</b></div>*/}
                     </div>
@@ -86,19 +85,18 @@ class RatingPage extends React.Component {
             {label: 'Worst', value: '!AVG'}
         ];
         return (
-                <div className="p-grid">
-                    <div className="p-col-6" style={{textAlign: 'left'}}>
-                        <Dropdown options={sortOptions} value={this.props.sortKeyRating} placeholder="Sort By"
-                                  onChange={this.props.onSortChangeRating}/>
-                    </div>
-
+            <div className="p-grid">
+                <div className="p-col-6" style={{textAlign: 'left'}}>
+                    <Dropdown options={sortOptions} value={this.props.sortKeyRating} placeholder="Sort By"
+                              onChange={this.props.onSortChangeRating}/>
                 </div>
+
+            </div>
 
         );
     }
 
 }
-
 
 const mapStateToProps = (state, ownProps) => {
     return ({
@@ -119,18 +117,18 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         showReviews: () => {
-            dispatch( UsersPageActions.showReviews() );
+            dispatch(UsersPageActions.showReviews());
         },
         onSortChangeRating: (event) => {
-        const value = event.value;
-        if (value.indexOf('!') === 0) {
-            dispatch(UsersPageActions.onSortChangeRating( 1, value.substring(1, value.length), value));
-        } else {
-            dispatch(UsersPageActions.onSortChangeRating(-1, value, value));
-        }
+            const value = event.value;
+            if (value.indexOf('!') === 0) {
+                dispatch(UsersPageActions.onSortChangeRating(1, value.substring(1, value.length), value));
+            } else {
+                dispatch(UsersPageActions.onSortChangeRating(-1, value, value));
+            }
         },
         onRateChange: (event) => {
-           dispatch(UsersPageActions.onRateChange(event.value));
+            dispatch(UsersPageActions.onRateChange(event.value));
         }
 
     }

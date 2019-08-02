@@ -54,49 +54,46 @@ router.post('/', (req, res) => {
         .catch(err => res.status(400).json({message: "restaurant is already exist"}));
 });
 
-router.post('/updateScore' , (req, res) => {
+router.post('/updateScore', (req, res) => {
 
     let divider = 4;
 
     let sum = parseInt(req.body.review.bathroomQuality) + parseInt(req.body.review.staffKindness) +
         parseInt(req.body.review.cleanliness) + parseInt(req.body.review.foodQuality);
 
-    if( req.body.review.driveThruQuality !== null ){
+    if (req.body.review.driveThruQuality !== null) {
         sum += parseInt(req.body.review.driveThruQuality);
         divider++;
     }
 
-    if( req.body.review.deliverySpeed !== null ) {
+    if (req.body.review.deliverySpeed !== null) {
         sum += parseInt(req.body.review.deliverySpeed);
         divider++;
     }
 
     sum /= divider;
 
-
-
     let name = req.body.review.restaurant._id;
     let oldScore = parseInt(req.body.review.restaurant.score);
     let scoreNum = parseInt(req.body.review.restaurant.scoreNumber);
 
-    let newScore = oldScore * scoreNum ;
+    let newScore = oldScore * scoreNum;
     let newBathroomQuality = parseInt(req.body.review.bathroomQuality) +
-        ( parseInt(req.body.review.restaurant.bathroomQuality) * scoreNum );
+        (parseInt(req.body.review.restaurant.bathroomQuality) * scoreNum);
     let newStaffKindness = parseInt(req.body.review.staffKindness) +
-        ( parseInt(req.body.review.restaurant.staffKindness) * scoreNum );
+        (parseInt(req.body.review.restaurant.staffKindness) * scoreNum);
     let newCleanliness = parseInt(req.body.review.cleanliness) +
-        ( parseInt(req.body.review.restaurant.cleanliness) * scoreNum );
+        (parseInt(req.body.review.restaurant.cleanliness) * scoreNum);
     let newFoodQuality = parseInt(req.body.review.foodQuality) +
-        ( parseInt(req.body.review.restaurant.foodQuality) * scoreNum );
+        (parseInt(req.body.review.restaurant.foodQuality) * scoreNum);
 
+    let newDriveThruQuality = (parseInt(req.body.review.restaurant.driveThruQuality) * scoreNum);
+    let newDeliverySpeed = (parseInt(req.body.review.restaurant.deliverySpeed) * scoreNum);
 
-    let newDriveThruQuality =(parseInt(req.body.review.restaurant.driveThruQuality) * scoreNum );
-    let newDeliverySpeed = ( parseInt(req.body.review.restaurant.deliverySpeed) * scoreNum );
-
-    if( req.body.review.driveThruQuality !== null )
+    if (req.body.review.driveThruQuality !== null)
         newDriveThruQuality += parseInt(req.body.review.driveThruQuality);
 
-    if( req.body.review.deliverySpeed !== null )
+    if (req.body.review.deliverySpeed !== null)
         newDeliverySpeed += parseInt(req.body.review.deliverySpeed);
 
     newScore += sum;
@@ -108,17 +105,17 @@ router.post('/updateScore' , (req, res) => {
     newCleanliness /= scoreNum;
     newFoodQuality /= scoreNum;
 
-    if( req.body.review.driveThruQuality !== null )
+    if (req.body.review.driveThruQuality !== null)
         newDriveThruQuality /= scoreNum;
     else {
-        if( scoreNum !== 1 )
+        if (scoreNum !== 1)
             newDriveThruQuality /= (scoreNum - 1);
 
     }
-    if( req.body.review.deliverySpeed !== null )
+    if (req.body.review.deliverySpeed !== null)
         newDeliverySpeed /= scoreNum;
     else {
-        if( scoreNum !== 1 )
+        if (scoreNum !== 1)
             newDeliverySpeed /= (scoreNum - 1);
 
     }
@@ -140,13 +137,12 @@ router.post('/updateScore' , (req, res) => {
 
 });
 
-
 router.post('/some', (req, res) => {
     let search = req.body.search;
     let name = search.search;
 
     Restaurant.find(
-        {"name": {$regex : name}})
+        {"name": {$regex: name}})
         .then(user => res.json(user))
         .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
 });
@@ -156,7 +152,7 @@ router.post('/someLocation', (req, res) => {
     let location = search.search;
 
     Restaurant.find(
-        {"location": {$regex : location}})
+        {"location": {$regex: location}})
         .then(user => res.json(user))
         .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
 });
@@ -166,47 +162,41 @@ router.post('/someAVG', (req, res) => {
     let avg = search.search;
     let key = search.key;
 
-    if(key === 'score'){
+    if (key === 'score') {
         Restaurant.find(
-            { "score" : { $gte: avg }})
+            {"score": {$gte: avg}})
             .then(user => res.json(user))
             .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
-    }
-    else if(key === 'bathroomQuality'){
+    } else if (key === 'bathroomQuality') {
         Restaurant.find(
-            { "bathroomQuality" : { $gte: avg }})
+            {"bathroomQuality": {$gte: avg}})
             .then(user => res.json(user))
             .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
-    }
-    else if(key === 'StaffKindness'){
+    } else if (key === 'StaffKindness') {
         Restaurant.find(
-            { "StaffKindness" : { $gte: avg }})
+            {"StaffKindness": {$gte: avg}})
             .then(user => res.json(user))
             .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
-    }
-    else if(key === 'cleanliness'){
+    } else if (key === 'cleanliness') {
         Restaurant.find(
-            { "cleanliness" : { $gte: avg }})
+            {"cleanliness": {$gte: avg}})
             .then(user => res.json(user))
             .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
-    }
-    else if(key === 'driveThruQuality'){
+    } else if (key === 'driveThruQuality') {
         Restaurant.find(
-            { "driveThruQuality" : { $gte: avg }})
+            {"driveThruQuality": {$gte: avg}})
             .then(user => res.json(user))
             .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
-    }
-    else if(key === 'deliverySpeed'){
+    } else if (key === 'deliverySpeed') {
         Restaurant.find(
-            { "deliverySpeed" : { $gte: avg }})
+            {"deliverySpeed": {$gte: avg}})
             .then(user => res.json(user))
             .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
-    }
-    else
-    Restaurant.find(
-        { "foodQuality" : { $gte: avg }})
-        .then(user => res.json(user))
-        .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
+    } else
+        Restaurant.find(
+            {"foodQuality": {$gte: avg}})
+            .then(user => res.json(user))
+            .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
 });
 
 router.post('/someAll', (req, res) => {
@@ -216,16 +206,15 @@ router.post('/someAll', (req, res) => {
     let avg = search.avg;
 
     Restaurant.find(
-        {"name": {$regex : name}, "location": {$regex : location}, "score": { $gte: avg } })
+        {"name": {$regex: name}, "location": {$regex: location}, "score": {$gte: avg}})
         .then(user => res.json(user))
         .catch(err => res.status(400).json({message: "Failed to retrive restaurant"}));
 });
 
-
 router.post('/getName', (req, res) => {
     Restaurant.find({"_id": req.body.id})
-    .then(restaurant => res.json({name: restaurant[0].name}))
-    .catch(err => res.status(400).json({message: "Server Error"}))
+        .then(restaurant => res.json({name: restaurant[0].name}))
+        .catch(err => res.status(400).json({message: "Server Error"}))
 });
 
 

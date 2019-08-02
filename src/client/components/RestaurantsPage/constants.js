@@ -48,5 +48,4 @@ const ReviewPicturesConstants = {
     REVIEW_PICTURES_ON_DROP: 'REVIEW_PICTURES_ON_DROP',
 };
 
-
 export {RestaurantsPageActionsConstants, RatesConstants, ReviewPicturesConstants}

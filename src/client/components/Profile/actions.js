@@ -1,4 +1,4 @@
-import {EditReviewActionsConstats, ProfileActionsConstants, EditPictureActionsConstats} from './constants.js';
+import {EditPictureActionsConstats, EditReviewActionsConstats, ProfileActionsConstants} from './constants.js';
 
 function updateUser(user, callback) {
     return {
@@ -221,8 +221,6 @@ let EditReviewActions = {
     UpdateAVGSuccess,
     UpdateAVGFailure
 };
-
-
 
 function onDrop(files, preview) {
     return {

@@ -29,7 +29,7 @@ function getUsers() {
     }
 }
 
-function getReviews(userID){
+function getReviews(userID) {
     return {
         type: UsersPageActionsConstants.GET_REVIEWS,
         uri: '/api/reviews/getUserReviews',
@@ -65,7 +65,7 @@ function getReviewFailure(msg) {
     }
 }
 
-function selectReview(user, visible, rates ) {
+function selectReview(user, visible, rates) {
     return {
         type: UsersPageActionsConstants.SELECT_REVIEW,
         user, visible, rates

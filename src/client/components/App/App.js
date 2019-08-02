@@ -7,7 +7,6 @@ import {Button} from 'primereact/button';
 import AppActions from './actions';
 import {AppPages} from './constants';
 import Home from '../Home/Home';
-import DragAndDrop from '../DragAndDrop/DragAndDrop'
 
 class App extends React.Component {
     render() {

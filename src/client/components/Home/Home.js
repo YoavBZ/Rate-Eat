@@ -36,7 +36,7 @@ class Home extends Component {
             <div style={{display: 'flex', textAlign: 'center'}}>
                 <Menu model={models} style={{textAlign: 'left'}}/>
                 {this.props.page === HomePages.PROFILE && <Profile/>}
-                {this.props.page === HomePages.SEARCH_RESTAURANTS && <RestaurantsPage currentUser={ this.props.user }/>}
+                {this.props.page === HomePages.SEARCH_RESTAURANTS && <RestaurantsPage currentUser={this.props.user}/>}
                 {this.props.page === HomePages.SEARCH_USERS && <UsersPage/>}
             </div>
         )
