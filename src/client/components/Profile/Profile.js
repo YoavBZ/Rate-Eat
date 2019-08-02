@@ -74,7 +74,8 @@ class Profile extends Component {
                            disabled={!this.props.edit} style={inputUsername} name="username"
                            onChange={(e) => this.props.changeProfileFieldHandler("username", e.target.value)}/>
 
-                <InputText placeholder="Password" type="password" defaultValue={this.props.user.password || '..........'}
+                <InputText placeholder="Password" type="password"
+                           defaultValue={this.props.user.password || '..........'}
                            disabled={!this.props.edit} style={inputPassword} name="password"
                            onChange={(e) => this.props.changeProfileFieldHandler("password", e.target.value)}/>
 
@@ -211,7 +212,7 @@ const mapDispatchToProps = (dispatch) => {
             if (location === undefined) location = user.location;
             if (picture === undefined) picture = user.picture;
             let formData = new FormData();
-            formData.append('id', user._id)
+            formData.append('id', user._id);
             formData.append('username', username);
             formData.append('password', password);
             formData.append('location', location);

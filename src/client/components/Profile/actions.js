@@ -1,4 +1,4 @@
-import {EditReviewActionsConstats, ProfileActionsConstants, EditPictureActionsConstats} from './constants.js';
+import {EditPictureActionsConstats, EditReviewActionsConstats, ProfileActionsConstants} from './constants.js';
 
 function updateUser(user, callback) {
     return {
@@ -113,7 +113,7 @@ function editMyReviewFailure(msg) {
     }
 }
 
-function deleteReview(id){
+function deleteReview(id) {
     return {
         type: EditReviewActionsConstats.DELETE_REVIEW,
         uri: 'api/reviews/',
@@ -195,8 +195,6 @@ let EditReviewActions = {
     editMyReviewWithPicturesSuccess,
     editMyReviewWithPicturesFailure
 };
-
-
 
 function onDrop(files, preview) {
     return {

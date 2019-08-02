@@ -7,8 +7,7 @@ function* registerUser(action) {
         const res = yield call(fetch, action.uri,
             {
                 method: 'POST',
-                headers: {
-                },
+                headers: {},
                 body: action.user
             });
         const json = yield call([res, 'json']); //retrieve body of response

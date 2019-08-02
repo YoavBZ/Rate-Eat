@@ -26,9 +26,9 @@ export class UsersPage extends Component {
 
                 <Dialog header="User Review" visible={this.props.visibleReview} width="225px" modal={true}
                         onHide={() => this.props.changeVisibilityReview(false)}
-                        onShow={() => this.props.getReviews(this.props.selectedUser._id) }
-                                 >
-                    <RatingPage rates={ this.props.rates } />
+                        onShow={() => this.props.getReviews(this.props.selectedUser._id)}
+                >
+                    <RatingPage rates={this.props.rates}/>
                 </Dialog>
             </div>
         );
@@ -44,11 +44,11 @@ export class UsersPage extends Component {
             borderRadius: "100px"
         };
         return (
-            <div style={{padding: "2em", borderBottom: '1px solid #d9d9d9', height:"120px"}}>
+            <div style={{padding: "2em", borderBottom: '1px solid #d9d9d9', height: "120px"}}>
                 Name: <b>{user.username}</b><br/>Location: <b>{user.location}</b><br/>
-                <img src={user.picture} style={img} />
-                <Button icon='pi pi-plus' style = {{position: "relative", top: "-180%", left:"5%"}}
-                  onClick={() => this.props.selectReview(user, true, this.props.rates) }/>
+                <img src={user.picture} style={img}/>
+                <Button icon='pi pi-plus' style={{position: "relative", top: "-180%", left: "5%"}}
+                        onClick={() => this.props.selectReview(user, true, this.props.rates)}/>
             </div>);
     }
 
@@ -157,7 +157,7 @@ const mapDispatchToProps = (dispatch) => {
             }
         },
         selectReview: (user, visible, rates) => {
-            dispatch(UsersPageActions.selectReview(user, visible, rates ));
+            dispatch(UsersPageActions.selectReview(user, visible, rates));
         },
         getReviews: (userID) => {
             dispatch(UsersPageActions.getReviews(userID))
@@ -172,7 +172,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(UsersPageActions.searchLocation({search}))
         },
         searchNameLocationHandler: (search, location) => {
-            dispatch(UsersPageActions.searchNameLocation({search , location}))
+            dispatch(UsersPageActions.searchNameLocation({search, location}))
         }
     }
 };

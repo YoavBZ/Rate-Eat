@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const multer  = require('multer')
+const multer = require('multer')
 
 const User = require('../model/User');
 
-var upload = multer({ dest: 'userUploads/' })
-var cpUpload = upload.fields([{ name: 'picture', maxCount: 1}])
+var upload = multer({dest: 'userUploads/'})
+var cpUpload = upload.fields([{name: 'picture', maxCount: 1}])
 var putPicture = upload.fields([{name: 'picture', maxCount: 1}])
 
 // @route GET api/items
@@ -83,7 +83,7 @@ router.post('/some', (req, res) => {
     let username = search.search;
 
     User.find(
-        {"username": {$regex : username}})
+        {"username": {$regex: username}})
         .then(user => res.json(user))
         .catch(err => res.status(400).json({message: "Failed to retrive users"}));
 });
@@ -93,7 +93,7 @@ router.post('/someLocation', (req, res) => {
     let location = search.search;
 
     User.find(
-        {"location": {$regex : location}})
+        {"location": {$regex: location}})
         .then(user => res.json(user))
         .catch(err => res.status(400).json({message: "Failed to retrive users"}));
 });
@@ -104,7 +104,7 @@ router.post('/someNameLocation', (req, res) => {
     let location = search.location;
 
     User.find(
-        {"username":  {$regex : username}, "location":  {$regex : location}})
+        {"username": {$regex: username}, "location": {$regex: location}})
         .then(user => res.json(user))
         .catch(err => res.status(400).json({message: "Failed to retrive users"}));
 });
@@ -115,7 +115,7 @@ router.put('/', putPicture, (req, res) => {
     user["username"] = req.body.username
     user["password"] = req.body.password
     user["location"] = req.body.location
-    if(req.files.length != 0){
+    if (req.files.length != 0) {
         user["picture"] = req.files.picture[0].path
     }
     User.replaceOne(

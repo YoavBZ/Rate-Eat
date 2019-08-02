@@ -1,5 +1,5 @@
 import initialState from '../../initialState';
-import {EditReviewActionsConstats, ProfileActionsConstants, EditPictureActionsConstats} from './constants.js';
+import {EditPictureActionsConstats, EditReviewActionsConstats, ProfileActionsConstants} from './constants.js';
 
 const ProfileReducer = (state = initialState.profile, action) => {
     switch (action.type) {
@@ -26,16 +26,16 @@ const ProfileReducer = (state = initialState.profile, action) => {
         case EditReviewActionsConstats.EDIT_MY_REVIEWS_SUCCESS:
         case EditReviewActionsConstats.EDIT_MY_REVIEWS_WITH_PICTURES_SUCCESS:
             let reviews = state.get('reviews')
-            return state.set('reviews',reviews.map(review => review._id == action.review._id ? action.review : review))
+            return state.set('reviews', reviews.map(review => review._id == action.review._id ? action.review : review))
         case EditReviewActionsConstats.DELETE_REVIEW_SUCCESS:
             let updatedReviews = state.get('reviews')
             return state.set('reviews', updatedReviews.filter(review => review._id != action.id))
         case EditReviewActionsConstats.EDIT_MY_REVIEWS_SUCCESS:
-        case EditReviewActionsConstats.EDIT_MY_REVIEWS_WITH_PICTURES_SUCCESS:  
+        case EditReviewActionsConstats.EDIT_MY_REVIEWS_WITH_PICTURES_SUCCESS:
             console.log(action.msg)
             return state;
         default: //otherwise state is lost!
-        
+
             return state;
     }
 };
@@ -47,7 +47,7 @@ const EditReviewReducer = (state = initialState.editReview, action) => {
             return state;
         case EditReviewActionsConstats.GET_RESTAURANT_NAME_FAILIRE:
             console.log(action.msg)
-            return state;    
+            return state;
         default: //otherwise state is lost!
             return state;
     }

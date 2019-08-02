@@ -2,7 +2,7 @@ import React from "react";
 import {Rating} from "primereact/components/rating/Rating";
 import {RestaurantsPageActions} from "./actions";
 import {connect} from "react-redux";
-import {DataView, DataViewLayoutOptions} from "primereact/components/dataview/DataView";
+import {DataView} from "primereact/components/dataview/DataView";
 import {Dropdown} from "primereact/components/dropdown/Dropdown";
 import {Button} from "primereact/button";
 
@@ -20,7 +20,6 @@ class RatingPageList extends React.Component {
         );
     }
 
-
     itemTemplate = (rate) => {
         if (!rate) {
             return null;
@@ -28,7 +27,6 @@ class RatingPageList extends React.Component {
 
         return this.renderListItem(rate);
     };
-
 
     renderListItem(rate) {
         return (
@@ -39,7 +37,7 @@ class RatingPageList extends React.Component {
                 </div>
                 <div className="p-col-12 p-md-8 review-details" style={{textAlign: 'left', margin: 'auto'}}>
                     <div className="p-grid" style={{position: 'relative', left: '-100%'}}>
-                        <div className="p-col-2 p-sm-6">Restaurant Name: </div>
+                        <div className="p-col-2 p-sm-6">Restaurant Name:</div>
                         {/*<div className="p-col-2 p-sm-6">Restaurant Name: <b>{this.props.selectedUser.username}</b></div>*/}
                         {/*<div className="p-col-2 p-sm-6">Restaurant Name: <b>{this.props.restaurantName}</b></div>*/}
                         {/*<div className="p-col-2 p-sm-6">Location: <b>{user.location}</b></div>*/}
@@ -106,7 +104,7 @@ class RatingPageList extends React.Component {
                         <div className="p-col-6" style={{textAlign: 'right'}}>
                             <h3>AVG Rating Above {this.props.restaurantsAVGRating}</h3>
                             <Rating value={this.props.restaurantsAVGRating}
-                                    onChange={this.props.changeRestaurantsAVGRating} />
+                                    onChange={this.props.changeRestaurantsAVGRating}/>
                             <Button variant="primary"
                                     onClick={() => this.props.searchAVGRatingHandler(
                                         this.props.selectedRestaurant._id, this.props.restaurantsAVGRating)}
@@ -129,7 +127,6 @@ class RatingPageList extends React.Component {
 
 }
 
-
 const mapStateToProps = (state, ownProps) => {
     return ({
         rates: ownProps.rates,
@@ -149,7 +146,7 @@ const mapDispatchToProps = (dispatch) => {
         onSortChangeRating: (event) => {
             const value = event.value;
             if (value.indexOf('!') === 0) {
-                dispatch(RestaurantsPageActions.onSortChangeRating( 1, value.substring(1, value.length), value));
+                dispatch(RestaurantsPageActions.onSortChangeRating(1, value.substring(1, value.length), value));
             } else {
                 dispatch(RestaurantsPageActions.onSortChangeRating(-1, value, value));
             }
@@ -164,7 +161,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(RestaurantsPageActions.searchAVGRatingHandler({restaurantID, search}))
         },
         searchDayRatingHandler: (restaurantID) => {
-            dispatch(RestaurantsPageActions.searchDayRatingHandler(restaurantID , 86400000))
+            dispatch(RestaurantsPageActions.searchDayRatingHandler(restaurantID, 86400000))
         },
         searchWeekRatingHandler: (restaurantID) => {
             dispatch(RestaurantsPageActions.searchWeekRatingHandler(restaurantID, 604800000))
@@ -172,8 +169,6 @@ const mapDispatchToProps = (dispatch) => {
         searchMonthRatingHandler: (restaurantID) => {
             dispatch(RestaurantsPageActions.searchMonthRatingHandler(restaurantID, 2592000000))
         },
-
-
 
     }
 };

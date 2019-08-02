@@ -1,14 +1,13 @@
-import {ProfileActionsConstants, EditReviewActionsConstats} from './constants'
+import {EditReviewActionsConstats, ProfileActionsConstants} from './constants'
 import {call, put, takeEvery} from 'redux-saga/effects'
-import {ProfileActions, EditReviewActions} from './actions'
+import {EditReviewActions, ProfileActions} from './actions'
 
 function* updateUserProfile(action) {
     try {
         const res = yield call(fetch, action.uri,
             {
                 method: 'PUT',
-                headers: {
-                },
+                headers: {},
                 body: action.payload
             });
 
@@ -16,7 +15,7 @@ function* updateUserProfile(action) {
         if (res.status >= 400) {
             throw json;
         }
-        
+
         yield put(ProfileActions.updateUserSuccess(json, action.callback, "Your profile had been updated!"));
     } catch (e) {
         yield put(ProfileActions.updateUserFailure(action.callback, e.message));
@@ -50,7 +49,6 @@ function* ProfileSaga() {
     yield takeEvery(ProfileActionsConstants.GET_USER_REVIEWS, getUserReviews);
 }
 
-
 function* updateUserReviews(action) {
     try {
         const res = yield call(fetch, action.uri,
@@ -61,7 +59,7 @@ function* updateUserReviews(action) {
                 },
                 body: JSON.stringify(action.review)
             });
-            
+
         const json = yield call([res, 'json']); //retrieve body of response
         if (res.status >= 400) {
             throw json;
@@ -71,7 +69,6 @@ function* updateUserReviews(action) {
         yield put(EditReviewActions.editMyReviewFailure(e));
     }
 }
-
 
 function* deleteReview(action) {
     try {
@@ -83,7 +80,7 @@ function* deleteReview(action) {
                 },
                 body: JSON.stringify(action.id)
             });
-            
+
         const json = yield call([res, 'json']); //retrieve body of response
         if (res.status >= 400) {
             throw json;
@@ -93,8 +90,6 @@ function* deleteReview(action) {
         yield put(EditReviewActions.editMyReviewFailure(e));
     }
 }
-
-
 
 function* getRestaurantName(action) {
     try {
@@ -106,7 +101,7 @@ function* getRestaurantName(action) {
                 },
                 body: JSON.stringify(action.id)
             });
-            
+
         const json = yield call([res, 'json']); //retrieve body of response
         if (res.status >= 400) {
             throw json;
@@ -117,15 +112,13 @@ function* getRestaurantName(action) {
     }
 }
 
-
 function* updateUserReviewsWithPictures(action) {
     console.log(action.review.get('id'))
     try {
         const res = yield call(fetch, action.uri,
             {
                 method: 'PUT',
-                headers: {
-                },
+                headers: {},
                 body: action.review
             });
         const json = yield call([res, 'json']); //retrieve body of response
@@ -138,7 +131,6 @@ function* updateUserReviewsWithPictures(action) {
     }
 }
 
-
 function* EditReviewSaga() {
     //using takeEvery, you take the action away from reducer to saga
     yield takeEvery(EditReviewActionsConstats.EDIT_MY_REVIEWS, updateUserReviews);
@@ -146,7 +138,6 @@ function* EditReviewSaga() {
     yield takeEvery(EditReviewActionsConstats.GET_RESTAURANT_NAME, getRestaurantName);
     yield takeEvery(EditReviewActionsConstats.EDIT_MY_REVIEWS_WITH_PICTURES, updateUserReviewsWithPictures);
 
-    
 }
 
 export {ProfileSaga, EditReviewSaga};

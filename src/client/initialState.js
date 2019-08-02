@@ -3,8 +3,7 @@ import {AppPages} from './components/App/constants';
 import {HomePages} from './components/Home/constants';
 
 export default {
-    reviewPictures: Map({
-    }),
+    reviewPictures: Map({}),
     dragAndDrop: Map({
         preview: undefined,
         files: undefined

@@ -49,10 +49,11 @@ function onSortChangeRating(sortOrder, sortField, sortKey) {
     }
 }
 
-function getRestaurants() {
+function getRestaurants(userCoords) {
     return {
         type: RestaurantsPageActionsConstants.GET_RESTAURANTS,
-        uri: 'api/restaurants/all'
+        uri: 'api/restaurants/all',
+        userCoords
     }
 }
 
@@ -64,10 +65,11 @@ function getReviewsList(restaurantID) {
     }
 }
 
-function getRestaurantsSuccess(restaurants) {
+function getRestaurantsSuccess(restaurants, userCoords) {
     return {
         type: RestaurantsPageActionsConstants.GET_RESTAURANTS_SUCCESS,
-        restaurants
+        restaurants,
+        userCoords
     }
 }
 
@@ -152,7 +154,7 @@ function addAVG(review) {
     return {
         type: RestaurantsPageActionsConstants.ADD_AVG,
         uri: '/api/restaurants/updateScore',
-        payload: { review }
+        payload: {review}
     }
 }
 
@@ -239,7 +241,7 @@ function searchDayRatingHandler(restaurantID, search) {
     return {
         type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT_DATE,
         uri: 'api/reviews/someDate',
-        payload: { restaurantID , search}
+        payload: {restaurantID, search}
     }
 }
 
@@ -247,7 +249,7 @@ function searchWeekRatingHandler(restaurantID, search) {
     return {
         type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT_DATE,
         uri: 'api/reviews/someDate',
-        payload: { restaurantID , search}
+        payload: {restaurantID, search}
     }
 }
 
@@ -255,7 +257,7 @@ function searchMonthRatingHandler(restaurantID, search) {
     return {
         type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT_DATE,
         uri: 'api/reviews/someDate',
-        payload: { restaurantID , search}
+        payload: {restaurantID, search}
     }
 }
 
@@ -263,7 +265,7 @@ function searchNameLocation(search, location, avg) {
     return {
         type: RestaurantsPageActionsConstants.SEARCH_RESTAURANT,
         uri: 'api/restaurants/someAll',
-        payload: {search , location, avg}
+        payload: {search, location, avg}
     }
 }
 
@@ -316,7 +318,6 @@ let RestaurantsPageActions = {
     onSortChangeRating
 
 };
-
 
 function onDrop(files) {
     return {

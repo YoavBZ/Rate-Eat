@@ -15,7 +15,7 @@ function* getRestaurants(action) {
         if (res.status >= 400) {
             throw json;
         }
-        yield put(RestaurantsPageActions.getRestaurantsSuccess(json));
+        yield put(RestaurantsPageActions.getRestaurantsSuccess(json, action.userCoords));
     } catch (e) {
         yield put(RestaurantsPageActions.getRestaurantsFailure(e.message));
     }
@@ -66,8 +66,7 @@ function* addReview(action) {
         const res = yield call(fetch, action.uri,
             {
                 method: 'POST',
-                headers: {
-                },
+                headers: {},
                 body: action.review
             });
         const json = yield call([res, 'json']); //retrieve body of response
@@ -119,6 +118,7 @@ function* searchRestaurant(action) {
         yield put(RestaurantsPageActions.getRestaurantsFailure(e.message));
     }
 }
+
 function* RestaurantsPageSaga() {
     //using takeEvery, you take the action away from reducer to saga
     yield takeEvery(RestaurantsPageActionsConstants.GET_RESTAURANTS, getRestaurants);
