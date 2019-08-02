@@ -15,24 +15,34 @@ var ObjectID = require('mongodb').ObjectID;
 
 router.post('/', cpUpload, (req, res) => {
     let pictures = req.files['files[]'].map(file => file.path)
-    let sum = req.body.bathroomQuality + req.body.staffKindness + req.body.cleanliness +
-        req.body.driveThruQuality + req.body.deliverySpeed + req.body.foodQuality;
-    if( ( req.body.driveThruQuality > 0 ) && ( req.body.deliverySpeed > 0 ) )
-        sum /= 6;
-    else if( ( req.body.driveThruQuality > 0 ) || ( req.body.deliverySpeed > 0 ) )
-        sum /= 5;
-    else
-        sum /= 4;
+    let divider = 4;
+
+    let sum = parseInt(req.body.bathroomQuality) + parseInt(req.body.staffKindness) +
+              parseInt(req.body.cleanliness) + parseInt(req.body.foodQuality);
+
+
+    if( req.body.driveThruQuality !== 'null' ){
+        sum += parseInt(req.body.driveThruQuality);
+        divider++;
+    }
+
+    if( req.body.deliverySpeed !== 'null' ) {
+        sum += parseInt(req.body.deliverySpeed);
+        divider++;
+    }
+
+    sum /= divider;
+
 
     const newReview = new Review({
         userID: req.body.userID,
         restaurantID: req.body.restaurantID,
-        bathroomQuality: req.body.bathroomQuality,
-        staffKindness: req.body.staffKindness,
-        cleanliness: req.body.cleanliness,
-        driveThruQuality: req.body.driveThruQuality,
-        deliverySpeed: req.body.deliverySpeed,
-        foodQuality: req.body.foodQuality,
+        bathroomQuality: parseInt(req.body.bathroomQuality),
+        staffKindness: parseInt(req.body.staffKindness),
+        cleanliness: parseInt(req.body.cleanliness),
+        driveThruQuality: (req.body.driveThruQuality !== 'null' ? parseInt(req.body.driveThruQuality) : 0 ),
+        deliverySpeed: (req.body.deliverySpeed !== 'null' ? parseInt(req.body.deliverySpeed) : 0 ),
+        foodQuality: parseInt(req.body.foodQuality),
         pictures: pictures,
         publishDate: Date.now(),
         publishDateTime: Date.now(),
@@ -45,14 +55,26 @@ router.post('/', cpUpload, (req, res) => {
 
 router.put('/', (req, res) => {
     let review = req.body.review
-    let sum = req.body.bathroomQuality + req.body.staffKindness + req.body.cleanliness +
-              req.body.driveThruQuality + req.body.deliverySpeed + req.body.foodQuality;
-    if( ( req.body.driveThruQuality > 0 ) && ( req.body.deliverySpeed > 0 ) )
-        sum /= 6;
-    else if( ( req.body.driveThruQuality > 0 ) || ( req.body.deliverySpeed > 0 ) )
-        sum /= 5;
-    else
-        sum /= 4;
+
+    let divider = 4;
+
+    let sum = parseInt(req.body.bathroomQuality) + parseInt(req.body.staffKindness) +
+        parseInt(req.body.cleanliness) + parseInt(req.body.foodQuality);
+
+
+    if( req.body.driveThruQuality !== 'null' ){
+        sum += parseInt(req.body.driveThruQuality);
+        divider++;
+    }
+
+    if( req.body.deliverySpeed !== 'null' ) {
+        sum += parseInt(req.body.deliverySpeed);
+        divider++;
+    }
+
+    sum /= divider;
+
+
     Review.updateOne(
         {"_id": ObjectID(req.body.review.id)},
         {

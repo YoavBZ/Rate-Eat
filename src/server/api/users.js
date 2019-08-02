@@ -71,6 +71,13 @@ router.post('/login', (req, res) => {
         .catch(err => res.status(500).json({message: "server error"}));
 });
 
+router.post('/fbLogin', (req, res) => {
+    let username = req.body.user.username;
+    User.find({"username": username})
+        .then(user => res.json(user[0]))
+        .catch(err => res.status(500).json({message: "server error"}));
+});
+
 router.post('/some', (req, res) => {
     let search = req.body.search;
     let username = search.search;

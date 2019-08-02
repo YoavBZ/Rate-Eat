@@ -26,8 +26,19 @@ class Login extends Component {
                 }/>
                 <br/>
                 <div style={{transform: 'scale(0.75)', position: 'absolute', left: '40%'}}>
-                    <FacebookLogin appId="618552358637643" fields="name,picture" callback={console.log}
-                                   icon="fa-facebook"/>
+                    <FacebookLogin appId="618552358637643" fields="email"
+                                   callback={(response) => {
+                                       return this.props.fbLoginHandler(response.email,
+                                           (msg) => {
+                                               this.growl.show({
+                                                   severity: 'error',
+                                                   summary: 'Login Failed',
+                                                   life: 5000,
+                                                   detail: msg
+                                               });
+                                           });
+                                   }
+                                   } icon="fa-facebook"/>
                 </div>
             </div>
         );
@@ -50,6 +61,9 @@ const mapDispatchToProps = (dispatch) => {
                 password
             };
             dispatch(LoginActions.login(user, callback));
+        },
+        fbLoginHandler: (username, callback) => {
+            dispatch(LoginActions.fbLogin({username}, callback));
         }
     }
 };

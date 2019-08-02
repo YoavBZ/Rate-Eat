@@ -26,6 +26,7 @@ function* loginUser(action) {
 function* LoginSaga() {
     //using takeEvery, you take the action away from reducer to saga
     yield takeEvery(LoginActionsConstants.LOGIN, loginUser);
+    yield takeEvery(LoginActionsConstants.FB_LOGIN, loginUser);
 }
 
 export default LoginSaga;
