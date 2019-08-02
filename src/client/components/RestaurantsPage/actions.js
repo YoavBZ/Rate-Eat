@@ -320,7 +320,7 @@ let RestaurantsPageActions = {
 
 function onDrop(files) {
     return {
-        type: ReviewPicturesConstants.ON_DROP,
+        type: ReviewPicturesConstants.REVIEW_PICTURES_ON_DROP,
         files
     }
 }

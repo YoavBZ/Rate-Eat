@@ -45,7 +45,7 @@ const RatesConstants = {
 };
 
 const ReviewPicturesConstants = {
-    ON_DROP: 'ON_DROP',
+    REVIEW_PICTURES_ON_DROP: 'REVIEW_PICTURES_ON_DROP',
 };
 
 

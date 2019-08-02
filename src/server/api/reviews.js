@@ -148,8 +148,15 @@ router.post('/someDate', (req, res) => {
 
 
 router.put('/updateWithPictures', cpUpload, (req, res) => {
-    console.log(req.body)
-    console.log(req.files)
+    let sum = req.body.bathroomQuality + req.body.staffKindness + req.body.cleanliness +
+    req.body.driveThruQuality + req.body.deliverySpeed + req.body.foodQuality;
+    if( ( req.body.driveThruQuality > 0 ) && ( req.body.deliverySpeed > 0 ) )
+        sum /= 6;
+    else if( ( req.body.driveThruQuality > 0 ) || ( req.body.deliverySpeed > 0 ) )
+        sum /= 5;
+    else
+        sum /= 4;
+
     let pictures = req.files['files[]'].map(file => file.path)
     Review.updateOne(
         {"_id": ObjectID(req.body.id)},
@@ -161,7 +168,8 @@ router.put('/updateWithPictures', cpUpload, (req, res) => {
                 "driveThruQuality": req.body.driveThruQuality,
                 "deliverySpeed": req.body.deliverySpeed,
                 "foodQuality": req.body.foodQuality,
-                "pictures": pictures
+                "pictures": pictures,
+                "AVG": sum
             }
         })
         .then(review => Review.find({"_id": req.body.id}).then(review => res.json(review[0])).catch(err => res.status(500).json({message: `Server Error`})))

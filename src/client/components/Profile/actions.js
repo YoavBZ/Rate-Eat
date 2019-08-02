@@ -181,6 +181,29 @@ function editMyReviewWithPicturesFailure(msg) {
     }
 }
 
+function updateAVG(oldReview, newReview) {
+    return {
+        type: EditReviewActionsConstats.UPDATE_AVG,
+        uri: '/api/restaurants/updateRestaurantScore',
+        body: {oldReview, newReview}
+
+    }
+}
+
+function UpdateAVGSuccess(review) {
+    return {
+        type: EditReviewActionsConstats.UPDATE_AVG_SUCCESS,
+        review
+    }
+}
+
+function UpdateAVGFailure(msg) {
+    return {
+        type: EditReviewActionsConstats.UPDATE_AVG_FAILIRE,
+        msg
+    }
+}
+
 let EditReviewActions = {
     editMyReview,
     editMyReviewSuccess,
@@ -193,14 +216,17 @@ let EditReviewActions = {
     getRestaurantNameFailure,
     editMyReviewWithPictures,
     editMyReviewWithPicturesSuccess,
-    editMyReviewWithPicturesFailure
+    editMyReviewWithPicturesFailure,
+    updateAVG,
+    UpdateAVGSuccess,
+    UpdateAVGFailure
 };
 
 
 
 function onDrop(files, preview) {
     return {
-        type: EditPictureActionsConstats.ON_DROP,
+        type: EditPictureActionsConstats.EDIT_PICTURE_ON_DROP,
         files,
         preview
     }

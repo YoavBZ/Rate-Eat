@@ -73,6 +73,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     onDrop: (files) => {
+      console.log(files)
       dispatch(DragAndDropActions.onDrop(files[0], URL.createObjectURL(files[0])));
     }
   }

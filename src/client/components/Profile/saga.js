@@ -139,12 +139,36 @@ function* updateUserReviewsWithPictures(action) {
 }
 
 
+function* addScore(action) {
+    console.log(JSON.stringify(action))
+    try {
+        const res = yield call(fetch, action.uri,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(action.body)
+            });
+        const json = yield call([res, 'json']); //retrieve body of response
+        if (res.status >= 400) {
+            throw json;
+        }
+        yield put(EditReviewActions.UpdateAVGSuccess(json));
+    } catch (e) {
+        yield put(EditReviewActions.UpdateAVGFailure(e.message));
+    }
+}
+
+
 function* EditReviewSaga() {
     //using takeEvery, you take the action away from reducer to saga
     yield takeEvery(EditReviewActionsConstats.EDIT_MY_REVIEWS, updateUserReviews);
     yield takeEvery(EditReviewActionsConstats.DELETE_REVIEW, deleteReview);
     yield takeEvery(EditReviewActionsConstats.GET_RESTAURANT_NAME, getRestaurantName);
     yield takeEvery(EditReviewActionsConstats.EDIT_MY_REVIEWS_WITH_PICTURES, updateUserReviewsWithPictures);
+    yield takeEvery(EditReviewActionsConstats.UPDATE_AVG, addScore);
+
 
     
 }

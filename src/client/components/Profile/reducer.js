@@ -21,7 +21,7 @@ const ProfileReducer = (state = initialState.profile, action) => {
             return state;
         case ProfileActionsConstants.CHANGE_REVIEWS_LAYOUT:
             return state.set('layout', action.layout);
-        case EditPictureActionsConstats.ON_DROP:
+        case EditPictureActionsConstats.EDIT_PICTURE_ON_DROP:
             return state.set('picture', action.files);
         case EditReviewActionsConstats.EDIT_MY_REVIEWS_SUCCESS:
         case EditReviewActionsConstats.EDIT_MY_REVIEWS_WITH_PICTURES_SUCCESS:
@@ -55,7 +55,7 @@ const EditReviewReducer = (state = initialState.editReview, action) => {
 
 const EditPictureReducer = (state = initialState.editPicture, action) => {
     switch (action.type) {
-        case EditPictureActionsConstats.ON_DROP:
+        case EditPictureActionsConstats.EDIT_PICTURE_ON_DROP:
             return state.set('preview', action.preview);
         case ProfileActionsConstants.UPDATE_USER_SUCCESS:
             return state.set('preview', undefined)

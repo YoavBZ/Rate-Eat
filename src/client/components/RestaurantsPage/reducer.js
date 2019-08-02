@@ -98,7 +98,7 @@ const RatesReducer = (state = initialState.rates, action) => {
             state = state.set( 'driveThruQuality' , 0 );
             state = state.set( 'deliverySpeed' , 0 );
             return state.set( 'foodQuality' , 0);
-        case ReviewPicturesConstants.ON_DROP:
+        case ReviewPicturesConstants.REVIEW_PICTURES_ON_DROP:
             
             let previews = action.files.map(file => URL.createObjectURL(file))
             console.log(action.files)

@@ -123,9 +123,10 @@ class EditReview extends Component {
                     this.setState({edit:false});
                     this.props.updateRatingHandler(
                         this.props.review, this.state.bathroomQuality, this.state.staffKindness, this.state.cleanliness, this.state.driveThruQuality,
-                        this.state.deliverySpeed, this.state.foodQuality, this.state.files
-
-                    )}}/>}
+                        this.state.deliverySpeed, this.state.foodQuality, this.state.files)
+                        this.props.updateAVG(this.props.review, this.state.bathroomQuality, this.state.staffKindness, this.state.cleanliness, this.state.driveThruQuality,
+                            this.state.deliverySpeed, this.state.foodQuality)
+                    }}/>}
                 </div>
             </div>
         )
@@ -164,8 +165,7 @@ const mapDispatchToProps = (dispatch) => {
             if(foodQuality == undefined){
                 foodQuality = review.foodQuality
             }
-            console.log(files.length)
-            console.log(files.length == 0)
+
             if (files.length == 0){
                 let newReview ={
                     id: review._id,
@@ -191,6 +191,36 @@ const mapDispatchToProps = (dispatch) => {
                 }
                 dispatch(EditReviewActions.editMyReviewWithPictures(formData))
             }
+        },
+        updateAVG: (oldReview, bathroomQuality, staffKindness, cleanliness, driveThruQuality, deliverySpeed, foodQuality) => {
+            if(bathroomQuality == undefined){
+                bathroomQuality = oldReview.bathroomQuality
+            }
+            if(staffKindness == undefined){
+                staffKindness = oldReview.staffKindness
+            }
+            if(cleanliness == undefined){
+                cleanliness = oldReview.cleanliness
+            }
+            if(driveThruQuality == undefined){
+                driveThruQuality = oldReview.driveThruQuality
+            }
+            if(deliverySpeed == undefined){
+                deliverySpeed = oldReview.deliverySpeed
+            }
+            if(foodQuality == undefined){
+                foodQuality = oldReview.foodQuality
+            }
+
+            let newReview = {
+                bathroomQuality: bathroomQuality,
+                staffKindness: staffKindness,
+                cleanliness: cleanliness,
+                driveThruQuality: driveThruQuality,
+                deliverySpeed: deliverySpeed,
+                foodQuality: foodQuality,
+            };
+            dispatch(EditReviewActions.updateAVG(oldReview, newReview));
         },
         removeReview: (id) =>{
             dispatch(EditReviewActions.deleteReview(id))

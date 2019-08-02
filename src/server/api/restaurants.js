@@ -209,5 +209,71 @@ router.post('/getName', (req, res) => {
     .catch(err => res.status(400).json({message: "Server Error"}))
 });
 
+
+
+router.post('/updateRestaurantScore' , (req, res) => {
+    console.log(req.body.oldReview)
+    console.log(req.body.newReview)
+
+    let oldReview = req.body.oldReview;
+    let newReview = req.body.newReview;
+    let newSum = newReview.bathroomQuality + newReview.staffKindness + newReview.cleanliness +
+    newReview.driveThruQuality + newReview.deliverySpeed + newReview.foodQuality;
+    if( ( newReview.driveThruQuality > 0 ) && ( newReview.deliverySpeed > 0 ))
+        sum = sum / 6;
+    else if( ( newReview.driveThruQuality > 0 ) || ( newReview.deliverySpeed > 0 ))
+        sum = sum / 5;
+    else
+        sum = sum / 4;
+    Restaurant.find({"_id":newReview.restaurantID})
+    .then(restaurant => {
+        let oldScore = restaurant.score;
+        let scoreNum = restaurant.scoreNumber;
+        let newScore = ((oldScore * scoreNum) - oldScore + sum)/scoreNum ;
+        let newBathroomQuality =
+            ( restaurant.bathroomQuality * scoreNum - oldReview.bathroomQuality + newReview.bathroomQuality )/scoreNum;
+        let newStaffKindness =
+            ( restaurant.staffKindness * scoreNum - oldReview.staffKindness + newReview.staffKindness )/scoreNum;
+        let newCleanliness =
+           ( restaurant.cleanliness * scoreNum - oldReview.cleanliness + newReview.cleanliness )/scoreNum;
+        let newDriveThruQuality =
+            ( restaurant.driveThruQuality * scoreNum - oldReview.driveThruQuality + newReview.driveThruQuality );
+        let newDeliverySpeed =
+            ( restaurant.deliverySpeed * scoreNum - oldReview.deliverySpeed + newReview.deliverySpeed );
+        let newFoodQuality =
+            ( restaurant.foodQuality * scoreNum - oldReview.foodQuality + newReview.foodQuality )/scoreNum;
+
+            
+        if( req.body.review.driveThruQuality > 0 )
+            newDriveThruQuality /= scoreNum;
+        else
+            newDriveThruQuality /= ( scoreNum - 1 );
+        if( req.body.review.deliverySpeed > 0 )
+            newDeliverySpeed /= scoreNum;
+        else
+            newDeliverySpeed /= ( scoreNum - 1 );
+            let name = req.body.review.restaurant._id;
+
+        Restaurant.updateOne(
+            {"_id": name},
+            {
+                $set: {
+                    "score": newScore,
+                    "bathroomQuality": newBathroomQuality,
+                    "staffKindness": newStaffKindness,
+                    "cleanliness": newCleanliness,
+                    "driveThruQuality": newDriveThruQuality,
+                    "deliverySpeed": newDeliverySpeed,
+                    "foodQuality": newFoodQuality,
+                }
+            }).then(restaurant => res.json(restaurant))
+            .catch(err => res.status(400).json({message: "Cannot update restaurant score"}));
+    })
+
+    .catch(err => res.status(400).json({message: "Cannot update restaurant score"}))
+    
+
+});
+
 module.exports = router;
 
