@@ -7,7 +7,6 @@ import {Growl} from 'primereact/growl'
 import {DataView, DataViewLayoutOptions} from 'primereact/dataview';
 import {Dialog} from "primereact/dialog";
 import {Dropdown} from "primereact/dropdown";
-import {Panel} from "primereact/panel";
 import EditReview from './EditReview';
 import EditPicture from './EditPicture';
 
@@ -23,32 +22,31 @@ class Profile extends Component {
             marginBottom: "63px",
             position: "relative",
             left: "5%",
-        }
+        };
 
         const inputPassword = {
             display: "block",
             marginBottom: "63px",
             position: "relative",
             left: "5%",
-        }
+        };
 
         const locationInput = {
             display: "block",
             position: "relative",
             left: "5%",
-        }
+        };
 
-          const editBtn = {
+        const editBtn = {
             left: "80%",
             top: "-225px",
             width: "77px"
-          };
+        };
 
-          const submitBtn = {
+        const submitBtn = {
             left: "60.5%",
             top: "-188px"
-          }
-      
+        };
 
         let onSubmit = (res, msg) => {
             if (res) {
@@ -67,33 +65,40 @@ class Profile extends Component {
                 });
             }
         };
+
         return (
             <div>
-                <EditPicture />
+                <EditPicture/>
                 <Growl ref={(el) => this.growl = el}/>
                 <InputText placeholder="Username" type="text" defaultValue={this.props.user.username}
-                        disabled={!this.props.edit} style={inputUsername} name="username"
-                        onChange={(e) => this.props.changeProfileFieldHandler("username", e.target.value)}/>
+                           disabled={!this.props.edit} style={inputUsername} name="username"
+                           onChange={(e) => this.props.changeProfileFieldHandler("username", e.target.value)}/>
 
-                <InputText placeholder="Password" type="password" defaultValue={this.props.user.password}
-                        disabled={!this.props.edit} style={inputPassword} name="password"
-                        onChange={(e) => this.props.changeProfileFieldHandler("password", e.target.value)}/>
+                <InputText placeholder="Password" type="password" defaultValue={this.props.user.password || '..........'}
+                           disabled={!this.props.edit} style={inputPassword} name="password"
+                           onChange={(e) => this.props.changeProfileFieldHandler("password", e.target.value)}/>
 
                 <InputText placeholder="Location" type="text" defaultValue={this.props.user.location}
-                        disabled={!this.props.edit} style={locationInput} name="location"
-                        onChange={(e) => this.props.changeProfileFieldHandler("location", e.target.value)}/>
+                           disabled={!this.props.edit} style={locationInput} name="location"
+                           onChange={(e) => this.props.changeProfileFieldHandler("location", e.target.value)}/>
 
-                <Button className="p-button-warning" label="Edit" style={editBtn} onClick={() => this.props.toggleEditHandler()}/>
+                {/* In case of Facebook login, password will be undefined and edit button won't be displayed */}
+                {this.props.password &&
+                <Button className="p-button-warning" label="Edit" style={editBtn}
+                        onClick={() => this.props.toggleEditHandler()}/>}
 
-                {this.props.edit && <Button variant="primary" type="submit" label="Submit" style={submitBtn}
-                                            onClick={() => this.props.updateUserHandler(this.props.user, this.props.username,
-                                                this.props.password, this.props.location, this.props.picture,
-                                                onSubmit)}/>}
-                <div style={{marginLeft: '25%', marginTop: '25%',width: '80%'}}>
+                {this.props.edit &&
+                <Button variant="primary" type="submit" label="Submit" style={submitBtn}
+                        onClick={() => this.props.updateUserHandler(this.props.user, this.props.username,
+                            this.props.password, this.props.location, this.props.picture,
+                            onSubmit)}/>}
+
+                <div style={{marginLeft: '25%', marginTop: '25%', width: '80%'}}>
                     <h1 style={{fontFamily: 'sans-serif'}}>My Reviews</h1>
                     <DataView value={this.props.reviews} layout={this.props.layout} header={this.renderHeader()}
                               itemTemplate={this.itemTemplate} paginatorPosition={'both'} paginator={true}
-                              rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField} style={{width: 'max-content'}}/>
+                              rows={5} sortOrder={this.props.sortOrder} sortField={this.props.sortField}
+                              style={{width: 'max-content'}}/>
 
                     <Dialog header="Review Details" visible={this.props.visibleReview} width="225px" modal={true}
                             onHide={() => this.props.changeVisibilityMyReview(false)}>
@@ -114,7 +119,7 @@ class Profile extends Component {
         }
         return (
             <div>
-                <EditReview review={review} />
+                <EditReview review={review}/>
             </div>
         );
     }
@@ -199,7 +204,6 @@ const mapDispatchToProps = (dispatch) => {
         changeVisibilityMyReview: (visible) => {
             dispatch(ProfileActions.changeVisibilityMyReview(visible));
         },
-
 
         updateUserHandler: (user, username, password, location, picture, callback) => {
             if (username === undefined) username = user.username;

@@ -15,6 +15,15 @@ function login(user, callback) {
     }
 }
 
+function fbLogin(user, callback) {
+    return {
+        type: LoginActionsConstants.FB_LOGIN,
+        uri: '/api/users/fbLogin',
+        payload: {user},
+        callback
+    }
+}
+
 function loginSuccess(user) {
     return {
         type: LoginActionsConstants.LOGIN_SUCCESS,
@@ -41,6 +50,7 @@ function changeLoginField(field, value) {
 let LoginActions = {
     setLoading,
     login,
+    fbLogin,
     loginSuccess,
     loginFailure,
     changeLoginField
